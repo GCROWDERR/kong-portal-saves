@@ -75,6 +75,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   padding: "clamp(60px, 8vw, 120px) clamp(10px, 4vw, 60px)"
   title-font-size: "clamp(34px, 3.4vw, 68px)"
   title-line-height: "clamp(36px, 3.4vw, 76px)"
+  text-align: "center"
   description-font-size: "clamp(var(--kui-font-size-30, 14px), 1.8vw, var(--kui-font-size-70, 24px))"
   description-font-weight: "var(--kui-font-weight-regular, 400)"
   description-line-height: "clamp(var(--kui-line-height-30, 20px), 1.8vw, var(--kui-line-height-70, 36px))"
