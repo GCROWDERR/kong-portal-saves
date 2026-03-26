@@ -50,10 +50,10 @@ This page demonstrates the built-in components listed in the [Portal component d
   ---
   #title
   Hero for high-impact introductions
-
+  
   #description
   Use **page-hero** for top-of-page campaigns, announcements, or primary CTAs.
-
+  
   #actions
     :::button
     ---
@@ -86,7 +86,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   ---
   #title
   Empower Your Integrations with Our Flexible API Suite
-
+  
   #description
   Seamlessly connect and extend your applications with powerful, developer-friendly APIs designed for modern platforms
   ::
@@ -109,7 +109,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     color: "var(--kui-color-text)"
   ---
   Nested **page-section** with a title slot and body content. Full-width and background images are supported; see Kong docs for `full-width`, `full-height`, and `background-image`.
-
+  
   #title
   Nested page section (title slot)
   ::
@@ -129,9 +129,9 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     title: "Info"
     message: "Neutral guidance and contextual tips."
     ---
-
+    
     ::
-
+  
     ::alert
     ---
     appearance: "success"
@@ -139,9 +139,9 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     title: "Success"
     message: "Positive confirmation or completion."
     ---
-
+    
     ::
-
+  
     ::alert
     ---
     appearance: "warning"
@@ -149,9 +149,9 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     title: "Warning"
     message: "Caution or something that needs attention."
     ---
-
+    
     ::
-
+  
     ::alert
     ---
     appearance: "danger"
@@ -159,7 +159,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     title: "Danger"
     message: "Errors, destructive actions, or critical issues."
     ---
-
+    
     ::
   ::
 
@@ -179,28 +179,28 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     neutral
     ::
-
+  
     ::badge
     ---
     appearance: "success"
     ---
     success
     ::
-
+  
     ::badge
     ---
     appearance: "get"
     ---
     GET
     ::
-
+  
     ::badge
     ---
     appearance: "post"
     ---
     POST
     ::
-
+  
     ::badge
     ---
     appearance: "put"
@@ -224,7 +224,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Primary
     ::
-
+  
     ::button
     ---
     appearance: "secondary"
@@ -232,7 +232,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Secondary
     ::
-
+  
     ::button
     ---
     appearance: "tertiary"
@@ -240,7 +240,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Tertiary
     ::
-
+  
     ::button
     ---
     appearance: "danger"
@@ -248,7 +248,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Danger
     ::
-
+  
     ::button
     ---
     appearance: "primary"
@@ -273,9 +273,9 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Skip ahead to Tooltip
     ::
-
+  
   ·
-
+  
     ::a
     ---
     href: "https://konghq.com"
@@ -312,20 +312,59 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
 
   ::accordion-group
   ---
+  gap: "32px"
   multiple: true
+  panel-props:
+    border: "none"
+    header-background: "none"
+    header-padding: "32px 0 0"
+    content-padding: "4px 0 0"
+    header-font-size: "clamp(16px, 3.4vw, 20px)"
+    header-line-height: "clamp(20px, 3.4vw, 24px)"
+    header-font-weight: 400
+    content-font-size: "clamp(14px, 3.4vw, 16px)"
+  styles: |
+    .accordion-panel + .accordion-panel {
+      border-top: 1px solid var(--kui-color-border);
+      
+    }
+
+    .kui-icon path {
+    fill: var(--kui-color-text-primary);
+    }
+
+    .kui-icon {
+    width: 24px !important;
+    height: 24px !important;
+    }
+
+    strong {
+  font-size: clamp(30px, 3.4vw, 42px);
+  line-height: clamp(34px, 3.4vw, 46px);
+    }
+
+
   ---
     ::accordion-panel
     #header
     First panel
-
+    
     #default
     Accordion panels pair with **accordion-group**. Set `multiple: true` to allow more than one open panel.
     ::
-
+  
     ::accordion-panel
     #header
     Second panel
-
+    
+    #default
+    Use slots `#header` and `#default` for the trigger label and expandable content.
+    ::
+  
+    ::accordion-panel
+    #header
+    Third panel
+    
     #default
     Use slots `#header` and `#default` for the trigger label and expandable content.
     ::
@@ -340,10 +379,10 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ::tab-panel
     #header
     Overview
-
+    
     #default
     **Tab panels** live inside a **tab-group**. Put tab body in `#default` and the label in `#header`.
-
+    
       :::button
       ---
       appearance: "secondary"
@@ -352,11 +391,11 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
       Action inside a tab
       :::
     ::
-
+  
     ::tab-panel
     #header
     Details
-
+    
     #default
     Tab two content. [Links work here too](https://portaldocs.konghq.com/components/tabs).
     ::
@@ -380,7 +419,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   target: "_self"
   ---
   Short description body for the card. Use **#actions** for top-right chips and **#footer** for buttons.
-
+  
   #actions
     :::badge
     ---
@@ -388,7 +427,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     New
     :::
-
+  
   #footer
     :::button
     ---
@@ -420,7 +459,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Flex child A
     :::
-
+  
     :::container
     ---
     flex: "1 1 200px"
@@ -438,9 +477,9 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   ---
   columns-breakpoints:
     mobile: 1
-    phablet: 2
-    tablet: 3
-    desktop: 3
+  phablet: 2
+  tablet: 3
+  desktop: 3
   gap: "var(--kui-space-70)"
   ---
     ::container
@@ -451,7 +490,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Column one
     ::
-
+  
     ::container
     ---
     padding: "var(--kui-space-70)"
@@ -460,7 +499,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     ---
     Column two
     ::
-
+  
     ::container
     ---
     padding: "var(--kui-space-70)"
@@ -490,15 +529,15 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
       tablet: "1 / 3"
     padding: "20px"
     styles: |
-      background: var(--kui-color-background-primary);
-      color: var(--kui-color-text-inverse);
-      border-radius: var(--kui-border-radius-30);
+    background: var(--kui-color-background-primary);
+    color: var(--kui-color-text-inverse);
+    border-radius: var(--kui-border-radius-30);
     ---
     **Featured**
-
+    
     Spans two rows on tablet+ in a 3-column grid.
     :::
-
+  
     :::grid-item
     ---
     grid-column: "1 / -1"
@@ -506,14 +545,14 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
       tablet: "2 / 4"
     padding: "20px"
     styles: |
-      background: var(--kui-color-background-info-weakest);
-      border-radius: var(--kui-border-radius-30);
+    background: var(--kui-color-background-info-weakest);
+    border-radius: var(--kui-border-radius-30);
     ---
     **Stack A**
-
+    
     Pairs with a sibling grid item for asymmetrical layouts.
     :::
-
+  
     :::grid-item
     ---
     grid-column: "1 / -1"
@@ -521,8 +560,8 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
       tablet: "2 / 4"
     padding: "20px"
     styles: |
-      background: var(--kui-color-background-success-weakest);
-      border-radius: var(--kui-border-radius-30);
+    background: var(--kui-color-background-success-weakest);
+    border-radius: var(--kui-border-radius-30);
     ---
     **Stack B**
     :::
@@ -539,7 +578,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   display: "block"
   margin: "0 0 var(--kui-space-50) 0"
   ---
-
+  
   ::
 
 ## Inline SVG (in container)
@@ -555,7 +594,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   <title>Rocket icon</title>
   <path d="M12 2l3 7h7l-5.5 4.2L18 22l-6-4-6 4 1.5-8.8L2 9h7z" fill="currentColor" />
   </svg>
-
+  
   SVG markup inside a **container** inherits `currentColor` for easy theming.
   ::
 
@@ -599,16 +638,16 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   expanded: true
   links:
     - text: "Alerts"
-      href: "#alerts"
+  href: "#alerts"
     - text: "Card"
-      href: "#card"
+  href: "#card"
     - text: "Tabs"
-      href: "#tabs"
-      children:
-        - text: "Accordion"
-          href: "#accordion"
-        - text: "Tooltip"
-          href: "#tooltip"
+  href: "#tabs"
+  children:
+    - text: "Accordion"
+  href: "#accordion"
+    - text: "Tooltip"
+  href: "#tooltip"
   ---
   ::
 
@@ -618,17 +657,17 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   ---
   groups:
     - header: "Custom groups (static links)"
-      links:
-        - text: "Kong Portal docs"
-          href: "https://portaldocs.konghq.com/"
-          external: true
-        - text: "Top of page"
-          href: "#page-hero"
-        - text: "Forms & data"
-          href: "#apis-list"
-          children:
-            - text: "Display wrapper"
-              href: "#display-wrapper"
+  links:
+    - text: "Kong Portal docs"
+  href: "https://portaldocs.konghq.com/"
+  external: true
+    - text: "Top of page"
+  href: "#page-hero"
+    - text: "Forms & data"
+  href: "#apis-list"
+  children:
+    - text: "Display wrapper"
+  href: "#display-wrapper"
   ---
   ::
 
@@ -647,7 +686,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
     max-depth: 2
     ---
     ::
-
+  
   Usually placed in a **layout snippet** rather than inline; shown here for demonstration.
   ::
 
@@ -722,7 +761,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
   display: "grid"
   grid-columns-breakpoints:
     mobile: 1
-    tablet: 2
+  tablet: 2
   gap: "var(--kui-space-70)"
   ---
     :::card
@@ -738,7 +777,7 @@ Full-width-style hero using `--gradient-dark-blue` from your portal CSS override
       ---
       ::::
     :::
-
+  
     :::card
     ---
     title: "form-register"
