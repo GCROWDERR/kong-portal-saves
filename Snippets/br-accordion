@@ -1,0 +1,86 @@
+---
+title: br-accordion
+description: "Bankrate accordion group (TRSY). Nest br-accordion-panel snippets; Figma 9105:2114."
+---
+
+<!--
+  Figma: https://www.figma.com/design/i2M94U68Lx2E3MGCl5tH6b/TRSY-Components?node-id=9105-2114
+  Kong: https://portaldocs.konghq.com/components/accordion
+
+  Guides FAQ uses this snippet as a whole (:::snippet name: br-accordion) so group styles stay here. Konnect does not let a page inject panels inside an expanded snippet—edit the :::snippet br-accordion-panel blocks below for copy, or duplicate one block for another row.
+  Optional data.expanded: true for default-open. For markdown bodies, paste ::accordion-panel with #header / #default inside this group instead.
+-->
+
+::accordion-group
+---
+gap: "0"
+multiple: true
+panel-props:
+  border: "none"
+  border-radius: "0"
+  background-color: "#fff"
+  header-background: "#fff"
+  header-color: "#151515"
+  header-padding: "20px 16px"
+  header-font-size: "18px"
+  header-line-height: "1.7"
+  header-font-weight: 400
+  content-color: "#515260"
+  content-background: "#fff"
+  content-padding: "4px 16px 24px"
+  content-font-size: "16px"
+styles: |
+  .accordion-panel {
+    border-bottom: 1px solid #e2e5ed;
+  }
+
+  .accordion-panel:first-child {
+    border-top: 1px solid #e2e5ed;
+  }
+
+  .accordion-panel button[aria-expanded] {
+    letter-spacing: -0.25px;
+  }
+
+  .accordion-panel .accordion-panel__content {
+    line-height: 1.7;
+    letter-spacing: -0.25px;
+  }
+
+  .accordion-panel .kui-icon path,
+  .accordion-panel .kui-icon svg path {
+    fill: #0157ff;
+  }
+
+  .accordion-panel .kui-icon {
+    width: 24px !important;
+    height: 24px !important;
+  }
+---
+  :::snippet
+  ---
+  name: "br-accordion-panel"
+  data:
+    header: "Dolor sit pariatur aliqua veniam consectetur veniam reprehenderit do?"
+    body: "Incididunt do sit proident id nostrud pariatur nulla ipsum ullamco ex. Exercitation magna mollit pariatur qui ad non aute est minim deserunt culpa incididunt aute incididunt. Laborum irure sit cillum labore sit. Dolore incididunt dolor nostrud Lorem."
+  ---
+  :::
+
+  :::snippet
+  ---
+  name: "br-accordion-panel"
+  data:
+    header: "Eu eu voluptate occaecat consequat aliquip?"
+    body: "Non aute deserunt fugiat ipsum velit sunt est. Exercitation cupidatat aliqua ut aliquip minim culpa exercitation cupidatat sit eiusmod labore velit irure. Commodo cupidatat reprehenderit officia. Proident cillum consequat est eiusmod ipsum cupidatat exercitation dolor irure dolor do. Adipisicing incididunt excepteur veniam occaecat dolore ut deserunt ut sit ullamco nisi."
+  ---
+  :::
+
+  :::snippet
+  ---
+  name: "br-accordion-panel"
+  data:
+    header: "Lorem consectetur deserunt excepteur do eu ut minim?"
+    body: "Commodo excepteur amet aute do dolore irure fugiat laborum laboris. Quis consequat dolor occaecat nisi elit voluptate pariatur nostrud Lorem fugiat cillum. Non nisi aliqua ipsum sint duis. Ad pariatur excepteur esse."
+  ---
+  :::
+::

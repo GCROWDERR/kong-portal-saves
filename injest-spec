@@ -1,0 +1,471 @@
+---
+title: "Partner Profile Ingestion & Offer Generation API"
+description: "Specification: SFTP/CSV profile ingestion and batch offer generation (POST /v1/offers/batch)."
+page-layout:
+  sidebar-left: "example-guides-page-nav"
+  sidebar-right: "example-page-toc"
+---
+
+<!--
+  Layout aligned with getting-started: page-hero + page-section in the main column; left nav and right TOC via page-layout snippets (configure in Konnect).
+  Inline table of contents removed — use the page TOC in the layout.
+-->
+
+::page-hero
+---
+full-width: true
+title-font-size: "40px"
+title-line-height: "46px"
+text-max-width: "80%"
+padding: "0px"
+---
+#tagline
+Reference
+
+#title
+Partner Profile Ingestion & Offer Generation API
+
+#description
+Version 1.0.0 · Draft (2026-03-30). Partner profile ingestion via SFTP and the batch offer generation endpoint.
+
+::
+
+::page-section
+## Overview
+
+This specification describes two integrated components:
+
+1. **Profile Ingestion Pipeline** — A scheduled process that polls an SFTP server for partner-supplied CSV files, validates and parses each record, and persists profile data to a database.
+2. **Offer Generation API** — A REST API endpoint that accepts a batch of stored profile IDs and an optional product type filter, then returns a personalized array of product offerings for each profile.
+
+---
+
+## Profile Ingestion via SFTP
+
+> **Note:** The ingestion contract has not been finalized. The details in this section represent a proposed approach and are intended to illustrate what this could look like. All specifics — including file format, field requirements, directory structure, and error handling behavior — are subject to change pending partner agreement.
+
+### SFTP Configuration
+
+The table below shows an example of how SFTP-based delivery could be configured. Final parameters will be agreed upon with the partner.
+
+| Parameter         | Example / Proposed Value                                 |
+|-------------------|----------------------------------------------------------|
+| Transport         | SFTP (SSH File Transfer Protocol)                        |
+| Authentication    | SSH key pair (partner supplies public key)               |
+| Directory         | `/inbound/profiles/`                                     |
+| File Pattern      | `profiles_YYYYMMDD[_NNN].csv`                            |
+| Polling Frequency | Configurable (e.g., every 15 minutes)                    |
+| Post-Processing   | Processed files moved to `/processed/`                   |
+| On Failure        | Files moved to `/failed/` with a sidecar error file      |
+
+### CSV File Format
+
+The following represents a proposed CSV format for the partner-supplied profile file. Encoding, delimiter, and structural conventions are open for discussion.
+
+- **Encoding:** UTF-8 (proposed)
+- **Delimiter:** Comma (`,`)
+- **Line Endings:** CRLF or LF
+- **Header Row:** First row would contain column names
+- **Quoting:** Fields containing commas or newlines would be enclosed in double quotes (`"`)
+- **Null/Empty Values:** Empty string (`""`) could represent an absent optional field
+
+**Example of what a file could look like:**
+
+```csv
+master_customer_id,email,first_name,last_name,home_address,zip_code,credit_score_band,annual_income,is_student,last_4_ssn
+a1b2c3d4-0001,jane.doe@example.com,Jane,Doe,"123 Main St, Apt 4",90210,Good,72000,N,4321
+a1b2c3d4-0002,john.smith@example.com,John,Smith,456 Oak Ave,10001,Excellent,115000,N,8876
+a1b2c3d4-0003,,,,"789 Pine Rd",30301,Fair,,Y,
+```
+
+---
+
+### Field Definitions
+
+The fields below represent the proposed profile schema based on initial discussions. Required vs. optional designations and accepted values are subject to change.
+
+| Field Name           | Type    | Proposed Requirement | Accepted Values / Format                             | Description                                                          |
+|----------------------|---------|----------------------|------------------------------------------------------|----------------------------------------------------------------------|
+| `master_customer_id` | String  | Mandatory            | UUID or Internal Partner ID                          | The anchor ID used to map results back to the partner's CRM.         |
+| `email`              | String  | Mandatory            | `valid@email.com`                                    | Primary identifier for CRM enrichment.                               |
+| `first_name`         | String  | Recommended          | Text                                                 | Used for personalization in offer creative.                          |
+| `last_name`          | String  | Recommended          | Text                                                 | Used for personalization in offer creative.                          |
+| `home_address`       | String  | Mandatory            | Full street address                                  | Used for geo-specific loan and card offers.                          |
+| `zip_code`           | String  | Mandatory            | 5-digit string (e.g., `90210`)                       | Used for localized rate calculations.                                |
+| `credit_score_band`  | Enum    | Mandatory            | `Excellent`, `Good`, `Fair`, `Poor`, `No History`    | Defines the eligibility tier for product matching.                   |
+| `annual_income`      | Float   | Optional             | Numeric (e.g., `75000`)                              | Used for debt-to-income (DTI) and credit limit logic.                |
+| `is_student`         | Boolean | Optional             | `Y` / `N`                                            | May be used to trigger eligibility for student card/loan products.   |
+| `last_4_ssn`         | String  | Optional             | 4-digit string (e.g., `1234`)                        | May improve accuracy of pre-qualification matching.                  |
+
+> **Note on `last_4_ssn`:** If included, this field would be treated as PII and stored encrypted at rest. It would not appear in logs, error messages, or API responses. Security handling for this field will be confirmed during contract finalization.
+
+---
+
+### Ingestion Behavior
+
+The following outlines one possible approach to how ingested files could be processed. This flow is illustrative and not yet finalized.
+
+1. A scheduled process polls the agreed-upon SFTP directory for new files.
+2. Each new file is downloaded to a secure staging area.
+3. The file is validated — for example, confirming the header row is present and expected columns exist.
+4. Each row is validated against the field definitions above.
+5. Valid rows could be upserted into a profiles store keyed on `master_customer_id`.
+6. Invalid rows would be captured in a rejection log for partner review.
+7. After processing, files could be moved to a success or failure directory for auditability.
+8. A processing summary could be emitted to an event or monitoring log.
+
+### Error Handling
+
+The table below illustrates how various error scenarios could be handled. Exact behavior will be defined once the ingestion contract is agreed upon.
+
+| Scenario                              | Proposed Behavior                                                                      |
+|---------------------------------------|----------------------------------------------------------------------------------------|
+| Missing mandatory field in a row      | Row skipped; logged with row number and field name. Processing continues on remaining rows. |
+| Invalid enum value                    | Row skipped; logged with received value and the set of allowed values.                 |
+| Malformed email                       | Row skipped; logged with the offending value.                                          |
+| Duplicate `master_customer_id`        | Existing record overwritten (upsert semantics — open to discussion).                   |
+| File missing required header columns  | Entire file rejected; moved to failure directory.                                      |
+| SFTP connection failure               | Retried with backoff; notification sent if all retries fail (retry count TBD).         |
+
+An example of what a rejection log could look like: a JSON sidecar file (e.g., `<filename>.rejections.json`) co-located with the failed file.
+
+---
+
+## Batch Offer Generation Endpoint
+
+### Request
+
+```
+POST /v1/offers/batch
+Content-Type: application/json
+Authorization: Bearer <token>
+```
+
+### Request Body
+
+```json
+{
+  "profile_ids": ["<master_customer_id>", "..."],
+  "product_types": ["<ProductType>", "..."]
+}
+```
+
+| Field           | Type            | Required | Default           | Description                                                                       |
+|-----------------|-----------------|----------|-------------------|-----------------------------------------------------------------------------------|
+| `profile_ids`   | Array\<String\> | **Yes**  | —                 | One or more `master_customer_id` values. Maximum 500 per request.                 |
+| `product_types` | Array\<Enum\>   | No       | `["recommended"]` | Filter offers to the specified product categories. See [Product Types](#product-types). |
+
+#### Product Types
+
+| Value          | Description                                      |
+|----------------|--------------------------------------------------|
+| `recommended`      | **(Default)** System-selected best-fit products  |
+| `personal_loans`   | Personal loans                                   |
+| `student_loans`    | Student loans                                    |
+| `auto_loans`       | Auto loans                                       |
+| `auto_insurance`   | Auto insurance                                   |
+| `home_insurance`   | Home insurance                                   |
+| `credit_cards`     | Credit card products                             |
+| `mortgage`         | Home mortgage products                           |
+| `cds`              | Certificates of deposit                          |
+| `savings`          | Savings accounts                                 |
+| `checking`         | Checking accounts                                |
+| `home_equity`      | Home equity loans / HELOCs                       |
+
+**Example Request:**
+
+```json
+{
+  "profile_ids": ["a1b2c3d4-0001", "a1b2c3d4-0002"],
+  "product_types": ["credit_cards", "personal_loans"]
+}
+```
+
+---
+
+### Response Envelope
+
+**HTTP 200 OK**
+
+```json
+{
+  "results": [
+    {
+      "master_customer_id": "a1b2c3d4-0001",
+      "status": "success",
+      "offers": [ ... ]
+    }
+  ],
+  "summary": {
+    "total_requested": 1,
+    "total_succeeded": 1,
+    "total_failed": 0
+  }
+}
+```
+
+| Field                             | Type    | Description                                                                              |
+|-----------------------------------|---------|------------------------------------------------------------------------------------------|
+| `results`                         | Array   | One entry per `profile_id` in the request, in the same order.                           |
+| `results[].master_customer_id`    | String  | The profile ID from the request.                                                         |
+| `results[].status`                | Enum    | `success` or `error`                                                                     |
+| `results[].offers`                | Array   | Array of offer objects. Empty array if no offers qualify. Schema varies by `product_type`. |
+| `results[].error`                 | Object  | Present only when `status` is `error`. Contains `code` and `message`.                   |
+| `summary.total_requested`         | Integer | Number of profile IDs in the request.                                                    |
+| `summary.total_succeeded`         | Integer | Number of profiles for which offers were generated (including empty sets).               |
+| `summary.total_failed`            | Integer | Number of profiles that returned an error.                                               |
+
+Each offer in `results[].offers` contains a common envelope plus a `details` object whose schema depends on `product_type`:
+
+```json
+{
+  "offer_id": "string",
+  "product_type": "credit_cards | personal_loans | student_loans | auto_loans | auto_insurance | home_insurance | mortgage | home_equity | savings | checking | mma | cds",
+  "details": { ... }
+}
+```
+
+| Field           | Type    | Description                                                                   |
+|-----------------|---------|-------------------------------------------------------------------------------|
+| `offer_id`      | String  | Unique identifier for this offer instance.                                    |
+| `product_type`  | Enum    | The product category.                                                         |
+| `details`       | Object  | Product-specific fields. See schemas below.                                   |
+
+---
+
+## Offer Schemas by Product Type
+
+The `details` object in each offer is typed by `product_type`. The schemas for each type are defined as named references below and will be documented in full separately.
+
+| `product_type`    | `details` Schema Reference      |
+|-------------------|---------------------------------|
+| `credit_cards`    | `CreditCardProductDetails`      |
+| `personal_loans`  | `LoanProductDetails`            |
+| `student_loans`   | `LoanProductDetails`            |
+| `auto_loans`      | `LoanProductDetails`            |
+| `auto_insurance`  | `InsuranceProductDetails`       |
+| `home_insurance`  | `InsuranceProductDetails`       |
+| `mortgage`        | `MortgageProductDetails`        |
+| `home_equity`     | `HomeEquityProductDetails`      |
+| `savings`         | `WealthProductDetails`          |
+| `checking`        | `WealthProductDetails`          |
+| `mma`             | `WealthProductDetails`          |
+| `cds`             | `WealthProductDetails`          |
+
+**Example offer object:**
+
+```json
+{
+  "offer_id": "off_6092",
+  "product_type": "credit_cards",
+  "details": { "$ref": "CreditCardProductDetails" }
+}
+```
+
+---
+
+### Credit Cards
+
+`details` returns a **`CreditCardProductDetails`** object. Full schema to be defined separately.
+
+```json
+{
+  "offer_id": "off_6092",
+  "product_type": "credit_cards",
+  "details": { "$ref": "CreditCardProductDetails" }
+}
+```
+
+---
+
+### Loans
+
+`details` returns a **`LoanProductDetails`** object. Applies to `personal_loans`, `student_loans`, and `auto_loans`. Full schema to be defined separately.
+
+```json
+{
+  "offer_id": "off_loan_001",
+  "product_type": "personal_loans",
+  "details": { "$ref": "LoanProductDetails" }
+}
+```
+
+---
+
+### Mortgage
+
+`details` returns a **`MortgageProductDetails`** object. Covers `mortgage` (purchase and refinance). Full schema to be defined separately.
+
+```json
+{
+  "offer_id": "off_mtg_001",
+  "product_type": "mortgage",
+  "details": { "$ref": "MortgageProductDetails" }
+}
+```
+
+---
+
+### Home Equity (HELOAN / HELOC)
+
+`details` returns a **`HomeEquityProductDetails`** object. Covers both HELOAN and HELOC. Full schema to be defined separately.
+
+```json
+{
+  "offer_id": "off_he_001",
+  "product_type": "home_equity",
+  "details": { "$ref": "HomeEquityProductDetails" }
+}
+```
+
+---
+
+### Savings
+
+`details` returns a **`WealthProductDetails`** object. Applies to `savings`, `checking`, `mma`, and `cds`. Full schema to be defined separately.
+
+```json
+{
+  "offer_id": "off_sav_001",
+  "product_type": "savings",
+  "details": { "$ref": "WealthProductDetails" }
+}
+```
+
+---
+
+### Checking
+
+```json
+{
+  "offer_id": "off_chk_001",
+  "product_type": "checking",
+  "details": { "$ref": "WealthProductDetails" }
+}
+```
+
+---
+
+### Money Market Accounts (MMA)
+
+```json
+{
+  "offer_id": "off_mma_001",
+  "product_type": "mma",
+  "details": { "$ref": "WealthProductDetails" }
+}
+```
+
+---
+
+### Certificates of Deposit (CD)
+
+```json
+{
+  "offer_id": "off_cd_001",
+  "product_type": "cds",
+  "details": { "$ref": "WealthProductDetails" }
+}
+```
+
+---
+
+## Error Responses
+
+| HTTP Status | Code                    | Description                                                                 |
+|-------------|-------------------------|-----------------------------------------------------------------------------|
+| `400`       | `INVALID_REQUEST`       | Request body is malformed or fails validation (e.g., empty `profile_ids`). |
+| `400`       | `INVALID_PRODUCT_TYPE`  | One or more values in `product_types` are not recognized.                  |
+| `400`       | `BATCH_LIMIT_EXCEEDED`  | More than 500 profile IDs submitted in a single request.                   |
+| `401`       | `UNAUTHORIZED`          | Missing or invalid Bearer token.                                            |
+| `404`       | `PROFILE_NOT_FOUND`     | Per-profile error when a `master_customer_id` does not exist in the DB.    |
+| `422`       | `INSUFFICIENT_DATA`     | Per-profile error when mandatory fields are missing to generate any offer. |
+| `429`       | `RATE_LIMIT_EXCEEDED`   | Too many requests. Retry after the duration in the `Retry-After` header.   |
+| `500`       | `INTERNAL_ERROR`        | Unexpected server error. Safe to retry.                                     |
+
+**Example 400 Response:**
+
+```json
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "profile_ids must contain at least one entry."
+  }
+}
+```
+
+---
+
+## Data Model
+
+### `profiles` Table
+
+| Column               | DB Type        | Nullable | Notes                                        |
+|----------------------|----------------|----------|----------------------------------------------|
+| `id`                 | UUID (PK)      | No       | Internal primary key, auto-generated.        |
+| `master_customer_id` | VARCHAR(255)   | No       | Partner-supplied ID. Unique index.           |
+| `email`              | VARCHAR(320)   | No       | Indexed for lookups.                         |
+| `first_name`         | VARCHAR(255)   | Yes      |                                              |
+| `last_name`          | VARCHAR(255)   | Yes      |                                              |
+| `home_address`       | TEXT           | No       |                                              |
+| `zip_code`           | CHAR(5)        | No       | Indexed.                                     |
+| `credit_score_band`  | VARCHAR(20)    | No       | Constrained to enum values.                  |
+| `annual_income`      | DECIMAL(15, 2) | Yes      |                                              |
+| `is_student`         | BOOLEAN        | Yes      |                                              |
+| `last_4_ssn`         | VARCHAR(255)   | Yes      | Stored encrypted at rest.                    |
+| `source_file`        | VARCHAR(500)   | No       | Name of the CSV file this record came from.  |
+| `ingested_at`        | TIMESTAMPTZ    | No       | Set on insert.                               |
+| `updated_at`         | TIMESTAMPTZ    | No       | Updated on each upsert.                      |
+
+---
+
+## Security Considerations
+
+| Concern                    | Mitigation                                                                                       |
+|----------------------------|--------------------------------------------------------------------------------------------------|
+| PII at rest                | `last_4_ssn` and `email` encrypted at rest using AES-256. Database-level encryption enabled.     |
+| PII in transit             | All SFTP transfers use SSH. All API traffic over TLS 1.2+.                                       |
+| Authentication             | API requires Bearer token (OAuth 2.0 client credentials flow recommended).                       |
+| SFTP access control        | Partner authenticates with SSH key pair. Each partner has an isolated SFTP directory.            |
+| Sensitive data in logs     | `last_4_ssn` must be masked/excluded from all log output. Emails should be masked in debug logs. |
+| Input validation           | All CSV fields validated before DB write. API request body schema-validated before processing.   |
+| Rate limiting              | Offer endpoint rate-limited per API key. Limits returned in `X-RateLimit-*` response headers.    |
+
+---
+
+## Appendix — Enumerations
+
+### `credit_score_band` (CSV Ingestion)
+
+| Value        | Approximate FICO Range |
+|--------------|------------------------|
+| `Excellent`  | 750+                   |
+| `Good`       | 700 – 749              |
+| `Fair`       | 640 – 699              |
+| `Poor`       | Below 640              |
+| `No History` | No credit file         |
+
+### `creditScoreRange` (Credit Card API mapping)
+
+| CSV `credit_score_band` | CC API `creditScoreRange` | FICO Range  |
+|-------------------------|---------------------------|-------------|
+| `Excellent`             | `excellent`               | 740 – 850   |
+| `Good`                  | `good`                    | 670 – 739   |
+| `Fair`                  | `fair`                    | 580 – 669   |
+| `Poor`                  | `poor`                    | 300 – 579   |
+
+### `product_types` (API Request)
+
+`recommended` | `personal_loans` | `student_loans` | `auto_loans` | `auto_insurance` | `home_insurance` | `credit_cards` | `mortgage` | `cds` | `savings` | `checking` | `mma` | `home_equity`
+
+### `copy[].type` (All Products)
+
+| Value          | Description                                              |
+|----------------|----------------------------------------------------------|
+| `pros`         | Key advantages of the product.                           |
+| `cons`         | Known drawbacks.                                         |
+| `expert_take`  | Editorial / analyst commentary.                          |
+| `qualifications` | Who typically qualifies.                               |
+| `best_for`     | One-line positioning statement.                          |
+
+::

@@ -1,0 +1,24 @@
+---
+title: br-accordion-panel
+description: "One accordion row for br-accordion. Pass data.header, body, optional expanded."
+header: "Panel title"
+body: "Short plain-text answer. For full markdown, use ::accordion-panel directly inside the same group instead of this snippet."
+expanded: false
+---
+
+<!--
+  Parent page (or br-accordion) must wrap panels in ::accordion-group from br-accordion.
+  Add more rows: duplicate the :::snippet block and change data.* values.
+  Rich markdown in the body: use raw ::accordion-panel #header / #default on the page, not {{ }} body strings.
+-->
+
+::accordion-panel
+---
+:expanded: snippet.expanded
+---
+#header
+{{ $doc.snippet.header || 'Panel title' }}
+
+#default
+{{ $doc.snippet.body || '' }}
+::
