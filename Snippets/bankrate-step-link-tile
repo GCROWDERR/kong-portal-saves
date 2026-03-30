@@ -1,0 +1,63 @@
+---
+title: bankrate-step-link-tile
+description: "Same layout as bankrate-link-tile but shows a step number (01–04) instead of an icon. Use on Getting Started and similar flows."
+linkHref: "#overview"
+stepNumber: "01"
+cardTitle: "Step title"
+cardBody: "Short description for this step."
+---
+
+<!--
+  Paired with bankrate-link-tile (icon variant). Sync to Portal as a snippet.
+  data: linkHref, stepNumber, cardTitle, cardBody
+-->
+
+::a
+---
+:href: snippet.linkHref
+display: "block"
+text-decoration: "none"
+color: "inherit"
+---
+  ::container
+  ---
+  padding: "25px"
+  border: "1px solid #d5e3fd"
+  border-radius: "12px"
+  background-color: "#fff"
+  text-align: "left"
+  styles: |
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+    &:hover {
+      box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+      border-color: #c5d7fc;
+    }
+  ---
+    ::container
+    ---
+    padding: "1px"
+    border: "1px solid #d5e3fd"
+    border-radius: "8px"
+    background-color: "#eaf1ff"
+    margin: "0 0 24px"
+    styles: |
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      max-width: 44px;
+      min-width: 44px;
+      box-sizing: border-box;
+    ---
+    <span style="font-size:14px;font-weight:700;line-height:20px;color:#0157ff;text-align:center;">{{ $doc.snippet.stepNumber || '01' }}</span>
+    ::
+
+  <span style="display:block;font-size:16px;font-weight:700;line-height:24px;color:#00143d;margin:0;">{{ $doc.snippet.cardTitle || 'Title' }}</span>
+
+  <span style="display:block;margin-top:7px;font-size:14px;line-height:22.75px;color:rgba(0,20,61,0.6);">{{ $doc.snippet.cardBody || '' }}</span>
+  ::
+::

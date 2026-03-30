@@ -1,0 +1,289 @@
+---
+title: "Getting Started"
+description: "Set up Bankrate API access, authenticate requests, and make your first call. Covers SDKs, rate limits, errors, and webhooks."
+page-layout:
+  sidebar-left: "example-guides-page-nav"
+  sidebar-right: "example-page-toc"
+---
+
+<!--
+Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=165-120
+Nav labels in design: Overview, Authentication, First Request, SDKs, Rate Limits, Error Handling, Webhooks.
+Overview step cards: ::snippet bankrate-step-link-tile (Snippets/bankrate-step-link-tile). Sync to Portal with bankrate-link-tile.
+Header/footer and global nav are configured in Konnect theme / layout snippets.
+-->
+
+::page-hero
+---
+full-width: true
+title-font-size: "40px"
+title-line-height: "46px"
+text-max-width: "80%"
+padding: "0px"
+---
+#tagline
+Guides
+
+#title
+Getting Started
+
+#description
+This guide walks you through setting up your Bankrate API access, authenticating requests, and making your first API call. Follow these steps to start integrating financial data into your application.
+::
+
+::page-section
+## Overview
+
+  ::multi-column
+  ---
+  columns-breakpoints:
+    mobile: 1
+    phablet: 2
+    desktop: 2
+  gap: "20px"
+  ---
+    :::snippet
+    ---
+    name: "bankrate-step-link-tile"
+    data:
+      linkHref: "#overview-account"
+      stepNumber: "01"
+      cardTitle: "Create an Account"
+      cardBody: "Sign up for a Bankrate developer account to get started. Enterprise tier provides higher rate limits and dedicated support."
+    ---
+    :::
+
+    :::snippet
+    ---
+    name: "bankrate-step-link-tile"
+    data:
+      linkHref: "#authentication"
+      stepNumber: "02"
+      cardTitle: "Generate API Keys"
+      cardBody: "Navigate to the API Keys section in your dashboard. Create separate keys for development, staging, and production environments."
+    ---
+    :::
+
+    :::snippet
+    ---
+    name: "bankrate-step-link-tile"
+    data:
+      linkHref: "#first-request"
+      stepNumber: "03"
+      cardTitle: "Make Your First Request"
+      cardBody: "Use the code examples below to test your connection and verify your API key is working correctly."
+    ---
+    :::
+
+    :::snippet
+    ---
+    name: "bankrate-step-link-tile"
+    data:
+      linkHref: "#rate-limits"
+      stepNumber: "04"
+      cardTitle: "Go to Production"
+      cardBody: "Once tested, configure rate limiting, error handling, and monitoring. Contact our team for enterprise scaling needs."
+    ---
+    :::
+  ::
+
+<a id="overview-account" style="scroll-margin-top:96px;"></a>
+
+Sign up for a Bankrate developer account to get started. Enterprise tier provides higher rate limits and dedicated support.
+
+<span id="authentication" style="scroll-margin-top:96px;"></span>
+
+## Authentication
+
+All API requests require authentication via an API key or OAuth 2.0 bearer token. Include your credentials in the `Authorization` header.
+
+**API Key Authentication**
+
+```http
+# Include in every request header
+Authorization: Bearer YOUR_API_KEY
+
+# Or as a query parameter (not recommended for production)
+GET /v3/rates/mortgage?api_key=YOUR_API_KEY
+```
+
+**OAuth 2.0 Flow**
+
+```bash
+# Step 1: Request an access token
+curl -X POST "https://auth.bankrate.com/oauth/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=client_credentials" \
+  -d "client_id=YOUR_CLIENT_ID" \
+  -d "client_secret=YOUR_CLIENT_SECRET"
+
+# Step 2: Use the token in subsequent requests
+curl -X GET "https://api.bankrate.com/v3/rates/mortgage" \
+  -H "Authorization: Bearer ACCESS_TOKEN"
+```
+
+<div style="background:#fff0ca;border:1px solid #ffdd83;border-radius:12px;padding:17px;margin:var(--kui-space-60,24px) 0;">
+<strong style="color:#8e6223;">Key rotation best practice</strong>
+<p style="margin:8px 0 0;color:#6e4c1c;font-size:14px;line-height:1.45;">Rotate your API keys every 90 days. Use environment variables to store keys and never commit them to source control.</p>
+</div>
+
+<span id="first-request" style="scroll-margin-top:96px;"></span>
+
+## First Request
+
+Let's verify your setup by fetching current mortgage rates. Replace `YOUR_API_KEY` with your actual key.
+
+**Example Request**
+
+```bash
+curl -X GET "https://api.bankrate.com/v3/rates/mortgage?term=30&type=fixed" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Accept: application/json"
+```
+
+**Expected Response (200 OK)**
+
+```json
+{
+  "data": {
+    "rates": [
+      {
+        "term": "30-year",
+        "type": "fixed",
+        "rate": 6.875,
+        "apr": 6.952,
+        "last_updated": "2026-03-03T08:00:00Z"
+      }
+    ]
+  },
+  "meta": {
+    "request_id": "req_abc123",
+    "timestamp": "2026-03-03T14:30:00Z"
+  }
+}
+```
+
+<div style="background:#e5f4f2;border:1px solid #d5e3fd;border-radius:12px;padding:17px;margin:var(--kui-space-60,24px) 0;">
+<strong style="color:#00143d;">You're all set.</strong>
+<p style="margin:8px 0 0;color:#548dff;font-size:14px;line-height:1.45;">If you received a 200 response, your API key is configured correctly. Head to the <a href="/catalog" style="color:#0157ff;font-weight:600;">API Catalog</a> to explore all available endpoints.</p>
+</div>
+
+## SDKs
+
+Install one of our official client libraries to simplify integration. All SDKs include TypeScript or type definitions, automatic retries, and built-in rate limit handling.
+
+| Language | Install | Version |
+|----------|---------|---------|
+| Node.js | `npm install @bankrate/sdk` | v3.2.1 |
+| Python | `pip install bankrate-sdk` | v3.2.0 |
+| Go | `go get github.com/bankrate/sdk-go` | v3.1.0 |
+| Ruby | `gem install bankrate-sdk` | v2.8.0 |
+
+<span id="rate-limits" style="scroll-margin-top:96px;"></span>
+
+## Rate Limits
+
+Rate limits are applied per API key. When you exceed the limit, requests return a `429 Too Many Requests` response.
+
+| Plan | Rate limit | Daily limit | Support |
+|------|------------|-------------|---------|
+| Free | 100 req/min | 10,000 | Community |
+| Pro | 500 req/min | 100,000 | Email |
+| Enterprise | 2,000 req/min | Unlimited | Dedicated |
+
+**Rate limit response headers**
+
+```http
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 847
+X-RateLimit-Reset: 1709489400
+Retry-After: 30
+```
+
+## Error Handling
+
+The API uses standard HTTP status codes. All errors return a consistent JSON body with an error code, message, and request ID for debugging.
+
+| Code | Meaning | Action |
+|------|---------|--------|
+| `400` | Bad Request | Check request parameters and body format |
+| `401` | Unauthorized | Verify your API key or token is valid |
+| `403` | Forbidden | Check your plan permissions for this endpoint |
+| `404` | Not Found | Verify the endpoint URL and resource ID |
+| `429` | Rate Limited | Wait for `Retry-After` duration, then retry |
+| `500` | Server Error | Retry with exponential backoff |
+
+**Error response format**
+
+```json
+{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "You have exceeded the rate limit of 1000 requests per minute.",
+    "request_id": "req_xyz789",
+    "retry_after": 30
+  }
+}
+```
+
+## Webhooks
+
+Subscribe to real-time notifications when rates change, new products become available, or when specific thresholds are met. Webhooks are delivered via HTTP `POST` to your configured endpoint.
+
+**Example webhook payload**
+
+```json
+{
+  "event": "rate.updated",
+  "timestamp": "2026-03-03T14:30:00Z",
+  "data": {
+    "product": "mortgage",
+    "term": "30-year",
+    "previous_rate": 6.900,
+    "new_rate": 6.875,
+    "change": -0.025
+  },
+  "webhook_id": "wh_abc123",
+  "signature": "sha256=..."
+}
+```
+
+- **`rate.updated`** — Fired when any monitored rate changes.
+- **`product.new`** — Fired when a new financial product is added.
+- **`threshold.reached`** — Fired when a rate crosses your configured threshold.
+
+::container
+---
+background-color: "#eaf1ff"
+border: "1px solid #d5e3fd"
+border-radius: "12px"
+padding: "33px"
+text-align: "center"
+margin-top: "var(--kui-space-80, 48px)"
+---
+### Ready to build?
+
+Explore our full API catalog or dive into detailed endpoint documentation.
+
+:::button
+---
+appearance: "primary"
+size: "large"
+to: "/catalog"
+---
+API Catalog →
+:::
+
+:::button
+---
+appearance: "secondary"
+size: "large"
+to: "/guides"
+border: "1px solid #d5e3fd"
+background-color: "#fff"
+---
+Rates API Docs
+:::
+::
+
+::
