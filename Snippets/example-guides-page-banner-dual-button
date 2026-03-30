@@ -1,6 +1,6 @@
 ---
-title: "Example Page Banner"
-description: "Parameterized hero CTA row. Override bannerTitle, bannerDescription, primaryTo, primaryLabel, secondaryTo, secondaryLabel, secondaryAppearance, secondaryBorder, secondaryBackground, bannerMargin via ::snippet data."
+title: "example-guides-page-banner-dual-button"
+description: "Full-width dual-button banner (::page-hero max-width/width 100%). For edge-to-edge background, avoid nesting inside max-width containers; on article pages use a dedicated full-width ::page-section wrapper (see getting-started)."
 bannerTitle: "Explore our APIs"
 bannerDescription: "Connect, create, and innovate with our easy-to-use APIs."
 bannerMargin: "0"
@@ -16,6 +16,8 @@ secondaryBackground: "#fff"
 ::page-hero
 ---
 full-width: true
+max-width: "100%"
+width: "100%"
 title-tag: "h2"
 text-align: "center"
 title-font-size: "36px"

@@ -10,7 +10,7 @@ page-layout:
 Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=165-120
 Nav labels in design: Overview, Authentication, First Request, SDKs, Rate Limits, Error Handling, Webhooks.
 Overview step cards: ::snippet bankrate-step-link-tile (Snippets/bankrate-step-link-tile). Sync to Portal with bankrate-link-tile.
-Bottom CTA: ::snippet example-guildes-page-banner-dual-button (Snippets/example-guildes-page-banner-dual-button); Portal snippet name must match `name:` below.
+Bottom CTA: own full-width ::page-section wrapping ::snippet example-guides-page-banner-dual-button (Snippets/example-guides-page-banner-dual-button); Portal snippet name must match `name:` below.
 Header/footer and global nav are configured in Konnect theme / layout snippets.
 -->
 
@@ -261,9 +261,18 @@ Subscribe to real-time notifications when rates change, new products become avai
 - **`product.new`** — Fired when a new financial product is added.
 - **`threshold.reached`** — Fired when a rate crosses your configured threshold.
 
+::
+
+::page-section
+---
+full-width: true
+max-width: "100%"
+margin: "0"
+padding: "0"
+---
   ::snippet
   ---
-  name: "example-guildes-page-banner-dual-button"
+  name: "example-guides-page-banner-dual-button"
   data:
     bannerTitle: "Ready to build?"
     bannerDescription: "Explore our full API catalog or dive into detailed endpoint documentation."

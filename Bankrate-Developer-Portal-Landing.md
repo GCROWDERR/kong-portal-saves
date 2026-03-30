@@ -7,7 +7,7 @@ description: "Landing page aligned to Figma Kong Portal UI Component Library (14
 Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=158-209
 Portal MDC reference: https://portaldocs.konghq.com/
 Top nav and page footer are omitted—configure those in your Konnect theme / layout snippets.
-Hero link tiles and Developer Resources use ::snippet bankrate-link-tile (Snippets/bankrate-link-tile). Metrics band uses ::snippet num-callout (Snippets/num-callout). API Products: ::apis-list + Kong-style-overrides.css (https://portaldocs.konghq.com/components/apis-list). Sync snippet bodies via Portal; use Snippets API if editor body limits apply.
+Hero link tiles and Developer Resources use ::snippet bankrate-link-tile (Snippets/bankrate-link-tile). Metrics band uses ::snippet num-callout (Snippets/num-callout). API Products band: full-width ::snippet example-guides-page-banner-dual-button (Snippets/example-guides-page-banner-dual-button). Sync snippet bodies via Portal; use Snippets API if editor body limits apply.
 Page Section defaults to max-width 1280px (Kong shared props)—set max-width: "100%" plus full-width: true so band backgrounds span the viewport; keep inner ::container max-width 1280 for content.
 -->
 
@@ -117,134 +117,23 @@ background-color: "#fff"
 
   ::container
   ---
-  padding: "var(--kui-space-90) var(--kui-space-70)"
-  max-width: "1280px"
-  margin: "0 auto"
-  display: "flex"
-  flex-direction: "column"
-  align-items: "stretch"
-  ---
-    ::container
-    ---
-    display: "flex"
-    flex-wrap: "wrap"
-    align-items: "flex-start"
-    justify-content: "space-between"
-    gap: "var(--kui-space-60)"
-    margin: "0 0 var(--kui-space-90)"
-    ---
-      ::container
-      ---
-      display: "flex"
-      flex-direction: "column"
-      gap: "var(--kui-space-30)"
-      ---
-      ## API Products
-
-      <span style="font-size:14px;">Explore our suite of financial data APIs</span>
-      ::
-
-      :::button
-      ---
-      appearance: "secondary"
-      size: "medium"
-      to: "/catalog"
-      ---
-      View all →
-      :::
-    ::
-
-    ::apis-list
-    ---
-    full-width: true
-    width: "100%"
-    max-width: "100%"
-    margin: "0"
-    padding: "0"
-    enable-search: false
-    pagination: false
-    page-size: 4
-    cta-text: "View API"
-    grid-columns-breakpoints:
-      mobile: 1
-      phablet: 2
-      tablet: 2
-      desktop: 4
-    styles: |
-      width: 100%;
-      max-width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-      & > * {
-        width: 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-      }
-    ---
-    ::
-  ::
-
-  ::page-section
-  ---
-  tag: "section"
-  full-width: true
+  padding: "0"
   max-width: "100%"
+  width: "100%"
   margin: "0"
-  padding: "40px var(--kui-space-70)"
-  background-color: "#eaf1ff"
-  border-top: "1px solid #d5e3fd"
-  border-bottom: "1px solid #d5e3fd"
   ---
-    ::container
+    :::snippet
     ---
-    max-width: "1280px"
-    margin: "0 auto"
+    name: "example-guides-page-banner-dual-button"
+    data:
+      bannerTitle: "API Products"
+      bannerDescription: "Explore our suite of financial data APIs."
+      primaryTo: "/catalog"
+      primaryLabel: "View APIs"
+      secondaryTo: "/guides"
+      secondaryLabel: "Read guides"
     ---
-      ::multi-column
-      ---
-      columns-breakpoints:
-        mobile: 2
-        desktop: 4
-      gap: "24px"
-      ---
-        :::snippet
-        ---
-        name: "num-callout"
-        data:
-          metricValue: "99.99%"
-          metricLabel: "Uptime SLA"
-        ---
-        :::
-
-        :::snippet
-        ---
-        name: "num-callout"
-        data:
-          metricValue: "< 50ms"
-          metricLabel: "Avg Response Time"
-        ---
-        :::
-
-        :::snippet
-        ---
-        name: "num-callout"
-        data:
-          metricValue: "2B+"
-          metricLabel: "API Calls / Month"
-        ---
-        :::
-
-        :::snippet
-        ---
-        name: "num-callout"
-        data:
-          metricValue: "500+"
-          metricLabel: "Enterprise Partners"
-        ---
-        :::
-      ::
-    ::
+    :::
   ::
 
   ::page-section
@@ -269,7 +158,7 @@ background-color: "#fff"
       ---
       ## Developer Resources
 
-      <span style="display:block;font-size:14px;padding-bottom:48px;">Everything you need to integrate Bankrate data into your applications</span>
+      <span style="display:block;font-size:14px;padding-bottom:24px;">Everything you need to integrate Bankrate data into your applications</span>
       ::
 
       ::multi-column
