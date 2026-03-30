@@ -269,7 +269,7 @@ background-color: "#fff"
       ---
       ## Developer Resources
 
-      <span style="font-size:14px;">Everything you need to integrate Bankrate data into your applications</span>
+      <span style="display:block;font-size:14px;padding-bottom:48px;">Everything you need to integrate Bankrate data into your applications</span>
       ::
 
       ::multi-column
