@@ -1,6 +1,9 @@
 ---
 title: bankrate-link-tile
-description: "Portal snippet bankrate-link-tile — used by Developer Resources on Bankrate-Developer-Portal-Landing.md via ::snippet + data. Hero tiles stay inlined. Upload full body via Snippets API if UI enforces a short character limit."
+description: >-
+  Figma 158:236-aligned tile (25px pad, 44px #f6faff icon shell, 20px icon, type colors; hover shadow).
+  Konnect UI ~160-char snippet body: nesting ::snippet inside another snippet does not raise the limit per
+  snippet—each body must still fit (or use Snippets API for full MDC). Otherwise inline :::a on pages like hero.
 linkHref: "/guides"
 imageSrc: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
 cardTitle: "Read the Guides"
@@ -16,7 +19,7 @@ color: "inherit"
 ---
   ::container
   ---
-  padding: "21px"
+  padding: "25px"
   border: "1px solid #d5e3fd"
   border-radius: "12px"
   background-color: "#fff"
@@ -29,20 +32,38 @@ color: "inherit"
       border-color: #c5d7fc;
     }
   ---
+    ::container
+    ---
+    padding: "1px"
+    border: "1px solid #d5e3fd"
+    border-radius: "8px"
+    background-color: "#f6faff"
+    margin: "0 0 24px"
+    styles: |
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      max-width: 44px;
+      min-width: 44px;
+      box-sizing: border-box;
+    ---
     ::image
     ---
     :src: snippet.imageSrc
     alt: ""
-    width: "40"
-    height: "40"
+    width: "20"
+    height: "20"
     display: "block"
-    margin: "0 0 var(--kui-space-50)"
-    border-radius: "8px"
     ---
     ::
+    ::
 
-  **{{ $doc.snippet.cardTitle || 'Title' }}**
+  <span style="display:block;font-size:16px;font-weight:700;line-height:24px;color:#00143d;margin:0;">{{ $doc.snippet.cardTitle || 'Title' }}</span>
 
-  <span style="font-size:14px;line-height:1.6;">{{ $doc.snippet.cardBody || '' }}</span>
+  <span style="display:block;margin-top:7px;font-size:14px;line-height:22.75px;color:rgba(0,20,61,0.6);">{{ $doc.snippet.cardBody || '' }}</span>
   ::
 ::

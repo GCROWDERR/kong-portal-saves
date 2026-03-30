@@ -38,11 +38,9 @@ background-color: "#fff"
   color: "#fff"
   ---
   #title
-  Bankrate Developer Portal
+  <span style="display:block;margin:0 auto var(--kui-space-50);text-align:center;"><span style="display:inline-flex;align-items:center;gap:10px;padding:9px 21px;border-radius:999px;background:rgba(1,52,151,0.6);border:1px solid #0049c0;color:#d5e3fd;font-size:14px;font-weight:500;line-height:1.2;">Kong Gateway Powered</span></span>Bankrate Developer Portal
 
   #description
-  <p style="text-align:center;margin:0 0 var(--kui-space-60);"><span style="display:inline-flex;align-items:center;gap:10px;padding:9px 21px;border-radius:999px;background:rgba(1,52,151,0.6);border:1px solid #0049c0;color:#d5e3fd;font-size:14px;font-weight:500;">Kong Gateway Powered</span></p>
-
   Integrate trusted financial rate data into your applications. Access real-time mortgage rates, savings yields, credit card offers, and calculation tools through our robust API platform.
 
   #actions
@@ -91,7 +89,7 @@ background-color: "#fff"
       ---
         ::container
         ---
-        padding: "21px"
+        padding: "25px"
         border: "1px solid #d5e3fd"
         border-radius: "12px"
         background-color: "#fff"
@@ -104,21 +102,39 @@ background-color: "#fff"
             border-color: #c5d7fc;
           }
         ---
+        ::container
+        ---
+        padding: "1px"
+        border: "1px solid #d5e3fd"
+        border-radius: "8px"
+        background-color: "#f6faff"
+        margin: "0 0 24px"
+        styles: |
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          align-self: flex-start;
+          flex: 0 0 auto;
+          width: 44px;
+          height: 44px;
+          max-width: 44px;
+          min-width: 44px;
+          box-sizing: border-box;
+        ---
         ::image
         ---
         src: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
         alt: ""
-        width: "40"
-        height: "40"
+        width: "20"
+        height: "20"
         display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
         ---
         ::
+        ::
 
-        **Read the Guides**
+        <span style="display:block;font-size:16px;font-weight:700;line-height:24px;color:#00143d;margin:0;">Read the Guides</span>
 
-        <span style="font-size:14px;line-height:1.6;">Step-by-step documentation covering authentication, usage, and best practices.</span>
+        <span style="display:block;margin-top:7px;font-size:14px;line-height:22.75px;color:rgba(0,20,61,0.6);">Step-by-step documentation covering authentication, usage, and best practices.</span>
         ::
       :::
 
@@ -131,7 +147,7 @@ background-color: "#fff"
       ---
         ::container
         ---
-        padding: "21px"
+        padding: "25px"
         border: "1px solid #d5e3fd"
         border-radius: "12px"
         background-color: "#fff"
@@ -144,21 +160,39 @@ background-color: "#fff"
             border-color: #c5d7fc;
           }
         ---
+        ::container
+        ---
+        padding: "1px"
+        border: "1px solid #d5e3fd"
+        border-radius: "8px"
+        background-color: "#f6faff"
+        margin: "0 0 24px"
+        styles: |
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          align-self: flex-start;
+          flex: 0 0 auto;
+          width: 44px;
+          height: 44px;
+          max-width: 44px;
+          min-width: 44px;
+          box-sizing: border-box;
+        ---
         ::image
         ---
         src: "https://www.figma.com/api/mcp/asset/d04ca18a-3203-4ea9-b061-75c1f2752e84"
         alt: ""
-        width: "40"
-        height: "40"
+        width: "20"
+        height: "20"
         display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
         ---
         ::
+        ::
 
-        **Explore APIs**
+        <span style="display:block;font-size:16px;font-weight:700;line-height:24px;color:#00143d;margin:0;">Explore APIs</span>
 
-        <span style="font-size:14px;line-height:1.6;">Browse our full catalog of financial data APIs with interactive endpoint docs.</span>
+        <span style="display:block;margin-top:7px;font-size:14px;line-height:22.75px;color:rgba(0,20,61,0.6);">Browse our full catalog of financial data APIs with interactive endpoint docs.</span>
         ::
       :::
 
@@ -171,7 +205,7 @@ background-color: "#fff"
       ---
         ::container
         ---
-        padding: "21px"
+        padding: "25px"
         border: "1px solid #d5e3fd"
         border-radius: "12px"
         background-color: "#fff"
@@ -184,21 +218,39 @@ background-color: "#fff"
             border-color: #c5d7fc;
           }
         ---
+        ::container
+        ---
+        padding: "1px"
+        border: "1px solid #d5e3fd"
+        border-radius: "8px"
+        background-color: "#f6faff"
+        margin: "0 0 24px"
+        styles: |
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          align-self: flex-start;
+          flex: 0 0 auto;
+          width: 44px;
+          height: 44px;
+          max-width: 44px;
+          min-width: 44px;
+          box-sizing: border-box;
+        ---
         ::image
         ---
-        src: "https://www.figma.com/api/mcp/asset/c01adbac-6ea4-460c-8573-bcae7fcdf602"
+        src: "https://www.figma.com/api/mcp/asset/01122c9f-ed25-437c-8102-33dfdf3689fa"
         alt: ""
-        width: "40"
-        height: "40"
+        width: "20"
+        height: "20"
         display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
         ---
         ::
+        ::
 
-        **Get Your API Key**
+        <span style="display:block;font-size:16px;font-weight:700;line-height:24px;color:#00143d;margin:0;">Get Your API Key</span>
 
-        <span style="font-size:14px;line-height:1.6;">Generate test and production API keys to start building immediately.</span>
+        <span style="display:block;margin-top:7px;font-size:14px;line-height:22.75px;color:rgba(0,20,61,0.6);">Generate test and production API keys to start building immediately.</span>
         ::
       :::
     ::
