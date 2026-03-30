@@ -4,11 +4,11 @@ description: "Landing page aligned to Figma Kong Portal UI Component Library (14
 ---
 
 <!--
-  Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=158-209
-  Portal MDC reference: https://portaldocs.konghq.com/
-  Top nav and page footer are omitted—configure those in your Konnect theme / layout snippets.
-  Hero link tiles are inlined below (not ::snippet): Konnect Portal Editor enforces a very small snippet body limit (~160 chars), which cannot fit this tile MDC. See snippets file for a full template if you use the Snippets API or the limit changes. The API Products row uses ::apis-list (https://portaldocs.konghq.com/components/apis-list).
-  Page Section defaults to max-width 1280px (Kong shared props)—set max-width: "100%" plus full-width: true so band backgrounds span the viewport; keep inner ::container max-width 1280 for content.
+Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=158-209
+Portal MDC reference: https://portaldocs.konghq.com/
+Top nav and page footer are omitted—configure those in your Konnect theme / layout snippets.
+Hero and Developer Resources link tiles use inlined :::a + ::container + ::image (same structure as snippets/bankrate-link-tile); card ::container uses shared styles prop for default + hover box-shadow. API Products: ::apis-list (https://portaldocs.konghq.com/components/apis-list).
+Page Section defaults to max-width 1280px (Kong shared props)—set max-width: "100%" plus full-width: true so band backgrounds span the viewport; keep inner ::container max-width 1280 for content.
 -->
 
 ::page-section
@@ -96,6 +96,13 @@ background-color: "#fff"
         border-radius: "12px"
         background-color: "#fff"
         text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
         ---
         ::image
         ---
@@ -129,6 +136,13 @@ background-color: "#fff"
         border-radius: "12px"
         background-color: "#fff"
         text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
         ---
         ::image
         ---
@@ -162,6 +176,13 @@ background-color: "#fff"
         border-radius: "12px"
         background-color: "#fff"
         text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
         ---
         ::image
         ---
@@ -251,49 +272,49 @@ background-color: "#fff"
     max-width: "1280px"
     margin: "0 auto"
     ---
-    ::multi-column
-    ---
-    columns-breakpoints:
-      mobile: 2
-      desktop: 4
-    gap: "24px"
-    ---
-      ::container
+      ::multi-column
       ---
-      text-align: "center"
+      columns-breakpoints:
+        mobile: 2
+        desktop: 4
+      gap: "24px"
       ---
-      ### 99.99%
+        ::container
+        ---
+        text-align: "center"
+        ---
+        ### 99.99%
 
-      <span style="font-size:14px;">Uptime SLA</span>
+        <span style="font-size:14px;">Uptime SLA</span>
+        ::
+
+        ::container
+        ---
+        text-align: "center"
+        ---
+        ### < 50ms
+
+        <span style="font-size:14px;">Avg Response Time</span>
+        ::
+
+        ::container
+        ---
+        text-align: "center"
+        ---
+        ### 2B+
+
+        <span style="font-size:14px;">API Calls / Month</span>
+        ::
+
+        ::container
+        ---
+        text-align: "center"
+        ---
+        ### 500+
+
+        <span style="font-size:14px;">Enterprise Partners</span>
+        ::
       ::
-
-      ::container
-      ---
-      text-align: "center"
-      ---
-      ### < 50ms
-
-      <span style="font-size:14px;">Avg Response Time</span>
-      ::
-
-      ::container
-      ---
-      text-align: "center"
-      ---
-      ### 2B+
-
-      <span style="font-size:14px;">API Calls / Month</span>
-      ::
-
-      ::container
-      ---
-      text-align: "center"
-      ---
-      ### 500+
-
-      <span style="font-size:14px;">Enterprise Partners</span>
-      ::
-    ::
     ::
   ::
 
@@ -327,14 +348,28 @@ background-color: "#fff"
       desktop: 4
     gap: "20px"
     ---
-      ::container
+      :::a
       ---
-      padding: "21px"
-      border: "1px solid #d5e3fd"
-      border-radius: "12px"
-      background-color: "#fff"
-      text-align: "left"
+      href: "/getting-started"
+      display: "block"
+      text-decoration: "none"
+      color: "inherit"
       ---
+        ::container
+        ---
+        padding: "21px"
+        border: "1px solid #d5e3fd"
+        border-radius: "12px"
+        background-color: "#fff"
+        text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
+        ---
         ::image
         ---
         src: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
@@ -350,16 +385,31 @@ background-color: "#fff"
         **Quick Start Guide**
 
         <span style="font-size:14px;line-height:1.6;">Get up and running with Bankrate APIs in under 5 minutes.</span>
-      ::
+        ::
+      :::
 
-      ::container
+      :::a
       ---
-      padding: "21px"
-      border: "1px solid #d5e3fd"
-      border-radius: "12px"
-      background-color: "#fff"
-      text-align: "left"
+      href: "/authentication"
+      display: "block"
+      text-decoration: "none"
+      color: "inherit"
       ---
+        ::container
+        ---
+        padding: "21px"
+        border: "1px solid #d5e3fd"
+        border-radius: "12px"
+        background-color: "#fff"
+        text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
+        ---
         ::image
         ---
         src: "https://www.figma.com/api/mcp/asset/810a9b72-5590-4f90-93f8-b0361808542e"
@@ -375,16 +425,31 @@ background-color: "#fff"
         **Authentication**
 
         <span style="font-size:14px;line-height:1.6;">Learn about API key management, OAuth 2.0, and rate limiting.</span>
-      ::
+        ::
+      :::
 
-      ::container
+      :::a
       ---
-      padding: "21px"
-      border: "1px solid #d5e3fd"
-      border-radius: "12px"
-      background-color: "#fff"
-      text-align: "left"
+      href: "/sdks"
+      display: "block"
+      text-decoration: "none"
+      color: "inherit"
       ---
+        ::container
+        ---
+        padding: "21px"
+        border: "1px solid #d5e3fd"
+        border-radius: "12px"
+        background-color: "#fff"
+        text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
+        ---
         ::image
         ---
         src: "https://www.figma.com/api/mcp/asset/d04ca18a-3203-4ea9-b061-75c1f2752e84"
@@ -400,16 +465,31 @@ background-color: "#fff"
         **SDK & Libraries**
 
         <span style="font-size:14px;line-height:1.6;">Official client libraries for Node.js, Python, Go, and more.</span>
-      ::
+        ::
+      :::
 
-      ::container
+      :::a
       ---
-      padding: "21px"
-      border: "1px solid #d5e3fd"
-      border-radius: "12px"
-      background-color: "#fff"
-      text-align: "left"
+      href: "/webhooks"
+      display: "block"
+      text-decoration: "none"
+      color: "inherit"
       ---
+        ::container
+        ---
+        padding: "21px"
+        border: "1px solid #d5e3fd"
+        border-radius: "12px"
+        background-color: "#fff"
+        text-align: "left"
+        styles: |
+          transition: box-shadow 0.2s ease, border-color 0.2s ease;
+          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
+          &:hover {
+            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
+            border-color: #c5d7fc;
+          }
+        ---
         ::image
         ---
         src: "https://www.figma.com/api/mcp/asset/579aad58-ce96-40f9-a647-a9a4a8fbdb86"
@@ -425,7 +505,8 @@ background-color: "#fff"
         **Webhooks**
 
         <span style="font-size:14px;line-height:1.6;">Set up real-time notifications for rate changes and updates.</span>
-      ::
+        ::
+      :::
     ::
   ::
 ::
