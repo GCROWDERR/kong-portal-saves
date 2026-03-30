@@ -1,0 +1,40 @@
+---
+title: bankrate-link-tile
+linkHref: "/guides"
+imageSrc: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
+cardTitle: "Read the Guides"
+cardBody: "Step-by-step documentation covering authentication, usage, and best practices."
+---
+
+::a
+---
+:href: snippet.linkHref
+display: "block"
+text-decoration: "none"
+color: "inherit"
+---
+  ::container
+  ---
+  padding: "21px"
+  border: "1px solid #d5e3fd"
+  border-radius: "12px"
+  background-color: "#fff"
+  text-align: "left"
+  ---
+    ::image
+    ---
+    :src: snippet.imageSrc
+    alt: ""
+    width: "40"
+    height: "40"
+    display: "block"
+    margin: "0 0 var(--kui-space-50)"
+    border-radius: "8px"
+    ---
+    ::
+
+  **{{ $doc.snippet.cardTitle || 'Title' }}**
+
+  <span style="font-size:14px;line-height:1.6;">{{ $doc.snippet.cardBody || '' }}</span>
+  ::
+::
