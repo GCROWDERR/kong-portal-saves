@@ -7,7 +7,7 @@ description: "Landing page aligned to Figma Kong Portal UI Component Library (14
 Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=158-209
 Portal MDC reference: https://portaldocs.konghq.com/
 Top nav and page footer are omitted—configure those in your Konnect theme / layout snippets.
-Hero and Developer Resources link tiles use inlined :::a + ::container + ::image (same structure as snippets/bankrate-link-tile); card ::container uses shared styles prop for default + hover box-shadow. API Products: ::apis-list (https://portaldocs.konghq.com/components/apis-list).
+Hero link tiles are inlined :::a (same markup as snippets/bankrate-link-tile). Developer Resources uses ::snippet name bankrate-link-tile with per-card data: (create/sync snippet body from repo snippets/; Snippets API if UI body limit blocks full MDC). API Products: ::apis-list (https://portaldocs.konghq.com/components/apis-list).
 Page Section defaults to max-width 1280px (Kong shared props)—set max-width: "100%" plus full-width: true so band backgrounds span the viewport; keep inner ::container max-width 1280 for content.
 -->
 
@@ -332,181 +332,69 @@ background-color: "#fff"
     ---
     max-width: "1280px"
     margin: "0 auto"
-    text-align: "center"
-    margin-bottom: "40px"
     ---
-    ## Developer Resources
-
-    <span style="font-size:14px;">Everything you need to integrate Bankrate data into your applications</span>
-    ::
-
-    ::multi-column
-    ---
-    columns-breakpoints:
-      mobile: 1
-      phablet: 2
-      desktop: 4
-    gap: "20px"
-    ---
-      :::a
+      ::container
       ---
-      href: "/getting-started"
-      display: "block"
-      text-decoration: "none"
-      color: "inherit"
+      text-align: "center"
+      margin-bottom: "40px"
       ---
-        ::container
-        ---
-        padding: "21px"
-        border: "1px solid #d5e3fd"
-        border-radius: "12px"
-        background-color: "#fff"
-        text-align: "left"
-        styles: |
-          transition: box-shadow 0.2s ease, border-color 0.2s ease;
-          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
-          &:hover {
-            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
-            border-color: #c5d7fc;
-          }
-        ---
-        ::image
-        ---
-        src: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
-        alt: ""
-        width: "40"
-        height: "40"
-        display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
-        ---
-        ::
+      ## Developer Resources
 
-        **Quick Start Guide**
+      <span style="font-size:14px;">Everything you need to integrate Bankrate data into your applications</span>
+      ::
 
-        <span style="font-size:14px;line-height:1.6;">Get up and running with Bankrate APIs in under 5 minutes.</span>
-        ::
+      ::multi-column
+      ---
+      columns-breakpoints:
+        mobile: 1
+        phablet: 2
+        desktop: 4
+      gap: "20px"
+      ---
+      :::snippet
+      ---
+      name: "bankrate-link-tile"
+      data:
+        linkHref: "/getting-started"
+        imageSrc: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
+        cardTitle: "Quick Start Guide"
+        cardBody: "Get up and running with Bankrate APIs in under 5 minutes."
+      ---
       :::
 
-      :::a
+      :::snippet
       ---
-      href: "/authentication"
-      display: "block"
-      text-decoration: "none"
-      color: "inherit"
+      name: "bankrate-link-tile"
+      data:
+        linkHref: "/authentication"
+        imageSrc: "https://www.figma.com/api/mcp/asset/810a9b72-5590-4f90-93f8-b0361808542e"
+        cardTitle: "Authentication"
+        cardBody: "Learn about API key management, OAuth 2.0, and rate limiting."
       ---
-        ::container
-        ---
-        padding: "21px"
-        border: "1px solid #d5e3fd"
-        border-radius: "12px"
-        background-color: "#fff"
-        text-align: "left"
-        styles: |
-          transition: box-shadow 0.2s ease, border-color 0.2s ease;
-          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
-          &:hover {
-            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
-            border-color: #c5d7fc;
-          }
-        ---
-        ::image
-        ---
-        src: "https://www.figma.com/api/mcp/asset/810a9b72-5590-4f90-93f8-b0361808542e"
-        alt: ""
-        width: "40"
-        height: "40"
-        display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
-        ---
-        ::
-
-        **Authentication**
-
-        <span style="font-size:14px;line-height:1.6;">Learn about API key management, OAuth 2.0, and rate limiting.</span>
-        ::
       :::
 
-      :::a
+      :::snippet
       ---
-      href: "/sdks"
-      display: "block"
-      text-decoration: "none"
-      color: "inherit"
+      name: "bankrate-link-tile"
+      data:
+        linkHref: "/sdks"
+        imageSrc: "https://www.figma.com/api/mcp/asset/d04ca18a-3203-4ea9-b061-75c1f2752e84"
+        cardTitle: "SDK & Libraries"
+        cardBody: "Official client libraries for Node.js, Python, Go, and more."
       ---
-        ::container
-        ---
-        padding: "21px"
-        border: "1px solid #d5e3fd"
-        border-radius: "12px"
-        background-color: "#fff"
-        text-align: "left"
-        styles: |
-          transition: box-shadow 0.2s ease, border-color 0.2s ease;
-          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
-          &:hover {
-            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
-            border-color: #c5d7fc;
-          }
-        ---
-        ::image
-        ---
-        src: "https://www.figma.com/api/mcp/asset/d04ca18a-3203-4ea9-b061-75c1f2752e84"
-        alt: ""
-        width: "40"
-        height: "40"
-        display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
-        ---
-        ::
-
-        **SDK & Libraries**
-
-        <span style="font-size:14px;line-height:1.6;">Official client libraries for Node.js, Python, Go, and more.</span>
-        ::
       :::
 
-      :::a
+      :::snippet
       ---
-      href: "/webhooks"
-      display: "block"
-      text-decoration: "none"
-      color: "inherit"
+      name: "bankrate-link-tile"
+      data:
+        linkHref: "/webhooks"
+        imageSrc: "https://www.figma.com/api/mcp/asset/579aad58-ce96-40f9-a647-a9a4a8fbdb86"
+        cardTitle: "Webhooks"
+        cardBody: "Set up real-time notifications for rate changes and updates."
       ---
-        ::container
-        ---
-        padding: "21px"
-        border: "1px solid #d5e3fd"
-        border-radius: "12px"
-        background-color: "#fff"
-        text-align: "left"
-        styles: |
-          transition: box-shadow 0.2s ease, border-color 0.2s ease;
-          box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
-          &:hover {
-            box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
-            border-color: #c5d7fc;
-          }
-        ---
-        ::image
-        ---
-        src: "https://www.figma.com/api/mcp/asset/579aad58-ce96-40f9-a647-a9a4a8fbdb86"
-        alt: ""
-        width: "40"
-        height: "40"
-        display: "block"
-        margin: "0 0 var(--kui-space-50)"
-        border-radius: "8px"
-        ---
-        ::
-
-        **Webhooks**
-
-        <span style="font-size:14px;line-height:1.6;">Set up real-time notifications for rate changes and updates.</span>
-        ::
       :::
+      ::
     ::
   ::
 ::
