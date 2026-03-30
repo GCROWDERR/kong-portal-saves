@@ -10,6 +10,7 @@ page-layout:
 Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=165-120
 Nav labels in design: Overview, Authentication, First Request, SDKs, Rate Limits, Error Handling, Webhooks.
 Overview step cards: ::snippet bankrate-step-link-tile (Snippets/bankrate-step-link-tile). Sync to Portal with bankrate-link-tile.
+Bottom CTA: ::snippet example-guildes-page-banner-dual-button (Snippets/example-guildes-page-banner-dual-button); Portal snippet name must match `name:` below.
 Header/footer and global nav are configured in Konnect theme / layout snippets.
 -->
 
@@ -122,10 +123,14 @@ curl -X GET "https://api.bankrate.com/v3/rates/mortgage" \
   -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
-<div style="background:#fff0ca;border:1px solid #ffdd83;border-radius:12px;padding:17px;margin:var(--kui-space-60,24px) 0;">
-<strong style="color:#8e6223;">Key rotation best practice</strong>
-<p style="margin:8px 0 0;color:#6e4c1c;font-size:14px;line-height:1.45;">Rotate your API keys every 90 days. Use environment variables to store keys and never commit them to source control.</p>
-</div>
+::alert
+---
+appearance: "warning"
+show-icon: true
+title: "Key rotation best practices"
+---
+Rotate your API keys every 90 days. Use environment variables to store keys and never commit them to source control.
+::
 
 <span id="first-request" style="scroll-margin-top:96px;"></span>
 
@@ -163,10 +168,14 @@ curl -X GET "https://api.bankrate.com/v3/rates/mortgage?term=30&type=fixed" \
 }
 ```
 
-<div style="background:#e5f4f2;border:1px solid #d5e3fd;border-radius:12px;padding:17px;margin:var(--kui-space-60,24px) 0;">
-<strong style="color:#00143d;">You're all set.</strong>
-<p style="margin:8px 0 0;color:#548dff;font-size:14px;line-height:1.45;">If you received a 200 response, your API key is configured correctly. Head to the <a href="/catalog" style="color:#0157ff;font-weight:600;">API Catalog</a> to explore all available endpoints.</p>
-</div>
+::alert
+---
+appearance: "success"
+show-icon: true
+title: "You're all set."
+---
+If you received a 200 response, your API key is configured correctly. Head to the [API Catalog](/catalog) to explore all available endpoints.
+::
 
 ## SDKs
 
@@ -252,38 +261,21 @@ Subscribe to real-time notifications when rates change, new products become avai
 - **`product.new`** — Fired when a new financial product is added.
 - **`threshold.reached`** — Fired when a rate crosses your configured threshold.
 
-::container
----
-background-color: "#eaf1ff"
-border: "1px solid #d5e3fd"
-border-radius: "12px"
-padding: "33px"
-text-align: "center"
-margin-top: "var(--kui-space-80, 48px)"
----
-### Ready to build?
-
-Explore our full API catalog or dive into detailed endpoint documentation.
-
-:::button
----
-appearance: "primary"
-size: "large"
-to: "/catalog"
----
-API Catalog →
-:::
-
-:::button
----
-appearance: "secondary"
-size: "large"
-to: "/guides"
-border: "1px solid #d5e3fd"
-background-color: "#fff"
----
-Rates API Docs
-:::
-::
+  ::snippet
+  ---
+  name: "example-guildes-page-banner-dual-button"
+  data:
+    bannerTitle: "Ready to build?"
+    bannerDescription: "Explore our full API catalog or dive into detailed endpoint documentation."
+    bannerMargin: "var(--kui-space-80, 48px) 0 0 0"
+    primaryTo: "/catalog"
+    primaryLabel: "API Catalog →"
+    secondaryTo: "/guides"
+    secondaryLabel: "Rates API Docs"
+    secondaryAppearance: "secondary"
+    secondaryBorder: "1px solid #d5e3fd"
+    secondaryBackground: "#fff"
+  ---
+  ::
 
 ::
