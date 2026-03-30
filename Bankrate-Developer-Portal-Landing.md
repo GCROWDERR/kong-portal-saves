@@ -7,7 +7,7 @@ description: "Landing page aligned to Figma Kong Portal UI Component Library (14
 Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=158-209
 Portal MDC reference: https://portaldocs.konghq.com/
 Top nav and page footer are omitted—configure those in your Konnect theme / layout snippets.
-Hero link tiles and Developer Resources use ::snippet name bankrate-link-tile with per-card data: (sync snippet body from repo snippets/; Snippets API if the editor body limit blocks full MDC). API Products: ::apis-list (https://portaldocs.konghq.com/components/apis-list).
+Hero link tiles and Developer Resources use ::snippet bankrate-link-tile (Snippets/bankrate-link-tile). Metrics band uses ::snippet num-callout (Snippets/num-callout). API Products: ::apis-list + Kong-style-overrides.css (https://portaldocs.konghq.com/components/apis-list). Sync snippet bodies via Portal; use Snippets API if editor body limits apply.
 Page Section defaults to max-width 1280px (Kong shared props)—set max-width: "100%" plus full-width: true so band backgrounds span the viewport; keep inner ::container max-width 1280 for content.
 -->
 
@@ -120,12 +120,15 @@ background-color: "#fff"
   padding: "var(--kui-space-90) var(--kui-space-70)"
   max-width: "1280px"
   margin: "0 auto"
+  display: "flex"
+  flex-direction: "column"
+  align-items: "stretch"
   ---
     ::container
     ---
     display: "flex"
     flex-wrap: "wrap"
-    align-items: "flex-end"
+    align-items: "flex-start"
     justify-content: "space-between"
     gap: "var(--kui-space-60)"
     margin: "0 0 var(--kui-space-90)"
@@ -154,6 +157,10 @@ background-color: "#fff"
     ::apis-list
     ---
     full-width: true
+    width: "100%"
+    max-width: "100%"
+    margin: "0"
+    padding: "0"
     enable-search: false
     pagination: false
     page-size: 4
@@ -163,6 +170,17 @@ background-color: "#fff"
       phablet: 2
       tablet: 2
       desktop: 4
+    styles: |
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      & > * {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
     ---
     ::
   ::
@@ -190,41 +208,41 @@ background-color: "#fff"
         desktop: 4
       gap: "24px"
       ---
-        ::container
+        :::snippet
         ---
-        text-align: "center"
+        name: "num-callout"
+        data:
+          metricValue: "99.99%"
+          metricLabel: "Uptime SLA"
         ---
-        ### 99.99%
+        :::
 
-        <span style="font-size:14px;">Uptime SLA</span>
-        ::
-
-        ::container
+        :::snippet
         ---
-        text-align: "center"
+        name: "num-callout"
+        data:
+          metricValue: "< 50ms"
+          metricLabel: "Avg Response Time"
         ---
-        ### < 50ms
+        :::
 
-        <span style="font-size:14px;">Avg Response Time</span>
-        ::
-
-        ::container
+        :::snippet
         ---
-        text-align: "center"
+        name: "num-callout"
+        data:
+          metricValue: "2B+"
+          metricLabel: "API Calls / Month"
         ---
-        ### 2B+
+        :::
 
-        <span style="font-size:14px;">API Calls / Month</span>
-        ::
-
-        ::container
+        :::snippet
         ---
-        text-align: "center"
+        name: "num-callout"
+        data:
+          metricValue: "500+"
+          metricLabel: "Enterprise Partners"
         ---
-        ### 500+
-
-        <span style="font-size:14px;">Enterprise Partners</span>
-        ::
+        :::
       ::
     ::
   ::

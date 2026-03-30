@@ -1,0 +1,29 @@
+---
+title: num-callout
+description: "Centered stat + label for metrics bands (e.g. 99.99% / Uptime SLA). Use ::snippet name num-callout with data.metricValue and data.metricLabel."
+metricValue: "99.99%"
+metricLabel: "Uptime SLA"
+---
+
+<!--
+  Stat uses explicit font-size (not ###): ### {{ handlebars }} often fails to parse as a heading, so h3 styles never apply.
+  Page usage (inside ::multi-column or alone):
+  ::snippet
+  ---
+  name: "num-callout"
+  data:
+    metricValue: "< 50ms"
+    metricLabel: "Avg Response Time"
+  ---
+  ::
+  https://portaldocs.konghq.com/components/snippet
+-->
+
+::container
+---
+text-align: "center"
+---
+<span style="display:block;font-size:clamp(28px, 5vw, 40px);font-weight:700;line-height:1.15;color:#00143d;margin:0;">{{ $doc.snippet.metricValue || '99.99%' }}</span>
+
+<span style="display:block;margin-top:6px;font-size:14px;line-height:1.5;font-weight:400;color:#0049C0;">{{ $doc.snippet.metricLabel || 'Uptime SLA' }}</span>
+::
