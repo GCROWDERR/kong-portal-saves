@@ -7,6 +7,7 @@ page-layout:
 
 <!--
 FAQ section uses the same accordion styling as Snippets/br-accordion, with rows from Snippets/br-accordion-panel (sync group YAML if br-accordion changes).
+Alternate hub focused on Getting Started + partner ingestion spec: see guides-overview (publish separately in Konnect).
 -->
 
 ::page-hero
