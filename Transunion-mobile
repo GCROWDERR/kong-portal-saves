@@ -1,0 +1,297 @@
+---
+title: "Inline Widgets -- Mobile App Integration Guide"
+description: "Display Inline ad widgets in native iOS or Android apps using a WebView: partner HTML, embed script, WebView configuration, CTA handling, and consent."
+page-layout:
+  sidebar-left: "example-guides-page-nav"
+  sidebar-right: "example-page-toc"
+---
+
+<!--
+Source: GitHub / Google Doc (Copy of TU Mobile Docs). See also:
+https://docs.google.com/document/d/1VrlmdEqYuqJ-ABLwd6Y9TO9sBO0aVWbw6OIG1CClt1I/edit
+Companion: Transunion Integration Documentation — Placeholder Tags & Script Integration.
+Sync body to Konnect; adjust slug to match your portal route.
+-->
+
+::page-hero
+---
+full-width: true
+title-font-size: "40px"
+title-line-height: "46px"
+text-max-width: "80%"
+padding: "0px"
+---
+#tagline
+Guides
+
+#title
+Inline Widgets -- Mobile App Integration Guide
+
+#description
+This guide explains how to display Inline ad widgets inside a native iOS or Android mobile app using a standard WebView. In a typical integration, the partner loads its own mobile page or in-app content experience and embeds the Inline widget inside that experience. The main app-side work is configuring the WebView to support a few browser behaviors that native apps sometimes restrict.
+
+::
+
+::page-section
+## Quick start
+
+### 1. Load a partner-owned page with placeholder markup
+
+The HTML page loaded in the WebView needs two things: a placeholder `<div>` for each widget and the Inline embed script. This page can be part of the partner's existing mobile web content, a dedicated in-app article template, or another partner-owned content surface.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+  <!-- Widget placeholder -->
+  <div class="myFinance-widget"
+       data-widget-id="6fb33795-3b7b-4128-a70f-f3796d436e96"
+       data-campaign="www.transunion.com-other"></div>
+
+  <!-- Inline embed script (provided during onboarding) -->
+  <script async src="https://YOURDOMAIN/embed/myFinance.js"></script>
+
+</body>
+</html>
+```
+
+Replace the widget placeholder with your desired div tag provided to you on the Transunion Integration Documentation guide (under Placeholder Tags) and the Inline embed script with the script(s) provided to you on the Transunion Integration Documentation guide (under Script Integration).
+
+The example above shows the expected structure, but your assigned widget IDs, attributes, and script domain may differ.
+
+### 2. Configure the WebView
+
+#### iOS (WKWebView)
+
+```swift
+import WebKit
+
+let config = WKWebViewConfiguration()
+config.allowsInlineMediaPlayback = true
+
+// Required: handle window.open() calls from CTA clicks
+config.preferences.javaScriptCanOpenWindowsAutomatically = true
+
+let webView = WKWebView(frame: .zero, configuration: config)
+webView.uiDelegate = self      // implement createWebViewWith
+webView.navigationDelegate = self
+```
+
+Implement WKUIDelegate to handle new-window requests:
+
+```swift
+func webView(_ webView: WKWebView,
+             createWebViewWith configuration: WKWebViewConfiguration,
+             for navigationAction: WKNavigationAction,
+             windowFeatures: WKWindowFeatures) -> WKWebView? {
+    // Open CTA URLs in the system browser
+    if let url = navigationAction.request.url {
+        UIApplication.shared.open(url)
+    }
+    return nil
+}
+```
+
+#### Android (WebView)
+
+```kotlin
+val webView = findViewById<WebView>(R.id.webView)
+webView.settings.javaScriptEnabled = true
+webView.settings.domStorageEnabled = true
+webView.settings.setSupportMultipleWindows(true)
+
+// Required: handle window.open() calls from CTA clicks
+webView.webChromeClient = object : WebChromeClient() {
+    override fun onCreateWindow(
+        view: WebView, isDialog: Boolean,
+        isUserGesture: Boolean, resultMsg: Message
+    ): Boolean {
+        val newWebView = WebView(view.context)
+        newWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(
+                view: WebView, request: WebResourceRequest
+            ): Boolean {
+                // Open CTA URLs in the system browser
+                val intent = Intent(Intent.ACTION_VIEW, request.url)
+                view.context.startActivity(intent)
+                return true
+            }
+        }
+        val transport = resultMsg.obj as WebView.WebViewTransport
+        transport.webView = newWebView
+        resultMsg.sendToTarget()
+        return true
+    }
+}
+```
+
+### 3. Verify it works
+
+Load the partner page in the WebView and confirm:
+
+- The widget renders and fills the container width.
+- Product listings appear (e.g., mortgage rates, lender names).
+- Tapping a CTA button opens the destination URL in the system browser (or in-app browser).
+
+::
+
+::page-section
+## How it works
+
+```text
+┌─────────────────────────────────────┐
+│  Native App                         │
+│  ┌───────────────────────────────┐  │
+│  │  WebView                      │  │
+│  │  ┌─────────────────────────┐  │  │
+│  │  │  Publisher HTML Page    │  │  │
+│  │  │  ┌───────────────────┐  │  │  │
+│  │  │  │  Embed Script     │  │  │  │
+│  │  │  │  (discovers divs, │  │  │  │
+│  │  │  │   injects iframes)│  │  │  │
+│  │  │  └───────────────────┘  │  │  │
+│  │  │  ┌───────────────────┐  │  │  │
+│  │  │  │  Widget <iframe>  │  │  │  │
+│  │  │  │  (renders rates,  │  │  │  │
+│  │  │  │   handles clicks) │  │  │  │
+│  │  │  └───────────────────┘  │  │  │
+│  │  └─────────────────────────┘  │  │
+│  └───────────────────────────────┘  │
+└─────────────────────────────────────┘
+         │
+         │  CTA click
+         ▼
+  System Browser / In-App Browser
+  opens advertiser destination URL
+```
+
+The embed script scans the page for `<div class="myFinance-widget">` elements.
+
+For each placeholder, it requests widget configuration from the Inline API.
+
+It injects an `<iframe>` that loads the widget (e.g., a mortgage rate table).
+
+The widget fetches live product data and renders inside the iframe.
+
+When a user taps a CTA, the widget sends a message to the embed script, which calls `window.open(url, '_blank')` to navigate.
+
+::
+
+::page-section
+## Integration requirements
+
+### Required WebView capabilities
+
+The host WebView must support:
+
+- JavaScript
+- DOM storage (localStorage)
+- Cross-origin iframe content
+- Standard cross-origin XHR / fetch requests
+- New-window handling for CTA clicks triggered via `window.open()`
+- Navigation initiated by synthetic anchor clicks in fallback flows
+
+### Required network access
+
+The app environment must be able to reach these domains:
+
+| Domain | Purpose |
+|--------|---------|
+| `*.myfinance.com` | Embed script, widget content, API calls |
+| `*.bankrate.com` | Some widget data sources |
+| `cdn.cohesion.tagular.com` | Analytics |
+
+### Consent forwarding
+
+If your app has a consent flow, set consent groups before script load or before a manual re-initialize:
+
+```javascript
+window.setMyFinanceUserConsent(['C0001', 'C0002', 'C0004']);
+window.initializeMyFinance(true);
+```
+
+::
+
+::page-section
+## CTA click handling
+
+This is the most important part of the integration.
+
+When a user taps a product CTA (e.g., "See Rates"), the embed script calls `window.open(url, '_blank')`. By default, most mobile WebViews block this call.
+
+Your app must intercept the new-window request and decide where to open it:
+
+| Option | Behavior |
+|--------|----------|
+| System browser | Opens Safari/Chrome outside the app |
+| In-app browser (SFSafariViewController / Custom Tabs) | Opens inside the app with a browser chrome |
+| New WebView | Opens in a second WebView managed by the app |
+
+We recommend system browser or in-app browser for the best user experience and to ensure advertiser tracking pixels fire correctly.
+
+::
+
+::page-section
+## Consent
+
+If your app collects user consent (GDPR, CCPA), forward the consent groups before initializing the embed:
+
+```javascript
+window.setMyFinanceUserConsent(['C0001', 'C0002', 'C0004']);
+window.initializeMyFinance(true);
+```
+
+::
+
+::page-section
+## Validating the integration
+
+Test the integration using the same type of partner-owned page or in-app content surface that will be used in production.
+
+At minimum, confirm:
+
+- The widget renders inside the intended container and fills the available width.
+- Product data loads successfully inside the WebView.
+- CTA taps open in the system browser or approved in-app browser.
+- Returning to the app leaves the partner page and widget in a usable state.
+- Required domains are reachable from the app environment.
+
+If your team maintains internal QA pages or debug logging tools, they can be useful for pre-launch validation, but they are not required for the partner integration model described in this guide.
+
+::
+
+::page-section
+## FAQ
+
+### Can we use React Native?
+
+Yes. React Native's WebView component is a standard WebView under the hood. Load the partner page (or HTML) and configure the relevant WebView props for JavaScript, storage, and new-window handling. On Android in particular, confirm your WebView layer handles popup or window.open flows rather than assuming ordinary navigation callbacks will catch every CTA path.
+
+### What about Flutter?
+
+The webview_flutter or flutter_inappwebview packages work. Configure the JavaScript and new-window settings as described above.
+
+### Do we need to change anything about the widget itself?
+
+No. Widgets render identically in a WebView and a desktop browser. The only app-side work is ensuring the WebView allows JavaScript, cross-origin iframes, and window.open.
+
+### What if we want embedded lead forms instead of opening a new browser?
+
+Embedded lead form support (ELF) is available as a phase-2 enhancement. It requires additional message-passing between the widget iframe and your native code. Contact your Inline integration contact to discuss requirements.
+
+::
+
+::page-section
+## Known limitations (Phase 1)
+
+- Embedded lead forms (open_elf / redirect_elf link targets) are not supported in the initial mobile integration. CTA clicks will fall back to opening the URL in a new window.
+- Some institution-specific redirect flows (e.g., Bankrate Hot Pages) are designed for bankrate.com and will fall back to a standard redirect in app contexts.
+- Viewable impression tracking depends on the widget iframe receiving visibility information. If the WebView is not visible (e.g., in a background tab), impressions may not fire until the widget scrolls into view.
+
+::

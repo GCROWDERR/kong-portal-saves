@@ -6,9 +6,9 @@ page-layout:
 ---
 
 <!--
-  Draft / alternate hub (parent narrative for Getting Started + injest-spec). Publish in Konnect at your chosen slug (e.g. /guides/overview or /guides/guides-overview).
-  Getting Started: /guides/getting-started. Ingestion spec (repo injest-spec): set second tile linkHref to match Konnect slug (e.g. /guides/injest-spec).
-  FAQ: :::snippet br-accordion — panel copy lives in Snippets/br-accordion.
+Draft / alternate hub (parent narrative for Getting Started + injest-spec). Publish in Konnect at your chosen slug (e.g. /guides/overview or /guides/guides-overview).
+Getting Started: /guides/getting-started. Ingestion spec (repo injest-spec): set second tile linkHref to match Konnect slug (e.g. /guides/injest-spec).
+FAQ: :::snippet br-accordion — panel copy lives in Snippets/br-accordion.
 -->
 
 ::page-hero
@@ -27,9 +27,6 @@ Your home for Bankrate developer documentation. Start with **Getting Started** f
 ::
 
 ::page-section
-## Guides library
-
-This page is the parent for focused walkthroughs and references. **Getting Started** is the path for everyday Bankrate APIs. The **Partner Profile Ingestion & Offer Generation** document is a technical specification for partners who need CSV-based profile intake and batch offer responses. Additional portal topics may appear in the navigation as they are published.
 
   ::multi-column
   ---
@@ -63,17 +60,3 @@ This page is the parent for focused walkthroughs and references. **Getting Start
   ::
 ::
 
-::page-section
----
-padding: "50px 20px"
----
-#title
-Frequently Asked Questions
-
-#default
-  :::snippet
-  ---
-  name: "br-accordion"
-  ---
-  :::
-::

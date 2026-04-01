@@ -38,11 +38,11 @@ background-color: "#fff"
   color: "#fff"
   ---
   #title
-  <span style="display:block;margin:0 auto clamp(28px, 5vw, 48px);text-align:center;"><span style="display:inline-flex;align-items:center;gap:10px;padding:9px 21px;border-radius:999px;background:rgba(1,52,151,0.6);border:1px solid #0049c0;color:#d5e3fd;font-size:14px;font-weight:500;line-height:1.2;">Real-Time Financial Rates</span></span>Bankrate Developer Portal
-
+  <span style="display:block;margin:0 auto var(--kui-space-50);text-align:center;"><span style="display:inline-flex;align-items:center;gap:10px;padding:9px 21px;border-radius:999px;background:rgba(1,52,151,0.6);border:1px solid #0049c0;color:#d5e3fd;font-size:14px;font-weight:500;line-height:1.2;">Real-Time Financial Rates</span></span>Bankrate Developer Portal
+  
   #description
-  <span style="display:block;margin:0 auto clamp(32px, 5vw, 56px);">Integrate trusted financial rate data into your applications. Access real-time mortgage rates, savings yields, credit card offers, and calculation tools through our robust API platform.</span>
-
+  Integrate trusted financial rate data into your applications. Access real-time mortgage rates, savings yields, credit card offers, and calculation tools through our robust API platform.
+  
   #actions
     :::button
     ---
@@ -52,7 +52,7 @@ background-color: "#fff"
     ---
     Get Started →
     :::
-
+  
     :::button
     ---
     appearance: "secondary"
@@ -77,7 +77,7 @@ background-color: "#fff"
     columns-breakpoints:
       mobile: 1
       tablet: 2
-      desktop: 3
+      desktop: 2
     gap: "20px"
     ---
       :::snippet
@@ -90,7 +90,7 @@ background-color: "#fff"
         cardBody: "Step-by-step documentation covering authentication, usage, and best practices."
       ---
       :::
-
+    
       :::snippet
       ---
       name: "bankrate-link-tile"
@@ -101,116 +101,30 @@ background-color: "#fff"
         cardBody: "Browse our full catalog of financial data APIs with interactive endpoint docs."
       ---
       :::
-
-      :::snippet
-      ---
-      name: "bankrate-link-tile"
-      data:
-        linkHref: "/guides/getting-started#authentication"
-        imageSrc: "https://www.figma.com/api/mcp/asset/01122c9f-ed25-437c-8102-33dfdf3689fa"
-        cardTitle: "Get Your API Key"
-        cardBody: "Generate test and production API keys to start building immediately."
-      ---
-      :::
+    
     ::
   ::
 
-  ::container
+::
+
+::page-section
+---
+tag: "section"
+full-width: true
+max-width: "100%"
+margin: "0"
+padding: "var(--kui-space-80) 0"
+background-color: "#fff"
+---
+#default
+  :::snippet
   ---
-  padding: "0"
-  max-width: "100%"
-  width: "100%"
-  margin: "0"
+  name: "example-guides-page-banner"
+  data:
+    header: "API Products"
+    subheader: "Explore our suite of financial data APIs."
+    buttonTo: "/apis"
+    buttonText: "View APIs"
   ---
-    :::snippet
-    ---
-    name: "example-guides-page-banner"
-    data:
-      header: "API Products"
-      subheader: "Explore our suite of financial data APIs."
-      buttonTo: "/apis"
-      buttonText: "View APIs"
-    ---
-    :::
-  ::
-
-  ::page-section
-  ---
-  tag: "section"
-  full-width: true
-  max-width: "100%"
-  margin: "0"
-  padding: "80px var(--kui-space-70)"
-  background-color: "#f6faff"
-  border-top: "1px solid #d5e3fd"
-  ---
-    ::container
-    ---
-    max-width: "1280px"
-    margin: "0 auto"
-    ---
-      ::container
-      ---
-      text-align: "center"
-      margin-bottom: "40px"
-      ---
-      # Developer Resources
-
-      <span style="display:block;font-size:14px;padding-bottom:24px;">Everything you need to integrate Bankrate data into your applications</span>
-      ::
-
-      ::multi-column
-      ---
-      columns-breakpoints:
-        mobile: 1
-        phablet: 2
-        desktop: 4
-      gap: "20px"
-      ---
-        :::snippet
-        ---
-        name: "bankrate-link-tile"
-        data:
-          linkHref: "/guides/getting-started"
-          imageSrc: "https://www.figma.com/api/mcp/asset/af2d0355-0a01-419a-a2f8-9a1ba7231866"
-          cardTitle: "Quick Start Guide"
-          cardBody: "Get up and running with Bankrate APIs in under 5 minutes."
-        ---
-        :::
-
-        :::snippet
-        ---
-        name: "bankrate-link-tile"
-        data:
-          linkHref: "/guides/getting-started#authentication"
-          imageSrc: "https://www.figma.com/api/mcp/asset/810a9b72-5590-4f90-93f8-b0361808542e"
-          cardTitle: "Authentication"
-          cardBody: "Learn about API key management, OAuth 2.0, and rate limiting."
-        ---
-        :::
-
-        :::snippet
-        ---
-        name: "bankrate-link-tile"
-        data:
-          linkHref: "/guides/getting-started#sdks"
-          imageSrc: "https://www.figma.com/api/mcp/asset/d04ca18a-3203-4ea9-b061-75c1f2752e84"
-          cardTitle: "SDK & Libraries"
-          cardBody: "Official client libraries for Node.js, Python, Go, and more."
-        ---
-        :::
-
-        :::snippet
-        ---
-        name: "bankrate-link-tile"
-        data:
-          linkHref: "/guides/getting-started#webhooks"
-          imageSrc: "https://www.figma.com/api/mcp/asset/579aad58-ce96-40f9-a647-a9a4a8fbdb86"
-          cardTitle: "Webhooks"
-          cardBody: "Set up real-time notifications for rate changes and updates."
-        ---
-        :::
-      ::
-    ::
-  ::
+  :::
 ::

@@ -10,6 +10,8 @@ buttonTo: "/apis"
 ::page-hero
 ---
 full-width: true
+max-width: "100%"
+width: "100%"
 title-tag: "h2"
 text-align: "center"
 title-font-size: "36px"
@@ -19,6 +21,7 @@ description-font-size: "22px"
 description-line-height: "30px"
 background-color: "var(--kui-color-background-primary-weakest)"
 padding: "20px 0px"
+box-sizing: "border-box"
 ---
 #title
 {{ $doc.snippet.header || 'Explore our APIs' }}
