@@ -9,8 +9,8 @@ page-layout:
 <!--
 Figma: https://www.figma.com/design/vby2vMFugtGpAxDWBnYU7F/Kong-Portal-Portal-UI-Component-Library?node-id=165-120
 Nav labels in design: Overview, Authentication, First Request, SDKs, Rate Limits, Error Handling, Webhooks.
-Overview step cards: ::snippet bankrate-step-link-tile (Snippets/bankrate-step-link-tile). Sync to Portal with bankrate-link-tile.
-Bottom CTA: own full-width ::page-section wrapping ::snippet example-guides-page-banner-dual-button (Snippets/example-guides-page-banner-dual-button); Portal snippet name must match `name:` below.
+Overview step cards: ::snippet bankrate-step-link-tile (static tiles, no link/hover).
+Bottom CTA: own ::page-section below Overview (sibling margin-top avoids flex swallowing inner padding). Snippet example-guides-page-banner-dual-button; `name:` must match Portal.
 Header/footer and global nav are configured in Konnect theme / layout snippets.
 -->
 
@@ -47,10 +47,9 @@ This guide walks you through setting up your Bankrate API access, authenticating
     ---
     name: "bankrate-step-link-tile"
     data:
-      linkHref: "#overview-account"
       stepNumber: "01"
       cardTitle: "Create an Account"
-      cardBody: "Sign up for a Bankrate developer account to get started. Enterprise tier provides higher rate limits and dedicated support."
+      cardBody: "Sign up for a Bankrate developer account to get started."
     ---
     :::
 
@@ -58,10 +57,9 @@ This guide walks you through setting up your Bankrate API access, authenticating
     ---
     name: "bankrate-step-link-tile"
     data:
-      linkHref: "#authentication"
       stepNumber: "02"
       cardTitle: "Generate API Keys"
-      cardBody: "Navigate to the API Keys section in your dashboard. Create separate keys for development, staging, and production environments."
+      cardBody: "Navigate to the API Keys section of the Bankrate Developer Portal. Create an application for your new API keys."
     ---
     :::
 
@@ -69,7 +67,6 @@ This guide walks you through setting up your Bankrate API access, authenticating
     ---
     name: "bankrate-step-link-tile"
     data:
-      linkHref: "#first-request"
       stepNumber: "03"
       cardTitle: "Make Your First Request"
       cardBody: "Use the code examples below to test your connection and verify your API key is working correctly."
@@ -80,203 +77,30 @@ This guide walks you through setting up your Bankrate API access, authenticating
     ---
     name: "bankrate-step-link-tile"
     data:
-      linkHref: "#rate-limits"
       stepNumber: "04"
       cardTitle: "Go to Production"
-      cardBody: "Once tested, configure rate limiting, error handling, and monitoring. Contact our team for enterprise scaling needs."
+      cardBody: "That's it! You're now ready to start building with Bankrate."
     ---
     :::
   ::
-
-<a id="overview-account" style="scroll-margin-top:96px;"></a>
-
-Sign up for a Bankrate developer account to get started. Enterprise tier provides higher rate limits and dedicated support.
-
-<span id="authentication" style="scroll-margin-top:96px;"></span>
-
-## Authentication
-
-All API requests require authentication via an API key or OAuth 2.0 bearer token. Include your credentials in the `Authorization` header.
-
-**API Key Authentication**
-
-```http
-# Include in every request header
-Authorization: Bearer YOUR_API_KEY
-
-# Or as a query parameter (not recommended for production)
-GET /v3/rates/mortgage?api_key=YOUR_API_KEY
-```
-
-**OAuth 2.0 Flow**
-
-```bash
-# Step 1: Request an access token
-curl -X POST "https://auth.bankrate.com/oauth/token" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=client_credentials" \
-  -d "client_id=YOUR_CLIENT_ID" \
-  -d "client_secret=YOUR_CLIENT_SECRET"
-
-# Step 2: Use the token in subsequent requests
-curl -X GET "https://api.bankrate.com/v3/rates/mortgage" \
-  -H "Authorization: Bearer ACCESS_TOKEN"
-```
-
-::alert
----
-appearance: "warning"
-show-icon: true
-title: "Key rotation best practices"
----
-Rotate your API keys every 90 days. Use environment variables to store keys and never commit them to source control.
-::
-
-<span id="first-request" style="scroll-margin-top:96px;"></span>
-
-## First Request
-
-Let's verify your setup by fetching current mortgage rates. Replace `YOUR_API_KEY` with your actual key.
-
-**Example Request**
-
-```bash
-curl -X GET "https://api.bankrate.com/v3/rates/mortgage?term=30&type=fixed" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Accept: application/json"
-```
-
-**Expected Response (200 OK)**
-
-```json
-{
-  "data": {
-    "rates": [
-      {
-        "term": "30-year",
-        "type": "fixed",
-        "rate": 6.875,
-        "apr": 6.952,
-        "last_updated": "2026-03-03T08:00:00Z"
-      }
-    ]
-  },
-  "meta": {
-    "request_id": "req_abc123",
-    "timestamp": "2026-03-03T14:30:00Z"
-  }
-}
-```
-
-::alert
----
-appearance: "success"
-show-icon: true
-title: "You're all set."
----
-If you received a 200 response, your API key is configured correctly. Head to the [API Catalog](/catalog) to explore all available endpoints.
-::
-
-## SDKs
-
-Install one of our official client libraries to simplify integration. All SDKs include TypeScript or type definitions, automatic retries, and built-in rate limit handling.
-
-| Language | Install | Version |
-|----------|---------|---------|
-| Node.js | `npm install @bankrate/sdk` | v3.2.1 |
-| Python | `pip install bankrate-sdk` | v3.2.0 |
-| Go | `go get github.com/bankrate/sdk-go` | v3.1.0 |
-| Ruby | `gem install bankrate-sdk` | v2.8.0 |
-
-<span id="rate-limits" style="scroll-margin-top:96px;"></span>
-
-## Rate Limits
-
-Rate limits are applied per API key. When you exceed the limit, requests return a `429 Too Many Requests` response.
-
-| Plan | Rate limit | Daily limit | Support |
-|------|------------|-------------|---------|
-| Free | 100 req/min | 10,000 | Community |
-| Pro | 500 req/min | 100,000 | Email |
-| Enterprise | 2,000 req/min | Unlimited | Dedicated |
-
-**Rate limit response headers**
-
-```http
-X-RateLimit-Limit: 1000
-X-RateLimit-Remaining: 847
-X-RateLimit-Reset: 1709489400
-Retry-After: 30
-```
-
-## Error Handling
-
-The API uses standard HTTP status codes. All errors return a consistent JSON body with an error code, message, and request ID for debugging.
-
-| Code | Meaning | Action |
-|------|---------|--------|
-| `400` | Bad Request | Check request parameters and body format |
-| `401` | Unauthorized | Verify your API key or token is valid |
-| `403` | Forbidden | Check your plan permissions for this endpoint |
-| `404` | Not Found | Verify the endpoint URL and resource ID |
-| `429` | Rate Limited | Wait for `Retry-After` duration, then retry |
-| `500` | Server Error | Retry with exponential backoff |
-
-**Error response format**
-
-```json
-{
-  "error": {
-    "code": "RATE_LIMIT_EXCEEDED",
-    "message": "You have exceeded the rate limit of 1000 requests per minute.",
-    "request_id": "req_xyz789",
-    "retry_after": 30
-  }
-}
-```
-
-## Webhooks
-
-Subscribe to real-time notifications when rates change, new products become available, or when specific thresholds are met. Webhooks are delivered via HTTP `POST` to your configured endpoint.
-
-**Example webhook payload**
-
-```json
-{
-  "event": "rate.updated",
-  "timestamp": "2026-03-03T14:30:00Z",
-  "data": {
-    "product": "mortgage",
-    "term": "30-year",
-    "previous_rate": 6.900,
-    "new_rate": 6.875,
-    "change": -0.025
-  },
-  "webhook_id": "wh_abc123",
-  "signature": "sha256=..."
-}
-```
-
-- **`rate.updated`** — Fired when any monitored rate changes.
-- **`product.new`** — Fired when a new financial product is added.
-- **`threshold.reached`** — Fired when a rate crosses your configured threshold.
 
 ::
 
 ::page-section
 ---
+margin: "24px 0 0 0"
+padding: "0"
 full-width: true
 max-width: "100%"
-margin: "0"
-padding: "0"
 ---
-  ::snippet
+#default
+  :::snippet
   ---
   name: "example-guides-page-banner-dual-button"
   data:
     bannerTitle: "Ready to build?"
     bannerDescription: "Explore our full API catalog or dive into detailed endpoint documentation."
-    bannerMargin: "var(--kui-space-80, 48px) 0 0 0"
+    bannerMargin: "0"
     primaryTo: "/catalog"
     primaryLabel: "API Catalog →"
     secondaryTo: "/guides"
@@ -285,6 +109,5 @@ padding: "0"
     secondaryBorder: "1px solid #d5e3fd"
     secondaryBackground: "#fff"
   ---
-  ::
-
+  :::
 ::

@@ -1,22 +1,19 @@
 ---
 title: bankrate-step-link-tile
-description: "Same layout as bankrate-link-tile but shows a step number (01–04) instead of an icon. Use on Getting Started and similar flows."
-linkHref: "#overview"
+description: "Step card (01–04) matching bankrate-link-tile layout. Static panel—no link, no hover (use for informational steps only)."
 stepNumber: "01"
 cardTitle: "Step title"
 cardBody: "Short description for this step."
 ---
 
 <!--
-  Paired with bankrate-link-tile (icon variant). Sync to Portal as a snippet.
-  data: linkHref, stepNumber, cardTitle, cardBody
+  Static informational tile for Getting Started–style flows. For clickable cards with icon, use bankrate-link-tile.
+  data: stepNumber, cardTitle, cardBody
 -->
 
-::a
+::container
 ---
-:href: snippet.linkHref
 display: "block"
-text-decoration: "none"
 color: "inherit"
 ---
   ::container
@@ -27,12 +24,7 @@ color: "inherit"
   background-color: "#fff"
   text-align: "left"
   styles: |
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
     box-shadow: 0 1px 3px rgba(1, 20, 61, 0.06);
-    &:hover {
-      box-shadow: 0 12px 32px rgba(1, 52, 151, 0.12);
-      border-color: #c5d7fc;
-    }
   ---
     ::container
     ---
