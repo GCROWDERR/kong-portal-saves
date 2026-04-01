@@ -1,0 +1,349 @@
+
+---
+title: "Bankrate Partner Profiles"
+description: ""
+page-layout:
+  sidebar-left: "example-guides-page-nav"
+  sidebar-right: "example-page-toc"
+---
+
+::page-hero
+---
+full-width: true
+title-font-size: "40px"
+title-line-height: "46px"
+text-max-width: "80%"
+padding: "0px"
+---
+#title
+Partner × Bankrate API Spec
+
+::
+
+::page-section
+
+## Overview
+
+This document describes the integration between Partner and Bankrate. Partner authenticates via Bankrate Gateway API keys. Two server-side endpoints are exposed by Bankrate to support user profile sync and client token generation.
+
+---
+
+## Flow
+
+```mermaid
+sequenceDiagram
+    participant Partner
+    participant Bankrate
+
+    Partner->>Bankrate: POST /profile/v1/update-user-profile<br/>(Bankrate Gateway API key + PII)
+    Bankrate-->>Partner: 200 OK { bankrate_user_id }
+
+    Partner->>Bankrate: POST /profile/v1/generate-user-client-token<br/>(Bankrate Gateway API key + partner_user_id)
+    Bankrate-->>Partner: 200 OK { bankrate-user-client-token: JWT }
+```
+
+---
+
+## Authentication
+
+All endpoints require a Bankrate Gateway API key passed in the request header.
+
+| Header        | Value                        |
+|---------------|------------------------------|
+| `x-api-key`   | `<bankrate-gateway-api-key>` |
+
+API keys are created and managed by Partner in the Bankrate Gateway.
+
+---
+
+## Endpoints
+
+### `POST /profile/v1/update-user-profile`
+
+  Called **server-side by Partner at time of user login**. Creates or updates a Bankrate User Profile using PII data from Partner.
+
+#### Request
+
+  **Headers**
+
+  | Header         | Required | Description                   |
+  |----------------|----------|-------------------------------|
+  | `x-api-key`    | Yes      | Bankrate Gateway API key      |
+  | `Content-Type` | Yes      | `application/json`            |
+
+  **Body**
+
+```json
+{
+  "partner_user_id": "string",
+  "firstName": "string",
+  "lastName": "string",
+  "phoneNumber": "string | null",
+  "dateOfBirth": "string | null",
+  "employmentStatus": "Employed | Not employed | Self employed | Military | Retired | Other | null",
+  "annualSalary": "integer | null",
+  "totalOtherIncome": "integer | null",
+  "address": {
+    "address1": "string",
+    "address2": "string | null",
+    "city": "string",
+    "state": "string",
+    "zipCode": "string",
+    "country": "string"
+  },
+  "creditProfile": {
+    "creditScoreRange": "780+ | 760-779 | 740-759 | 720-739 | 700-719 | 680-699 | 660-679 | 640-659 | 620-639 | 580-619 | under 580 | No credit history | I'm not sure | null",
+    "estimatedCreditScore": "780 | 760 | 740 | 720 | 700 | 680 | 660 | 640 | 620 | 580 | 300 | 1 | 0 | null",
+    "totalCreditCardDebt": "integer | null",
+    "totalOtherDebt": "integer | null"
+  },
+  "mortgageProfile": {
+    "addressId": "string | null",
+    "mortgageType": "string | null",
+    "zipCode": "string | null",
+    "purchasePrice": "integer | null",
+    "downPayment": "integer | null",
+    "downPaymentPercent": "number | null",
+    "loanTerm": "string | null",
+    "showFhaLoans": "boolean | null",
+    "showVaLoans": "boolean | null",
+    "points": "string | null",
+    "propertyType": "string | null",
+    "propertyUse": "string | null"
+  },
+  "homeEquityProfile": {
+    "addressId": "string | null",
+    "zipCode": "string | null",
+    "propertyValue": "integer | null",
+    "existingMortgageBalance": "integer | null",
+    "desiredLoanAmount": "integer | null",
+    "loanTerm": "integer | null"
+  },
+  "wealthProfile": {
+    "desiredInterestRate": "number | null",
+    "totalCheckingAndSavings": "integer | null",
+    "totalInvestments": "integer | null",
+    "totalRetirement": "integer | null"
+  },
+  "financialGoals": [
+    {
+      "id": "string",
+      "goalId": "string",
+      "name": "string"
+    }
+  ],
+  "properties": [
+    {
+      "id": "string",
+      "name": "string | null",
+      "homeOwnership": "string",
+      "homeValue": "integer",
+      "mortgageBalance": "integer | null",
+      "monthlyPayment": "integer | null",
+      "isPrimary": "boolean",
+      "address": {
+        "address1": "string",
+        "address2": "string | null",
+        "city": "string",
+        "state": "string",
+        "zipCode": "string",
+        "country": "string"
+      }
+    }
+  ]
+}
+```
+
+  | Field                                      | Required | Type                                                                                        |
+  |--------------------------------------------|----------|---------------------------------------------------------------------------------------------|
+  | `partner_user_id`                          | Yes      | `string`                                                                                    |
+  | `firstName`                                | No       | `string`                                                                                    |
+  | `lastName`                                 | No       | `string`                                                                                    |
+  | `phoneNumber`                              | No       | `string \| null`                                                                            |
+  | `dateOfBirth`                              | No       | `string \| null` (ISO 8601)                                                                 |
+  | `employmentStatus`                         | No       | `"Employed" \| "Not employed" \| "Self employed" \| "Military" \| "Retired" \| "Other" \| null` |
+  | `annualSalary`                             | No       | `integer \| null`                                                                           |
+  | `totalOtherIncome`                         | No       | `integer \| null`                                                                           |
+  | `address`                                  | No       | `Address \| null` — see below                                                               |
+  | `address.address1`                         | Yes*     | `string`                                                                                    |
+  | `address.address2`                         | Yes*     | `string \| null`                                                                            |
+  | `address.city`                             | Yes*     | `string`                                                                                    |
+  | `address.state`                            | Yes*     | `string`                                                                                    |
+  | `address.zipCode`                          | Yes*     | `string`                                                                                    |
+  | `address.country`                          | Yes*     | `string`                                                                                    |
+  | `creditProfile`                            | No       | `CreditProfile \| null` — see below                                                         |
+  | `creditProfile.creditScoreRange`           | Yes*     | `"780+" \| "760-779" \| ... \| "No credit history" \| "I'm not sure" \| null`               |
+  | `creditProfile.estimatedCreditScore`       | Yes*     | `780 \| 760 \| ... \| 0 \| null`                                                            |
+  | `creditProfile.totalCreditCardDebt`        | Yes*     | `integer \| null`                                                                           |
+  | `creditProfile.totalOtherDebt`             | Yes*     | `integer \| null`                                                                           |
+  | `mortgageProfile`                          | No       | `MortgageProfile \| null` — see below                                                       |
+  | `homeEquityProfile`                        | No       | `HomeEquityProfile \| null` — see below                                                     |
+  | `wealthProfile`                            | No       | `WealthProfile \| null` — all fields optional                                               |
+  | `financialGoals`                           | No       | `FinancialGoal[]` — all fields optional                                                     |
+  | `properties`                               | No       | `Property[]` — all fields optional                                                          |
+
+  _\* Required when the parent object is provided._
+
+#### Response
+
+  **200 OK** — User profile created or updated successfully.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "data": {
+    "bankrate_user_id": "string"
+  }
+}
+```
+
+  **400 Bad Request** — Missing or invalid fields.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "string",
+  "details": {
+    "type": "validation error",
+    "errors": [
+      {
+        "field": "string",
+        "error": "string"
+      }
+    ]
+  }
+}
+```
+
+  **401 Unauthorized** — Missing or invalid Bankrate Gateway API key.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "Invalid or missing API key."
+}
+```
+
+  **500 Internal Server Error** — Unexpected server failure.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "An unexpected error occurred."
+}
+```
+
+---
+
+### `POST /profile/v1/generate-user-client-token`
+
+Called **server-side by Partner when a user accesses an offer page**. Returns a short-lived JWT.
+
+#### Request
+
+**Headers**
+
+| Header         | Required | Description                   |
+|----------------|----------|-------------------------------|
+| `x-api-key`    | Yes      | Bankrate Gateway API key      |
+| `Content-Type` | Yes      | `application/json`            |
+
+**Body**
+
+```json
+{
+  "partner_user_id": "string"
+}
+```
+
+| Field             | Required | Description                        |
+|-------------------|----------|------------------------------------|
+| `partner_user_id` | Yes      | Unique Partner user identifier     |
+
+#### Response
+
+**200 OK** — Token generated successfully.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "data": {
+    "bankrate-user-client-token": "string (JWT)"
+  }
+}
+```
+
+**JWT Payload**
+
+```json
+{
+  "iss": "{{issuer}}",
+  "sub": "{{Bankrate User ID}}",
+  "aud": "{{audience}}",
+  "exp": "{{expiration}}",
+  "iat": "{{issued at}}"
+}
+```
+
+| Claim | Description                                         |
+|-------|-----------------------------------------------------|
+| `iss` | Issuer — identifies the party that issued the token |
+| `sub` | Subject — the Bankrate User ID                      |
+| `aud` | Audience — intended recipient(s) of the token       |
+| `exp` | Expiration time (Unix timestamp)                    |
+| `iat` | Issued at time (Unix timestamp)                     |
+
+**400 Bad Request** — Missing or invalid `partner_user_id`.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "string",
+  "details": {
+    "type": "validation error",
+    "errors": [
+      {
+        "field": "string",
+        "error": "string"
+      }
+    ]
+  }
+}
+```
+
+**401 Unauthorized** — Missing or invalid Bankrate Gateway API key.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "Invalid or missing API key."
+}
+```
+
+**404 Not Found** — No Bankrate User Profile found for the given `partner_user_id`.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "No Bankrate user profile found for the provided Partner user ID."
+}
+```
+
+**500 Internal Server Error** — Unexpected server failure.
+
+```json
+{
+  "bankrateRequestId": "string",
+  "message": "An unexpected error occurred."
+}
+```
+
+---
+
+## Notes
+
+  - `/profile/v1/update-user-profile` must be called at **login time**, not on every page load.
+  - `/profile/v1/generate-user-client-token` should be called on **every offer page load** to ensure the token is fresh.
+  - The JWT returned by `/profile/v1/generate-user-client-token` should be treated as short-lived. Token expiry TBD with Bankrate.
+  - PII transmitted to `/profile/v1/update-user-profile` must be sent over HTTPS only.
+  - Bankrate Gateway API keys must not be exposed client-side.

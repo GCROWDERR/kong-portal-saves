@@ -1,0 +1,743 @@
+
+---
+title: "TransUnion integration"
+description: "Embed Bankrate inline widgets on partner pages: core script, initializeInline, and TransUnion placeholder tags (myFinance widgets)."
+page-layout:
+  sidebar-left: "example-guides-page-nav"
+  sidebar-right: "example-page-toc"
+---
+
+<!--
+  Source reference: https://www.myfinance.com/integration/transunion-integration-documentation
+  Partner-facing Bankrate inline media / TransUnion widget integration. Sync body to Konnect; adjust slug to match your portal route.
+-->
+
+::page-hero
+---
+full-width: true
+title-font-size: "40px"
+title-line-height: "46px"
+text-max-width: "80%"
+padding: "0px"
+---
+#tagline
+Guides
+
+#title
+TransUnion integration
+
+#description
+Add Bankrate inline scripts and placeholder tags so TransUnion-facing widgets render, resize, and track correctly on your pages.
+
+::
+
+::page-section
+## Script integration
+
+The first step is to add the following script to **every page** where Bankrate widgets should appear:
+
+```html
+<script async src="https://inline.bankrate.com/embed/inlineMedia_core.js"></script>
+```
+
+After that script has loaded and you are ready to mount widgets, run the integration initializer:
+
+```html
+<script type="text/javascript">
+window.initializeInline({
+  "overwriteContainer": true,
+  "origin": "https://inline.bankrate.com"
+});
+</script>
+```
+
+Together, these scripts are responsible for:
+
+1. **Placement** — Inserting a widget at the location of each placeholder tag on the page.
+2. **Resizing** — Handling resize behavior for embedded content.
+3. **Tracking** — Attributing widget performance to your page and site.
+
+  ::alert
+  ---
+  appearance: "warning"
+  show-icon: true
+  title: "Load order"
+  message: "Run initializeInline only after the placeholder tags below are already in the DOM. If placeholders are injected later, widgets will not load. See Troubleshooting for common fixes."
+  ---
+  ::
+
+::
+
+::page-section
+## Placeholder tags
+
+Each widget is a **`<div>`** with class `myFinance-widget`, a unique **`data-ad-id`**, a **`data-campaign`** value, and **`data-s1`** for your sub-ID (replace `PLACESUBIDHERE` with your assigned value).
+
+Under each widget you get:
+
+- **Copy snippet** — Opens the markup as **plain text in a new tab** via a `data:` URL; select all and copy (or use your browser’s copy). If your browser blocks `data:` navigation, copy from the fenced code block above the buttons.
+- **Open in MyFinance** — Opens the [TransUnion integration directory](https://www.myfinance.com/integration/transunion-integration-documentation) in a new tab (same hub as the partner UI; use search or filters there to match the widget).
+
+Widgets are grouped by vertical below (**18** total). Refresh from MyFinance if `data-ad-id` / `data-campaign` values change.
+
+### Mortgages
+
+#### TransUnion: Mortgage Purchase
+
+```html
+<div class="myFinance-widget" data-ad-id="c0be920c-2eb6-4079-bf80-3c82e92e1ce8" data-campaign="transunion-mortgage-purchase" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22c0be920c-2eb6-4079-bf80-3c82e92e1ce8%22%20data-campaign%3D%22transunion-mortgage-purchase%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Mortgage Refi
+
+```html
+<div class="myFinance-widget" data-ad-id="3a2065e0-0576-436f-a7fc-2edde9eea18e" data-campaign="transunion-mortgage-refi" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%223a2065e0-0576-436f-a7fc-2edde9eea18e%22%20data-campaign%3D%22transunion-mortgage-refi%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Mortgage Purchase Calculator
+
+```html
+<div class="myFinance-widget" data-ad-id="95d81e3c-97ae-4e8c-bb9a-0cc5ec41623f" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%2295d81e3c-97ae-4e8c-bb9a-0cc5ec41623f%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Mortgage Refi Calculator
+
+```html
+<div class="myFinance-widget" data-ad-id="f03dc7cb-9791-4f7d-9e6c-45bf292e305f" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22f03dc7cb-9791-4f7d-9e6c-45bf292e305f%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+### Home equity
+
+#### TransUnion: Home Equity
+
+```html
+<div class="myFinance-widget" data-ad-id="d2d5df93-0af0-46ad-850e-7acdecc48d15" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22d2d5df93-0af0-46ad-850e-7acdecc48d15%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+### Investing & deposits
+
+#### TransUnion: Investing
+
+```html
+<div class="myFinance-widget" data-ad-id="d8a55d1d-adb1-4607-adaf-4ddef06434a4" data-campaign="transunion-investing" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22d8a55d1d-adb1-4607-adaf-4ddef06434a4%22%20data-campaign%3D%22transunion-investing%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Savings
+
+```html
+<div class="myFinance-widget" data-ad-id="64c61e8e-a7bb-4df9-8b4a-e1b0b3e403de" data-campaign="transunion-savings" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%2264c61e8e-a7bb-4df9-8b4a-e1b0b3e403de%22%20data-campaign%3D%22transunion-savings%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: CDs
+
+```html
+<div class="myFinance-widget" data-ad-id="e4c7f21a-a439-4992-a080-086ddf072e5d" data-campaign="transunion-cds" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22e4c7f21a-a439-4992-a080-086ddf072e5d%22%20data-campaign%3D%22transunion-cds%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Checking
+
+```html
+<div class="myFinance-widget" data-ad-id="ddc6914c-9ebe-4288-a4c8-ffa930e098a1" data-campaign="transunion-checking" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22ddc6914c-9ebe-4288-a4c8-ffa930e098a1%22%20data-campaign%3D%22transunion-checking%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+### Loans
+
+#### TransUnion: Student Loans
+
+```html
+<div class="myFinance-widget" data-ad-id="72a5309d-7016-428f-a5e3-beca808ed6ad" data-campaign="transunion-student-loans" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%2272a5309d-7016-428f-a5e3-beca808ed6ad%22%20data-campaign%3D%22transunion-student-loans%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion Auto Loans
+
+```html
+<div class="myFinance-widget" data-ad-id="a81a1d2d-b497-436e-b1ba-2e37ef98deb9" data-campaign="transunion-auto-loans" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22a81a1d2d-b497-436e-b1ba-2e37ef98deb9%22%20data-campaign%3D%22transunion-auto-loans%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Personal Loans
+
+```html
+<div class="myFinance-widget" data-ad-id="93be5763-a5c3-4996-bbe1-b38160bb531a" data-campaign="transunion-personal-loans" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%2293be5763-a5c3-4996-bbe1-b38160bb531a%22%20data-campaign%3D%22transunion-personal-loans%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+### Insurance & cards
+
+#### TransUnion: Life Insurance
+
+```html
+<div class="myFinance-widget" data-ad-id="d92a02a1-b3db-4840-87d0-76983c0293b9" data-campaign="transunion-life-insurance" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22d92a02a1-b3db-4840-87d0-76983c0293b9%22%20data-campaign%3D%22transunion-life-insurance%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Home Insurance Multi
+
+```html
+<div class="myFinance-widget" data-ad-id="3e24dca5-4b32-4610-8d9c-3cffa5d77167" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%223e24dca5-4b32-4610-8d9c-3cffa5d77167%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Credit Cards Marketplace
+
+```html
+<div class="myFinance-widget" data-ad-id="0ff1bd03-d87a-4df4-9204-5c4300d7b4ef" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%220ff1bd03-d87a-4df4-9204-5c4300d7b4ef%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: Converge Flow
+
+```html
+<div class="myFinance-widget" data-ad-id="5db6ba0b-d20f-4914-8130-24d84888706e" data-campaign="transunion-auto-insurance-wrapper" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%225db6ba0b-d20f-4914-8130-24d84888706e%22%20data-campaign%3D%22transunion-auto-insurance-wrapper%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+#### TransUnion: CardMatch
+
+```html
+<div class="myFinance-widget" data-ad-id="fad7e748-85a4-4f94-96b2-3fbe9020a8da" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22fad7e748-85a4-4f94-96b2-3fbe9020a8da%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+### Other
+
+#### TransUnion: FAM Quiz
+
+```html
+<div class="myFinance-widget" data-ad-id="c851678d-06e6-4e3f-8ac6-a13d4db05ceb" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>
+```
+
+  ::container
+  ---
+  display: "flex"
+  flex-wrap: "wrap"
+  gap: "12px"
+  align-items: "center"
+  margin-bottom: "var(--kui-space-80)"
+  ---
+    :::button
+    ---
+    appearance: "secondary"
+    size: "medium"
+    to: "data:text/plain;charset=utf-8,%3Cdiv%20class%3D%22myFinance-widget%22%20data-ad-id%3D%22c851678d-06e6-4e3f-8ac6-a13d4db05ceb%22%20data-campaign%3D%22transunion-integrations%22%20data-s1%3D%22PLACESUBIDHERE%22%3E%3C%2Fdiv%3E"
+    external: true
+    ---
+    Copy snippet
+    :::
+
+    :::button
+    ---
+    appearance: "tertiary"
+    size: "medium"
+    to: "https://www.myfinance.com/integration/transunion-integration-documentation"
+    external: true
+    ---
+    Open in MyFinance
+    :::
+  ::
+
+::
+
+::page-section
+## Troubleshooting
+
+### Widgets never appear
+
+- Confirm **`inlineMedia_core.js`** finished loading (network tab, no blocked third-party scripts).
+- Confirm **`initializeInline`** runs **after** all `myFinance-widget` nodes exist in the document. If your framework mounts placeholders asynchronously, call **`initializeInline` again** after they render (if supported) or move initialization to a lifecycle hook that runs after placeholders exist.
+
+### Wrong or empty widget
+
+- Verify **`data-ad-id`**, **`data-campaign`**, and **`data-s1`** match what Bankrate issued for your integration. Replace **`PLACESUBIDHERE`** with your real sub-ID.
+
+### Styling / layout
+
+- **`overwriteContainer: true`** lets the embed manage its container. If layout conflicts with your CSS, work with your Bankrate contact before changing integration flags.
+
+::
