@@ -74,26 +74,54 @@ This script is responsible for handling the integration, display, and tracking o
 
 Each widget is a **`<div>`** with class `myFinance-widget`, a unique **`data-ad-id`**, a **`data-campaign`** value, and **`data-s1`** for your sub-ID (replace `PLACESUBIDHERE` with your assigned value).
 
+### Mortgages
+
 | Name | Placeholder |
 |------|----------------|
 | Transunion: Mortgage Purchase | `<div class="myFinance-widget" data-ad-id="c0be920c-2eb6-4079-bf80-3c82e92e1ce8" data-campaign="transunion-mortgage-purchase" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Mortgage Refi | `<div class="myFinance-widget" data-ad-id="3a2065e0-0576-436f-a7fc-2edde9eea18e" data-campaign="transunion-mortgage-refi" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Mortgage Purchase Calculator | `<div class="myFinance-widget" data-ad-id="95d81e3c-97ae-4e8c-bb9a-0cc5ec41623f" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Mortgage Refi Calculator | `<div class="myFinance-widget" data-ad-id="f03dc7cb-9791-4f7d-9e6c-45bf292e305f" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
+
+### Home equity
+
+| Name | Placeholder |
+|------|----------------|
 | Transunion: Home Equity | `<div class="myFinance-widget" data-ad-id="d2d5df93-0af0-46ad-850e-7acdecc48d15" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
+
+### Investing & deposits
+
+| Name | Placeholder |
+|------|----------------|
 | Transunion: Investing | `<div class="myFinance-widget" data-ad-id="d8a55d1d-adb1-4607-adaf-4ddef06434a4" data-campaign="transunion-investing" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Savings | `<div class="myFinance-widget" data-ad-id="64c61e8e-a7bb-4df9-8b4a-e1b0b3e403de" data-campaign="transunion-savings" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: CDs | `<div class="myFinance-widget" data-ad-id="e4c7f21a-a439-4992-a080-086ddf072e5d" data-campaign="transunion-cds" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Checking | `<div class="myFinance-widget" data-ad-id="ddc6914c-9ebe-4288-a4c8-ffa930e098a1" data-campaign="transunion-checking" data-s1="PLACESUBIDHERE"></div>` |
+
+### Loans
+
+| Name | Placeholder |
+|------|----------------|
 | Transunion: Student Loans | `<div class="myFinance-widget" data-ad-id="72a5309d-7016-428f-a5e3-beca808ed6ad" data-campaign="transunion-student-loans" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion Auto Loans | `<div class="myFinance-widget" data-ad-id="a81a1d2d-b497-436e-b1ba-2e37ef98deb9" data-campaign="transunion-auto-loans" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Personal Loans | `<div class="myFinance-widget" data-ad-id="93be5763-a5c3-4996-bbe1-b38160bb531a" data-campaign="transunion-personal-loans" data-s1="PLACESUBIDHERE"></div>` |
+
+### Insurance & cards
+
+| Name | Placeholder |
+|------|----------------|
 | Transunion: Life Insurance | `<div class="myFinance-widget" data-ad-id="d92a02a1-b3db-4840-87d0-76983c0293b9" data-campaign="transunion-life-insurance" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Home Insurance Multi | `<div class="myFinance-widget" data-ad-id="3e24dca5-4b32-4610-8d9c-3cffa5d77167" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
-| Transunion: Credit Cards Marketplace | `<div class="myFinance-widget" data-ad-id="0ff1bd03-d87a-4df4-9204-5c4300d7b4ef" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
+| Transunion: Credit Cards Marketplace | `<div class="myFinance-widget" data-ad-id="0ff1bd03-d87a-4d87-9204-5c4300d7b4ef" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: Converge Flow | `<div class="myFinance-widget" data-ad-id="5db6ba0b-d20f-4914-8130-24d84888706e" data-campaign="transunion-auto-insurance-wrapper" data-s1="PLACESUBIDHERE"></div>` |
 | Transunion: CardMatch | `<div class="myFinance-widget" data-ad-id="fad7e748-85a4-4f94-96b2-3fbe9020a8da" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
+
+### Other
+
+| Name | Placeholder |
+|------|----------------|
 | TransUnion: FAM Quiz | `<div class="myFinance-widget" data-ad-id="c851678d-06e6-4e3f-8ac6-a13d4db05ceb" data-campaign="transunion-integrations" data-s1="PLACESUBIDHERE"></div>` |
+
 
 ::
 

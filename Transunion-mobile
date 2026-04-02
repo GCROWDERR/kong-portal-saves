@@ -1,5 +1,5 @@
 ---
-title: "Inline Widgets -- Mobile App Integration Guide"
+title: "Mobile App Integration Guide"
 description: "Display Inline ad widgets in native iOS or Android apps using a WebView: partner HTML, embed script, WebView configuration, CTA handling, and consent."
 page-layout:
   sidebar-left: "example-guides-page-nav"
@@ -25,10 +25,10 @@ padding: "0px"
 Guides
 
 #title
-Inline Widgets -- Mobile App Integration Guide
+Mobile App Integration Guide
 
 #description
-This guide explains how to display Inline ad widgets inside a native iOS or Android mobile app using a standard WebView. In a typical integration, the partner loads its own mobile page or in-app content experience and embeds the Inline widget inside that experience. The main app-side work is configuring the WebView to support a few browser behaviors that native apps sometimes restrict.
+This guide explains how to display widgets inside a native iOS or Android mobile app using a standard WebView. In a typical integration, the partner loads its own mobile page or in-app content experience and embeds the Inline widget inside that experience. The main app-side work is configuring the WebView to support a few browser behaviors that native apps sometimes restrict.
 
 ::
 
@@ -61,7 +61,7 @@ The HTML page loaded in the WebView needs two things: a placeholder `<div>` for 
 </html>
 ```
 
-Replace the widget placeholder with your desired div tag provided to you on the Transunion Integration Documentation guide (under Placeholder Tags) and the Inline embed script with the script(s) provided to you on the Transunion Integration Documentation guide (under Script Integration).
+Replace the widget placeholder with your desired div tag provided to you on the TransUnion Integration Documentation guide (under Placeholder Tags) and the Inline embed script with the script(s) provided to you on the TransUnion Integration Documentation guide (under Script Integration).
 
 The example above shows the expected structure, but your assigned widget IDs, attributes, and script domain may differ.
 
@@ -77,6 +77,11 @@ config.allowsInlineMediaPlayback = true
 
 // Required: handle window.open() calls from CTA clicks
 config.preferences.javaScriptCanOpenWindowsAutomatically = true
+
+// Ensure JavaScript is enabled (defaults to true on iOS 14+,
+// but some apps explicitly disable it)
+config.defaultWebpagePreferences.allowsContentJavaScript = true
+
 
 let webView = WKWebView(frame: .zero, configuration: config)
 webView.uiDelegate = self      // implement createWebViewWith
@@ -138,6 +143,15 @@ Load the partner page in the WebView and confirm:
 - The widget renders and fills the container width.
 - Product listings appear (e.g., mortgage rates, lender names).
 - Tapping a CTA button opens the destination URL in the system browser (or in-app browser).
+
+  ::video
+  ---
+  src: "https://drive.google.com/file/d/1jaLSsfLiqa38WPXdvpVzIs_B6UV3PZBc/preview"
+  play-button: true
+  aspect-ratio: "16:9"
+  width: "100%"
+  ---
+  ::
 
 ::
 
@@ -206,6 +220,15 @@ The app environment must be able to reach these domains:
 | `*.myfinance.com` | Embed script, widget content, API calls |
 | `*.bankrate.com` | Some widget data sources |
 | `cdn.cohesion.tagular.com` | Analytics |
+
+  ::alert
+  ---
+  appearance: "info"
+  show-icon: true
+  title: "Domain access"
+  message: "Access to the myfinance domain is not required if you are using a subdomain to make embed script requests."
+  ---
+  ::
 
 ### Consent forwarding
 
