@@ -1,0 +1,85 @@
+---
+title: "API key guide"
+description: "Register your application, create and test API keys in the Bankrate Developer Portal, and rotate credentials safely."
+page-layout:
+  sidebar-left: "example-guides-page-nav"
+  sidebar-right: "example-page-toc"
+---
+
+<!--
+Source: API Key Guide (PDF). Sync to Konnect; set slug (e.g. /guides/api-key-guide). UI labels match the Developer Portal as of the source doc—verify in-product if flows change. Screenshot asset: repo images/api-key-guide-authentication-try-it.png (upload or map to portal static files if `/images/...` does not resolve).
+-->
+
+::page-hero
+---
+full-width: true
+title-font-size: "40px"
+title-line-height: "46px"
+text-max-width: "80%"
+padding: "0px"
+---
+#tagline
+Guides
+
+#title
+API Key Guide
+
+#description
+This guide covers registering your application, managing credentials, and interactive testing on the Bankrate Developer platform. API keys authenticate your requests—treat them as sensitive secrets.
+
+::
+
+::page-section
+## Overview
+
+This guide walks through generating a key in the Developer Portal, trying an endpoint with **Try It!**, and rotating credentials when you need a new key. Copy keys once when they are shown and store them in a secret manager or similar—keys are not shown again after creation.
+
+---
+
+## Creating your API key
+
+To integrate, generate a key through the Developer Portal.
+
+1. Click **APIs** in the top navigation to view all APIs.
+2. Click **View APIs** for the API you need a key for.
+3. Click **Use this API**.
+4. Click **+ New Application**.
+5. **Label your application** with a descriptive name using the pattern `[Organization/Partner]-[API]` (for example, `Bankrate-ProductsAPI`).
+6. **Add a description** explaining what the key will be used for.
+7. Select **This is a team owned application**. Team-owned applications are strongly recommended.
+8. Choose your team from the drop-down.
+9. Click **Create and use API**.
+10. On the next screen, **copy the credential** and save it somewhere safe (for example, a secret management tool). It is only shown once.
+11. Add a custom name for your application and select **update credentials**.
+
+---
+
+## Testing your API key
+
+1. Open **APIs** and select the API you created the key for.
+2. Choose the endpoint you want to call (for example, Home Lending).
+3. In the **Authentication** panel on the right, enter your API key.
+
+::image
+---
+src: "/images/api-key-guide-authentication-try-it.png"
+alt: "API explorer for GET /products/v1/home-lending/quote with x-api-key in Authentication and a 200 JSON response"
+width: "400"
+border: "1px solid #eeeeee"
+::
+
+4. Click **Try It!** You should see a **200 OK** response in the panel below.
+5. Your API key is ready to use.
+
+---
+
+## Key rotation
+
+Rotating API keys regularly limits the impact of a possible compromise and retires old credentials so they stop working—supporting long-term security for your integration.
+
+1. Open your profile (top right) and choose **My Applications**.
+2. Select the application to rotate and open **Credentials**.
+3. Click **New credential** to generate a new key.
+4. Select the old credential and click **Revoke** after you have switched callers to the new key.
+
+::
