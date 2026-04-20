@@ -1,0 +1,60 @@
+---
+title: "example-guides-page-banner"
+description: "Single-CTA page banner. Pass copy and layout via ::snippet data; keys below mirror defaults."
+bannerTitle: "Explore our APIs"
+bannerDescription: "Connect, create, and innovate with our easy-to-use APIs."
+primaryTo: "/apis"
+primaryLabel: "Start building"
+primaryAppearance: "primary"
+primarySize: "large"
+bannerMargin: "0"
+titleTag: "h2"
+textAlign: "center"
+titleFontSize: "36px"
+titleLineHeight: "40px"
+descriptionFontWeight: "400"
+descriptionFontSize: "22px"
+descriptionLineHeight: "30px"
+backgroundColor: "var(--kui-color-background-primary-weakest)"
+heroPadding: "20px 0px"
+---
+
+<!--
+  ::snippet data keys (all optional; defaults in front matter above):
+  bannerTitle, bannerDescription, primaryTo, primaryLabel, primaryAppearance, primarySize,
+  bannerMargin, titleTag, textAlign, titleFontSize, titleLineHeight,
+  descriptionFontWeight, descriptionFontSize, descriptionLineHeight, backgroundColor, heroPadding
+-->
+
+::page-hero
+---
+full-width: true
+max-width: "100%"
+width: "100%"
+:title-tag: snippet.titleTag
+:text-align: snippet.textAlign
+:title-font-size: snippet.titleFontSize
+:title-line-height: snippet.titleLineHeight
+:description-font-weight: snippet.descriptionFontWeight
+:description-font-size: snippet.descriptionFontSize
+:description-line-height: snippet.descriptionLineHeight
+:background-color: snippet.backgroundColor
+:padding: snippet.heroPadding
+:margin: snippet.bannerMargin
+---
+#title
+{{ $doc.snippet.bannerTitle || 'Explore our APIs' }}
+
+#description
+{{ $doc.snippet.bannerDescription || 'Connect, create, and innovate with our easy-to-use APIs.' }}
+
+#actions
+  :::button
+  ---
+  :to: snippet.primaryTo
+  :appearance: snippet.primaryAppearance
+  :size: snippet.primarySize
+  ---
+  {{ $doc.snippet.primaryLabel || 'Start building' }}
+  :::
+::

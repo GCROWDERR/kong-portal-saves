@@ -1,0 +1,26 @@
+---
+description: Konnect Dev Portal MDC pages and snippets for Kong-Portal-Saves
+alwaysApply: true
+---
+
+# Kong Portal Saves — agent conventions
+
+This repo holds **Bankrate Konnect Developer Portal** content: **MDC** (Markdown + `::` components). The live portal (slugs, theme, global nav, layout snippets) is **Konnect** — editing here does not publish automatically.
+
+## When editing pages or snippets
+
+- Follow the same patterns as **`getting-started`**, **`api-key-guide`**, and **`bankrate-content-feeds`** unless the user asks otherwise: YAML frontmatter (`title`, `description`, `page-layout`), `::page-hero`, then `::page-section` for main body.
+- Preserve existing **HTML comments** (source notes, sync/slug reminders). Do not remove Konnect handoff hints unless asked.
+- **Do not invent** snippet `name:` values or layout snippet ids — they must match what exists in Konnect. Reuse names from other pages in this repo or from `Snippets/`.
+- For component props and nesting, prefer **`Kong-Component-Library.md`** and [Kong portal docs](https://portaldocs.konghq.com/getting-started/markdown).
+
+## Page TOC (`example-page-toc`)
+
+- Use **`##` for main sections** and **`###` for subsections** in the outline. Avoid a lone **`#` in the body** for sections that must appear and scroll correctly from the right-rail TOC (H1 is not treated like H2/H3 for TOC).
+- Prefer **one continuous `::page-section`** for the full article when the page uses the page TOC, unless you know the layout reads headings across multiple sections.
+
+## Scope and assets
+
+- Keep changes **limited to the requested page/snippet**; avoid drive-by edits across unrelated portal files.
+- **`images/`** and external image URLs: confirm paths still make sense for Konnect if you change them.
+- Long onboarding prose belongs in **`README.md`**; keep rules and edits focused.

@@ -1,13 +1,13 @@
 ---
 title: "Bankrate Content Feeds"
-description: "Syndicate Bankrate financial articles and guides via RSS/XML feeds: partnership overview, feed URLs, query parameters, and response structure."
+description: "Bankrate content syndication: MyFinance vs Bankrate feeds, URLs, parameters, and response formats."
 page-layout:
   sidebar-left: "example-guides-page-nav"
   sidebar-right: "example-page-toc"
 ---
 
 <!--
-Partner-facing content syndication guide. Sync to Konnect; set slug (e.g. /guides/bankrate-content-feeds). Base URL and feed paths are production examples—confirm with Bankrate for your feed_name and identifiers.
+Partner-facing content syndication guide. Sync to Konnect; set slug (e.g. /guides/bankrate-content-feeds). Base URL and feed paths are production examples—confirm with Bankrate for your feed_name, feed_slug, and identifiers.
 -->
 
 ::page-hero
@@ -30,12 +30,25 @@ Bankrate content feeds are a content syndication service that allows partner web
 ::
 
 ::page-section
+## Integration types
+
+Bankrate offers two integration models. The right choice depends on how your platform renders content and what your tracking requirements are.
+
+| | Attribution-enriched | Attribution-only |
+| --- | --- | --- |
+| **Hosted by** | MyFinance | Bankrate |
+| **Content rendering** | MyFinance embeds widgets and tracking in article bodies | Partner renders content; links back to Bankrate |
+| **Tracking** | Automatic — zero config required | Attribution query parameters on article URLs (set via the feed) |
+| **Best for** | Full content syndication with embedded financial tools | Simple link-back integrations |
+
+---
+
 ## How it works
 
-1. **Content creation:** Bankrate's editorial team creates high-quality financial content.
-2. **Feed generation:** Content is automatically formatted and delivered through feeds.
-3. **Partner integration:** Partners consume feeds and display content on their websites.
-4. **Attribution:** Content is properly attributed to Bankrate with tracking.
+1. **Content creation:** Bankrate's editorial team creates high-quality financial content
+2. **Feed generation:** Content is automatically formatted and delivered through feeds
+3. **Partner integration:** Partners consume feeds and display content on their websites
+4. **Attribution:** Content is properly attributed to Bankrate with tracking
 
 ---
 
@@ -48,8 +61,6 @@ Bankrate content feeds are a content syndication service that allows partner web
 - **Fresh content:** Regular updates with timely financial news and analysis
 - **SEO optimized:** Content designed for search visibility and engagement
 
----
-
 ### Flexible delivery
 
 - **Multiple formats:** Choose from RSS, JSON, XML, and partner-specific formats
@@ -57,16 +68,12 @@ Bankrate content feeds are a content syndication service that allows partner web
 - **Scalable:** From 10 articles to hundreds, feeds adapt to your needs
 - **Reliable:** Cached delivery with 99.9% uptime
 
----
-
 ### Revenue opportunities
 
 - **Audience engagement:** Drive traffic with authoritative financial content
 - **Ad revenue:** Monetize financial content sections
 - **Co-branding:** Track referrals and conversions with affiliate parameters
 - **Audience retention:** Keep users engaged with valuable information
-
----
 
 ### Automated attribution
 
@@ -101,16 +108,12 @@ Feeds can be customized to include specific content categories:
 - Determine feed configuration (categories, volume, format)
 - Technical requirements assessment
 
----
-
 ### 2. Feed configuration
 
 - Bankrate configures custom feed based on requirements
 - Category and tag filtering setup
 - Co-branding and tracking parameters configured
 - Test feed created in QA environment
-
----
 
 ### 3. Technical integration
 
@@ -119,62 +122,50 @@ Feeds can be customized to include specific content categories:
 - Content display and attribution implemented
 - Performance testing and optimization
 
----
-
 ### 4. Go-live & support
 
 - Feed activated in production once built
 - Monitoring and quality assurance
 - Ongoing support from account management team
 
-::
+---
 
-::page-section
-## Technical guide
+## Technical Guide
+
+Overview of feed endpoints, parameters, and response formats.
+
+## Option A: Attribution-enriched feeds (via MyFinance)
+
+This is the full-featured integration. Article bodies are delivered with embedded financial widgets and tracking handled automatically by MyFinance. No additional code is required to capture clicks or downstream revenue.
 
 ### Base URL
 
-#### Production
-
-```
+```text
 https://www.myfinance.com/rss/syndication/
 ```
 
-- Live production content
-- No cache
+### Endpoint
 
----
-
-### URL structure
-
-#### Standard endpoint
-
-```
+```text
 GET {base_url}/{feed_name}/{content_source_identifier}
 ```
 
-#### Query parameters
+### Query parameters
 
 | Parameter | Required | Value | Description |
-|-----------|----------|-------|-------------|
-| `type` | false | `"xml"` | Sets `Content-Type` on response to `text/xml; charset=UTF-8` |
-| `page` | false | integer | Paginator parameter |
-| `from_date` | false | `YYYY-MM-DD` | Pull content from select dates, typically used for backfilling |
-| `to_date` | false | `YYYY-MM-DD` | Same as `from_date` |
+| --- | --- | --- | --- |
+| `type` | No | `"xml"` | Sets `Content-Type` to `text/xml; charset=UTF-8` |
+| `page` | No | integer | Pagination |
+| `from_date` | No | YYYY-MM-DD | Pull content from a specific date; useful for backfilling |
+| `to_date` | No | YYYY-MM-DD | Upper bound for `from_date` filtering |
 
-If `type` isn't set, **`Content-Type` defaults to `application/rss+xml; charset=utf-8`**.
-
----
+`Content-Type` defaults to `application/rss+xml; charset=utf-8` when `type` is not set.
 
 ### Per page
 
-Feeds default to **20 articles per page**. This is controlled within the feed delivery system and **cannot be modified** on the request.
+Feeds default to 20 articles per page. This is controlled by the feed delivery system and cannot be modified on the request.
 
----
-
-### Response structures
-
-#### RSS format response
+### RSS response example
 
 **Content-Type:** `text/xml` / `application/rss+xml`
 
@@ -219,10 +210,367 @@ Feeds default to **20 articles per page**. This is controlled within the feed de
 </rss>
 ```
 
----
-
-#### Custom response format
+### Custom response format
 
 We are able to customize the RSS feed response as needed to integrate with existing systems.
+
+---
+
+## Option B: Attribution-only feeds (via Bankrate)
+
+This integration is designed for partners who want to link back to Bankrate articles directly — without embedding full content or relying on MyFinance. Article URLs in the feed are automatically decorated with attribution query parameters that tie traffic back to your account.
+
+No widgets are embedded. Your platform is responsible for rendering titles, excerpts, images, and linking users through to Bankrate.
+
+### Feed URL structure
+
+```text
+GET https://www.bankrate.com/feeds/{feed_slug}/{format}/{per_page}/{page}
+```
+
+| Segment | Required | Description |
+| --- | --- | --- |
+| `feed_slug` | Yes | Unique identifier for your feed, provided by Bankrate |
+| `format` | No | Response format (see [Formats](#formats) below) |
+| `per_page` | No | Number of articles per page (integer, max 100) |
+| `page` | No | Page number (integer) |
+
+### Feed query parameters
+
+| Parameter | Required | Value | Description |
+| --- | --- | --- | --- |
+| `from_date` | No | YYYY-MM-DD | Return content published on or after this date |
+
+### Attribution query parameters
+
+Each article URL in the feed response will include attribution query parameters configured for your account (e.g. `?pid=your-partner-id`). These are appended automatically — no changes are needed on your side.
+
+### Formats
+
+The `format` segment controls the response structure. If omitted, `rss` is used by default.
+
+| Format | Description |
+| --- | --- |
+| `rss` | Standard RSS 2.0 (default) |
+| `xml` | XML format |
+| `json` | JSON |
+| `jsonreduced` | Reduced-field JSON |
+| `extended` | Extended XML with additional metadata fields |
+| `extended-content` | Extended XML including full article body |
+
+### Sample RSS response
+
+Article links include your attribution parameters automatically:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Your Feed Name</title>
+    <link>https://www.bankrate.com/feeds/your-feed-slug/rss</link>
+    <description>Use Bankrate.com's free tools, expert analysis, and award-winning content to make smarter financial decisions.</description>
+
+    <item>
+      <title>How to choose the best credit union: 6 things to consider</title>
+      <link>https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</link>
+      <description>Here's how to find the credit union that will best fit with your financial needs.</description>
+      <pubDate>Thu, 12 Feb 2026 15:01:18 -0500</pubDate>
+      <guid isPermaLink="true">https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</guid>
+      <enclosure url="https://www.bankrate.com/2023/06/08170955/Deposits-How-to-choose-the-best-credit-union-x-key-things-to-consider.jpg" type="image/jpeg" length="0"/>
+    </item>
+
+  </channel>
+</rss>
+```
+
+---
+
+## Format reference
+
+Samples below use a single representative article. Attribution parameters (`?pid=your-partner-id`) are included on all article URLs when your feed is configured with a partner ID.
+
+---
+
+### `rss` (default)
+
+Standard RSS 2.0. Includes title, excerpt, pub date, categories, featured image, and article link.
+
+**Content-Type:** `text/xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Your Feed Name</title>
+    <link>https://www.bankrate.com/feeds/your-feed-slug/rss</link>
+    <description>Use Bankrate.com's free tools, expert analysis, and award-winning content to make smarter financial decisions.</description>
+    <pubDate>Thu, 12 Feb 2026 15:01:18 -0500</pubDate>
+    <lastBuildDate>Thu, 12 Feb 2026 18:00:00 -0500</lastBuildDate>
+    <ttl>15</ttl>
+    <image>
+      <url>https://www.bankrate.com/img/logo/bankrate-logo-sm.png</url>
+      <title>www.bankrate.com</title>
+      <link>https://www.bankrate.com</link>
+    </image>
+
+    <item>
+      <postId>12345</postId>
+      <title>How to choose the best credit union: 6 things to consider</title>
+      <description>Here's how to find the credit union that will best fit with your financial needs.</description>
+      <pubDate>Thu, 12 Feb 2026 15:01:18 -0500</pubDate>
+      <category slug="banking">Banking</category>
+      <enclosure url="https://www.bankrate.com/2023/06/08170955/credit-union.jpg" type="image/jpeg" length="0"/>
+      <guid isPermalink="true">https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</guid>
+      <link>https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</link>
+    </item>
+
+  </channel>
+</rss>
+```
+
+---
+
+### `xml`
+
+XML format. Adds author, modified date, slug, plain and HTML excerpts, and multiple image sizes.
+
+**Content-Type:** `text/xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <story>
+    <id>12345</id>
+    <title>How to choose the best credit union: 6 things to consider</title>
+    <author>René Bennett</author>
+    <date>2026-02-12T15:01:18</date>
+    <modified>2026-02-12T15:01:37</modified>
+    <slug>how-to-choose-the-best-credit-union</slug>
+    <url>https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</url>
+    <excerpt_plain>Here's how to find the credit union that will best fit with your financial needs.</excerpt_plain>
+    <excerpt>&lt;p&gt;Here's how to find the credit union that will best fit with your financial needs.&lt;/p&gt;</excerpt>
+    <categories>
+      <category slug="banking">Banking</category>
+    </categories>
+    <images>
+      <large width="1200" height="675">https://www.bankrate.com/2023/06/08170955/credit-union-large.jpg</large>
+      <medium width="600" height="338">https://www.bankrate.com/2023/06/08170955/credit-union-medium.jpg</medium>
+      <thumbnail width="150" height="150">https://www.bankrate.com/2023/06/08170955/credit-union-thumb.jpg</thumbnail>
+    </images>
+  </story>
+</root>
+```
+
+---
+
+### `extended`
+
+RSS 2.0 with additional namespaces: `dc:creator` (author), `media:keywords` (tags), and `enclosure` attributes for image alt text and credit.
+
+**Content-Type:** `text/xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Your Feed Name</title>
+    <link>https://www.bankrate.com/feeds/your-feed-slug/extended</link>
+    <description>Use Bankrate.com's free tools, expert analysis, and award-winning content to make smarter financial decisions.</description>
+    <image>
+      <url>https://www.bankrate.com/img/logo/bankrate-logo-sm.png</url>
+      <title>www.bankrate.com</title>
+      <link>https://www.bankrate.com</link>
+    </image>
+
+    <item>
+      <postId>12345</postId>
+      <title>How to choose the best credit union: 6 things to consider</title>
+      <description>Here's how to find the credit union that will best fit with your financial needs.</description>
+      <pubDate>Thu, 12 Feb 2026 15:01:18 -0500</pubDate>
+      <updated>Thu, 12 Feb 2026 15:01:37 -0500</updated>
+      <dc:creator>René Bennett</dc:creator>
+      <media:keywords>banking, savings, basics</media:keywords>
+      <category slug="banking">Banking</category>
+      <enclosure
+        url="https://www.bankrate.com/2023/06/08170955/credit-union.jpg"
+        type="image/jpeg"
+        length="0"
+        altText="Coworkers discussing a project"
+        credit="MesquitaFMS/GettyImages; Illustration by Hunter Newton/Bankrate"/>
+      <guid isPermalink="true">https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</guid>
+      <link>https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</link>
+    </item>
+
+  </channel>
+</rss>
+```
+
+---
+
+### `extended-content`
+
+Identical to `extended`, with one addition: a `content:encoded` CDATA node containing the full article HTML body. Use this when you want to render the complete article on your platform rather than linking out to Bankrate.
+
+**Content-Type:** `text/xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Your Feed Name</title>
+    <link>https://www.bankrate.com/feeds/your-feed-slug/extended-content</link>
+    <description>Use Bankrate.com's free tools, expert analysis, and award-winning content to make smarter financial decisions.</description>
+    <image>
+      <url>https://www.bankrate.com/img/logo/bankrate-logo-sm.png</url>
+      <title>www.bankrate.com</title>
+      <link>https://www.bankrate.com</link>
+    </image>
+
+    <item>
+      <postId>12345</postId>
+      <title>How to choose the best credit union: 6 things to consider</title>
+      <description>Here's how to find the credit union that will best fit with your financial needs.</description>
+      <pubDate>Thu, 12 Feb 2026 15:01:18 -0500</pubDate>
+      <updated>Thu, 12 Feb 2026 15:01:37 -0500</updated>
+      <dc:creator>René Bennett</dc:creator>
+      <media:keywords>banking, savings, basics</media:keywords>
+      <content:encoded><![CDATA[
+        <p>Choosing the right credit union can make a big difference in the fees you pay and the interest you earn...</p>
+        <h2>1. Look at membership eligibility</h2>
+        <p>Most credit unions restrict membership to certain groups...</p>
+        <!-- full article HTML continues -->
+      ]]></content:encoded>
+      <category slug="banking">Banking</category>
+      <enclosure
+        url="https://www.bankrate.com/2023/06/08170955/credit-union.jpg"
+        type="image/jpeg"
+        length="0"
+        altText="Coworkers discussing a project"
+        credit="MesquitaFMS/GettyImages; Illustration by Hunter Newton/Bankrate"/>
+      <guid isPermalink="true">https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</guid>
+      <link>https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</link>
+    </item>
+
+  </channel>
+</rss>
+```
+
+---
+
+### `json`
+
+Full JSON response. Includes post metadata, author profile, categories, and featured image detail.
+
+**Content-Type:** `application/json`
+
+```json
+{
+  "name": "Your Feed Name",
+  "slug": "your-feed-slug",
+  "filters": {},
+  "meta": {},
+  "total": 142,
+  "page": 1,
+  "perPage": 20,
+  "posts": [
+    {
+      "id": 12345,
+      "title": {
+        "rendered": "How to choose the best credit union: 6 things to consider"
+      },
+      "categories_detail": [
+        {
+          "term_id": 7,
+          "name": "Banking",
+          "slug": "banking",
+          "term_group": null,
+          "term_taxonomy_id": 7,
+          "hub_page": "https://www.bankrate.com/banking/"
+        }
+      ],
+      "modified_gmt": "2026-02-12T20:01:37",
+      "yoast_meta": {
+        "primary_category": 7
+      },
+      "_embedded": {
+        "author": [
+          {
+            "id": 88,
+            "first_name": "René",
+            "last_name": "Bennett",
+            "author_email": null,
+            "name": "René Bennett",
+            "job_title": "Senior Writer",
+            "twitter_profile": null,
+            "facebook_profile": null,
+            "linkedin_profile": null,
+            "url": "https://www.bankrate.com/authors/rene-bennett/",
+            "description": "René Bennett is a senior writer at Bankrate...",
+            "user_avatar": "https://www.bankrate.com/authors/rene-bennett/avatar.jpg"
+          }
+        ]
+      },
+      "link": "https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id",
+      "minutes_to_read": 6,
+      "featured_media_detail": {
+        "sizes": {
+          "thumbnail": {
+            "file": "credit-union-thumb.jpg"
+          }
+        },
+        "alt_text": "Coworkers discussing a project",
+        "source_url": "https://www.bankrate.com/2023/06/08170955/credit-union.jpg",
+        "credit": "MesquitaFMS/GettyImages; Illustration by Hunter Newton/Bankrate"
+      }
+    }
+  ]
+}
+```
+
+---
+
+### `jsonreduced`
+
+Lightweight JSON. Contains only what's needed to render a content card: link, title variants, excerpt, author name, and featured image.
+
+**Content-Type:** `application/json`
+
+```json
+{
+  "name": "Your Feed Name",
+  "slug": "your-feed-slug",
+  "filters": {},
+  "meta": {},
+  "total": 142,
+  "page": 1,
+  "perPage": 20,
+  "posts": [
+    {
+      "link": "https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id",
+      "title": {
+        "rendered": "How to choose the best credit union: 6 things to consider",
+        "short": "Choosing the best credit union",
+        "pageTitle": "How to choose the best credit union: 6 things to consider"
+      },
+      "excerpt": {
+        "rendered": "<p>Here's how to find the credit union that will best fit with your financial needs.</p>",
+        "short": "Here's how to find the credit union that will best fit with your financial needs."
+      },
+      "author": "René Bennett",
+      "featuredmedia": {
+        "title": "Coworkers discussing a project",
+        "credit": "MesquitaFMS/GettyImages; Illustration by Hunter Newton/Bankrate",
+        "file": "https://www.bankrate.com/2023/06/08170955/credit-union.jpg"
+      }
+    }
+  ]
+}
+```
 
 ::
