@@ -1,13 +1,13 @@
 ---
 title: "Bankrate Content Feeds"
-description: "Bankrate content syndication: MyFinance vs Bankrate feeds, URLs, parameters, and response formats."
+description: "Partner-facing Bankrate content syndication: integration models, MyFinance vs Bankrate feeds, URLs, parameters, and response formats."
 page-layout:
   sidebar-left: "example-guides-page-nav"
   sidebar-right: "example-page-toc"
 ---
 
 <!--
-Partner-facing content syndication guide. Sync to Konnect; set slug (e.g. /guides/bankrate-content-feeds). Base URL and feed paths are production examples—confirm with Bankrate for your feed_name, feed_slug, and identifiers.
+Partner-facing Bankrate Content Feeds guide. Sync to Konnect; set slug (e.g. /guides/partner-bankrate-content-feeds). Base URL and feed paths are production examples—confirm with Bankrate for your feed_name, feed_slug, and identifiers.
 -->
 
 ::page-hero
@@ -30,11 +30,11 @@ Bankrate content feeds are a content syndication service that allows partner web
 ::
 
 ::page-section
-## Integration types
+## Integration Types
 
 Bankrate offers two integration models. The right choice depends on how your platform renders content and what your tracking requirements are.
 
-| | Attribution-enriched | Attribution-only |
+| | Attribution-Enriched | Attribution-Only |
 | --- | --- | --- |
 | **Hosted by** | MyFinance | Bankrate |
 | **Content rendering** | MyFinance embeds widgets and tracking in article bodies | Partner renders content; links back to Bankrate |
@@ -43,86 +43,86 @@ Bankrate offers two integration models. The right choice depends on how your pla
 
 ---
 
-## How it works
+## How It Works
 
-1. **Content creation:** Bankrate's editorial team creates high-quality financial content
-2. **Feed generation:** Content is automatically formatted and delivered through feeds
-3. **Partner integration:** Partners consume feeds and display content on their websites
+1. **Content Creation:** Bankrate's editorial team creates high-quality financial content
+2. **Feed Generation:** Content is automatically formatted and delivered through feeds
+3. **Partner Integration:** Partners consume feeds and display content on their websites
 4. **Attribution:** Content is properly attributed to Bankrate with tracking
 
 ---
 
-## Partnership benefits
+## Partnership Benefits
 
-### Quality content
+### Quality Content
 
-- **Expert writers:** Content created by financial journalists and certified professionals
-- **Editorial standards:** Rigorous fact-checking and editorial review process
-- **Fresh content:** Regular updates with timely financial news and analysis
-- **SEO optimized:** Content designed for search visibility and engagement
+- **Expert Writers:** Content created by financial journalists and certified professionals
+- **Editorial Standards:** Rigorous fact-checking and editorial review process
+- **Fresh Content:** Regular updates with timely financial news and analysis
+- **SEO Optimized:** Content designed for search visibility and engagement
 
-### Flexible delivery
+### Flexible Delivery
 
-- **Multiple formats:** Choose from RSS, JSON, XML, and partner-specific formats
-- **Customizable feeds:** Filter by category, topic, date range, or specific articles
+- **Multiple Formats:** Choose from RSS, JSON, XML, and partner-specific formats
+- **Customizable Feeds:** Filter by category, topic, date range, or specific articles
 - **Scalable:** From 10 articles to hundreds, feeds adapt to your needs
 - **Reliable:** Cached delivery with 99.9% uptime
 
-### Revenue opportunities
+### Revenue Opportunities
 
-- **Audience engagement:** Drive traffic with authoritative financial content
-- **Ad revenue:** Monetize financial content sections
-- **Co-branding:** Track referrals and conversions with affiliate parameters
-- **Audience retention:** Keep users engaged with valuable information
+- **Audience Engagement:** Drive traffic with authoritative financial content
+- **Ad Revenue:** Monetize financial content sections
+- **Co-Branding:** Track referrals and conversions with affiliate parameters
+- **Audience Retention:** Keep users engaged with valuable information
 
-### Automated attribution
+### Automated Attribution
 
 Partners are not required to implement any additional code or manual tags to enable tracking. Our backend systems automatically handle the heavy lifting:
 
-- **Zero-config tracking:** Clicks and downstream revenue are captured automatically from the moment of integration.
-- **Precision attribution:** Every interaction is mapped directly to your specific Bankrate account, ensuring all generated revenue is accurately attributed to your properties.
+- **Zero-Config Tracking:** Clicks and downstream revenue are captured automatically from the moment of integration.
+- **Precision Attribution:** Every interaction is mapped directly to your specific Bankrate account, ensuring all generated revenue is accurately attributed to your properties.
 
 ---
 
-## Content categories
+## Content Categories
 
 Feeds can be customized to include specific content categories:
 
-- **Banking & savings**
-- **Credit cards**
-- **Home equity**
+- **Banking & Savings**
+- **Credit Cards**
+- **Home Equity**
 - **Loans**
 - **Mortgages**
-- **Investing & retirement**
+- **Investing & Retirement**
 - **Insurance**
-- **Personal finance**
+- **Personal Finance**
 
 ---
 
-## Partnership process
+## Partnership Process
 
-### 1. Discovery & planning
+### 1. Discovery & Planning
 
 - Initial consultation with Bankrate team
 - Define content needs and target audience
 - Determine feed configuration (categories, volume, format)
 - Technical requirements assessment
 
-### 2. Feed configuration
+### 2. Feed Configuration
 
 - Bankrate configures custom feed based on requirements
 - Category and tag filtering setup
 - Co-branding and tracking parameters configured
 - Test feed created in QA environment
 
-### 3. Technical integration
+### 3. Technical Integration
 
 - Developer receives feed documentation
 - Integration built and tested
 - Content display and attribution implemented
 - Performance testing and optimization
 
-### 4. Go-live & support
+### 4. Go-Live & Support
 
 - Feed activated in production once built
 - Monitoring and quality assurance
@@ -132,7 +132,7 @@ Feeds can be customized to include specific content categories:
 
 ## Technical Guide
 
-## Option A: Attribution-enriched feeds (via MyFinance)
+## Option A: Attribution-Enriched Feeds (via MyFinance)
 
 This is the full-featured integration. Article bodies are delivered with embedded financial widgets and tracking handled automatically by MyFinance. No additional code is required to capture clicks or downstream revenue.
 
@@ -148,7 +148,7 @@ https://www.myfinance.com/rss/syndication/
 GET {base_url}/{feed_name}/{content_source_identifier}
 ```
 
-### Query parameters
+### Query Parameters
 
 | Parameter | Required | Value | Description |
 | --- | --- | --- | --- |
@@ -159,11 +159,11 @@ GET {base_url}/{feed_name}/{content_source_identifier}
 
 `Content-Type` defaults to `application/rss+xml; charset=utf-8` when `type` is not set.
 
-### Per page
+### Per Page
 
 Feeds default to 20 articles per page. This is controlled by the feed delivery system and cannot be modified on the request.
 
-### RSS response example
+### RSS Response Example
 
 **Content-Type:** `text/xml` / `application/rss+xml`
 
@@ -208,19 +208,19 @@ Feeds default to 20 articles per page. This is controlled by the feed delivery s
 </rss>
 ```
 
-### Custom response format
+### Custom Response Format
 
 We are able to customize the RSS feed response as needed to integrate with existing systems.
 
 ---
 
-## Option B: Attribution-only feeds (via Bankrate)
+## Option B: Attribution-Only Feeds (via Bankrate)
 
 This integration is designed for partners who want to link back to Bankrate articles directly — without embedding full content or relying on MyFinance. Article URLs in the feed are automatically decorated with attribution query parameters that tie traffic back to your account.
 
 No widgets are embedded. Your platform is responsible for rendering titles, excerpts, images, and linking users through to Bankrate.
 
-### Feed URL structure
+### Feed URL Structure
 
 ```text
 GET https://www.bankrate.com/feeds/{feed_slug}/{format}/{per_page}/{page}
@@ -233,13 +233,13 @@ GET https://www.bankrate.com/feeds/{feed_slug}/{format}/{per_page}/{page}
 | `per_page` | No | Number of articles per page (integer, max 100) |
 | `page` | No | Page number (integer) |
 
-### Feed query parameters
+### Feed Query Parameters
 
 | Parameter | Required | Value | Description |
 | --- | --- | --- | --- |
 | `from_date` | No | YYYY-MM-DD | Return content published on or after this date |
 
-### Attribution query parameters
+### Attribution Query Parameters
 
 Each article URL in the feed response will include attribution query parameters configured for your account (e.g. `?pid=your-partner-id`). These are appended automatically — no changes are needed on your side.
 
@@ -256,7 +256,7 @@ The `format` segment controls the response structure. If omitted, `rss` is used 
 | `extended` | Extended XML with additional metadata fields |
 | `extended-content` | Extended XML including full article body |
 
-### Sample RSS response
+### Sample RSS Response
 
 Article links include your attribution parameters automatically:
 
@@ -283,7 +283,7 @@ Article links include your attribution parameters automatically:
 
 ---
 
-## Format reference
+## Format Reference
 
 Samples below use a single representative article. Attribution parameters (`?pid=your-partner-id`) are included on all article URLs when your feed is configured with a partner ID.
 
@@ -345,8 +345,8 @@ XML format. Adds author, modified date, slug, plain and HTML excerpts, and multi
     <modified>2026-02-12T15:01:37</modified>
     <slug>how-to-choose-the-best-credit-union</slug>
     <url>https://www.bankrate.com/banking/how-to-choose-the-best-credit-union/?pid=your-partner-id</url>
-    <excerpt_plain>Here's how to find the credit union that will best fit with your financial needs.</excerpt_plain>
-    <excerpt>&lt;p&gt;Here's how to find the credit union that will best fit with your financial needs.&lt;/p&gt;</excerpt>
+    <excerpt_plain>Here’s how to find the credit union that will best fit with your financial needs.</excerpt_plain>
+    <excerpt>&lt;p&gt;Here’s how to find the credit union that will best fit with your financial needs.&lt;/p&gt;</excerpt>
     <categories>
       <category slug="banking">Banking</category>
     </categories>
@@ -557,8 +557,8 @@ Lightweight JSON. Contains only what's needed to render a content card: link, ti
         "pageTitle": "How to choose the best credit union: 6 things to consider"
       },
       "excerpt": {
-        "rendered": "<p>Here's how to find the credit union that will best fit with your financial needs.</p>",
-        "short": "Here's how to find the credit union that will best fit with your financial needs."
+        "rendered": "<p>Here’s how to find the credit union that will best fit with your financial needs.</p>",
+        "short": "Here’s how to find the credit union that will best fit with your financial needs."
       },
       "author": "René Bennett",
       "featuredmedia": {
