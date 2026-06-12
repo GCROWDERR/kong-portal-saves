@@ -1,0 +1,510 @@
+/* Fonts must load from bankrate.com (Konnect CSP blocks fonts.googleapis.com). */
+@font-face {
+  font-family: 'Recife Text';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://www.bankrate.com/static/fonts/RecifeText-VF.woff2') format('woff2');
+}
+
+/* Body UI font — replace with bankrate.com/static/fonts/ when Instrument Sans is hosted there. */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/instrumentsans/v4/pxiTypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr0SZe1ZuWi3g.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/instrumentsans/v4/pxiTypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr0SZe1ZuWi3g.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/instrumentsans/v4/pxiTypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr0SZe1ZuWi3g.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'CircularStd-Book';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://www.bankrate.com/static/fonts/CircularStd-Book.woff2') format('woff2');
+}
+
+.portal-logo {
+  margin: 6px 12px !important;
+  max-width: 120px !important;
+}
+
+/* ::apis-list: keep API cards aligned with page headings */
+.portal-document .portal-page-content [class*="apis-list"],
+.portal-page [class*="ApisList"] {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+.portal-document .portal-page-content [class*="apis-list"] [class*="grid"],
+.portal-page [class*="ApisList"] [class*="grid"] {
+  justify-content: start;
+  justify-items: stretch;
+}
+
+:root {
+  /* Bankrate rebrand color primitives — Rebrand.tokens.json */
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+
+  /* blue */
+  --blue-50: #f2f7ff;
+  --blue-100: #eaf1ff;
+  --blue-200: #dce7fe;
+  --blue-300: #a7c8ff;
+  --blue-400: #7bacff;
+  --blue-500: #5994fd;
+  --blue-600: #0061fe;
+  --blue-700: #104bb5;
+  --blue-800: #14387a;
+  --blue-900: #13223b;
+
+  /* gray */
+  --gray-50: #faf8f5;
+  --gray-100: #f5f2eb;
+  --gray-200: #e5e2db;
+  --gray-300: #c9c6c1;
+  --gray-400: #aeaba6;
+  --gray-500: #989593;
+  --gray-600: #6c6a67;
+  --gray-700: #535250;
+  --gray-800: #3b3b39;
+  --gray-900: #272625;
+
+  /* electric */
+  --electric-50: #f1f9ff;
+  --electric-100: #e6f2fd;
+  --electric-200: #cae6ff;
+  --electric-300: #93ccff;
+  --electric-400: #55b1ff;
+  --electric-500: #009dff;
+  --electric-600: #006eb6;
+  --electric-700: #005590;
+  --electric-800: #053d69;
+  --electric-900: #002745;
+
+  /* red */
+  --red-50: #fff6f5;
+  --red-100: #fdedeb;
+  --red-200: #ffdad5;
+  --red-300: #ffb4ad;
+  --red-400: #fb8c84;
+  --red-500: #f46a64;
+  --red-600: #c33636;
+  --red-700: #992929;
+  --red-800: #711c1c;
+  --red-900: #4b1010;
+
+  /* orange */
+  --orange-50: #fff8f1;
+  --orange-100: #feeedf;
+  --orange-200: #ffddbd;
+  --orange-300: #feb874;
+  --orange-400: #f49728;
+  --orange-500: #d57a1b;
+  --orange-600: #a7540e;
+  --orange-700: #8a3b05;
+  --orange-800: #692600;
+  --orange-900: #280f00;
+
+  /* yellow */
+  --yellow-50: #fff8e4;
+  --yellow-100: #fef0c8;
+  --yellow-200: #fbd772;
+  --yellow-300: #efc138;
+  --yellow-400: #d3a434;
+  --yellow-500: #bb8f37;
+  --yellow-600: #8e6223;
+  --yellow-700: #6e4c1c;
+  --yellow-800: #4f3715;
+  --yellow-900: #33220d;
+
+  /* green */
+  --green-50: #f0faf2;
+  --green-100: #e1f6e6;
+  --green-200: #c3eccd;
+  --green-300: #7ad595;
+  --green-400: #6abc82;
+  --green-500: #63a475;
+  --green-600: #417550;
+  --green-700: #315b3d;
+  --green-800: #22422b;
+  --green-900: #142a1a;
+
+  /* purple */
+  --purple-50: #f7f7fd;
+  --purple-100: #eff0fc;
+  --purple-200: #e0e1f8;
+  --purple-300: #c2c3f1;
+  --purple-400: #a8a8e8;
+  --purple-500: #9191c4;
+  --purple-600: #676791;
+  --purple-700: #4f4f70;
+  --purple-800: #393953;
+  --purple-900: #242436;
+
+  /* lavender */
+  --lavender-50: #fbf9fb;
+  --lavender-100: #f6eef5;
+  --lavender-200: #f0dcef;
+  --lavender-300: #debcdb;
+  --lavender-400: #c79fc5;
+  --lavender-500: #b480af;
+  --lavender-600: #9b4f8f;
+  --lavender-700: #8a2a7c;
+  --lavender-800: #671b5c;
+  --lavender-900: #270a23;
+
+  /* Portal typography & gradients */
+  --kui-font-family-heading: 'Recife Text', ui-serif, Georgia, serif;
+  --kui-font-family-text: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --gradient-dark-blue: linear-gradient(270deg, #14387a 0%, #13223b 50%, #13223b 100%);
+  --gradient-light-blue: linear-gradient(180deg, #faf8f5 0%, #f5f2eb 100%);
+}
+
+/*
+  Surface vs canvas: Kong API spec + many KUI components use --kui-color-background
+  as the card/panel fill (not just the page). Keep that token white; paint the page
+  cream on .portal-document. Code blocks use --kui-color-background-neutral-weakest,
+  which we also override below on spec pages.
+*/
+.portal-document,
+.portal-page {
+  background-color: var(--gray-50);
+}
+
+/* API catalog cards (::apis-list) */
+.portal-document [class*="apis-list"] [class*="card"],
+.portal-page [class*="ApisList"] [class*="card"],
+.portal-page [class*="ApisList"] [class*="Card"] {
+  background-color: var(--white);
+}
+
+/* API spec pages: OAuth panels, server URL boxes, JSON/code examples */
+.portal-document [class*="overview-collapsible-panel"],
+.portal-document [class*="overview-server-list"] button,
+.portal-document .default-markdown pre,
+.portal-document [class*="spec-renderer"] pre {
+  background-color: var(--white);
+}
+
+:root,
+:root[data-portal-color-mode="light"] {
+    /* Surfaces — white cards/panels; page canvas is .portal-document above */
+    --kui-color-background: var(--white);
+    --kui-color-background-disabled: var(--blue-200);
+    --kui-color-background-inverse: var(--blue-900);
+  
+    /* Primary (blue) */
+    --kui-color-background-primary: var(--blue-600);
+    --kui-color-background-primary-strong: var(--blue-700);
+    --kui-color-background-primary-stronger: var(--blue-800);
+    --kui-color-background-primary-strongest: var(--blue-900);
+    --kui-color-background-primary-weak: var(--blue-400);
+    --kui-color-background-primary-weaker: var(--blue-200);
+    --kui-color-background-primary-weakest: var(--blue-100);
+  
+    /* Info */
+    --kui-color-background-info: var(--blue-600);
+    --kui-color-background-info-strong: var(--blue-700);
+    --kui-color-background-info-stronger: var(--blue-800);
+    --kui-color-background-info-strongest: var(--blue-900);
+    --kui-color-background-info-weak: var(--blue-400);
+    --kui-color-background-info-weaker: var(--blue-200);
+    --kui-color-background-info-weakest: var(--blue-100);
+  
+    /* Neutral (warm gray) */
+    --kui-color-background-neutral: var(--gray-600);
+    --kui-color-background-neutral-strong: var(--gray-700);
+    --kui-color-background-neutral-stronger: var(--gray-800);
+    --kui-color-background-neutral-strongest: var(--gray-900);
+    --kui-color-background-neutral-weak: var(--gray-300);
+    --kui-color-background-neutral-weaker: var(--gray-200);
+    --kui-color-background-neutral-weakest: var(--gray-50);
+  
+    /* Danger */
+    --kui-color-background-danger: var(--red-600);
+    --kui-color-background-danger-strong: var(--red-700);
+    --kui-color-background-danger-stronger: var(--red-800);
+    --kui-color-background-danger-strongest: var(--red-900);
+    --kui-color-background-danger-weak: var(--red-600);
+    --kui-color-background-danger-weaker: var(--red-300);
+    --kui-color-background-danger-weakest: var(--red-100);
+  
+    /* Success */
+    --kui-color-background-success: var(--green-600);
+    --kui-color-background-success-strong: var(--green-700);
+    --kui-color-background-success-stronger: var(--green-800);
+    --kui-color-background-success-strongest: var(--green-900);
+    --kui-color-background-success-weak: var(--green-300);
+    --kui-color-background-success-weaker: var(--green-200);
+    --kui-color-background-success-weakest: var(--green-100);
+  
+    /* Warning */
+    --kui-color-background-warning: var(--yellow-600);
+    --kui-color-background-warning-strong: var(--yellow-700);
+    --kui-color-background-warning-stronger: var(--yellow-800);
+    --kui-color-background-warning-strongest: var(--yellow-900);
+    --kui-color-background-warning-weak: var(--yellow-300);
+    --kui-color-background-warning-weaker: var(--yellow-200);
+    --kui-color-background-warning-weakest: var(--yellow-100);
+  
+    /* Decorative */
+    --kui-color-background-decorative-aqua-weakest: var(--green-50);
+    --kui-color-background-decorative-purple: var(--purple-700);
+    --kui-color-background-decorative-purple-weakest: var(--purple-100);
+  
+    /* Borders */
+    --kui-color-border: var(--gray-200);
+    --kui-color-border-disabled: var(--gray-200);
+    --kui-color-border-inverse: rgba(255, 255, 255, 0.2);
+  
+    --kui-color-border-primary: var(--blue-600);
+    --kui-color-border-primary-strong: var(--blue-700);
+    --kui-color-border-primary-stronger: var(--blue-800);
+    --kui-color-border-primary-strongest: var(--blue-900);
+    --kui-color-border-primary-weak: var(--blue-400);
+    --kui-color-border-primary-weaker: var(--blue-200);
+    --kui-color-border-primary-weakest: var(--blue-100);
+  
+    --kui-color-border-neutral: var(--gray-600);
+    --kui-color-border-neutral-strong: var(--gray-700);
+    --kui-color-border-neutral-stronger: var(--gray-800);
+    --kui-color-border-neutral-strongest: var(--gray-900);
+    --kui-color-border-neutral-weak: var(--gray-300);
+    --kui-color-border-neutral-weaker: var(--gray-200);
+    --kui-color-border-neutral-weakest: var(--gray-100);
+  
+    --kui-color-border-danger: var(--red-600);
+    --kui-color-border-danger-strong: var(--red-700);
+    --kui-color-border-danger-stronger: var(--red-800);
+    --kui-color-border-danger-strongest: var(--red-900);
+    --kui-color-border-danger-weak: var(--red-600);
+    --kui-color-border-danger-weaker: var(--red-300);
+    --kui-color-border-danger-weakest: var(--red-100);
+  
+    --kui-color-border-decorative-purple: var(--purple-700);
+  
+    /* Text */
+    --kui-color-text: var(--gray-900);
+    --kui-color-text-inverse: var(--white);
+  
+    --kui-color-text-primary: var(--blue-600);
+    --kui-color-text-primary-strong: var(--blue-700);
+    --kui-color-text-primary-stronger: var(--blue-800);
+    --kui-color-text-primary-strongest: var(--blue-900);
+    --kui-color-text-primary-weak: var(--blue-400);
+    --kui-color-text-primary-weaker: var(--blue-200);
+    --kui-color-text-primary-weakest: var(--blue-100);
+  
+    --kui-color-text-info: var(--blue-600);
+    --kui-color-text-info-strong: var(--blue-700);
+    --kui-color-text-info-stronger: var(--blue-800);
+    --kui-color-text-info-strongest: var(--blue-900);
+    --kui-color-text-info-weak: var(--blue-400);
+    --kui-color-text-info-weaker: var(--blue-200);
+    --kui-color-text-info-weakest: var(--blue-100);
+  
+    --kui-color-text-neutral: var(--gray-600);
+    --kui-color-text-neutral-strong: var(--gray-700);
+    --kui-color-text-neutral-stronger: var(--gray-800);
+    --kui-color-text-neutral-strongest: var(--gray-900);
+    --kui-color-text-neutral-weak: var(--gray-300);
+    --kui-color-text-neutral-weaker: var(--gray-200);
+    --kui-color-text-neutral-weakest: var(--gray-100);
+  
+    --kui-color-text-danger: var(--red-600);
+    --kui-color-text-danger-strong: var(--red-700);
+    --kui-color-text-danger-stronger: var(--red-800);
+    --kui-color-text-danger-strongest: var(--red-900);
+    --kui-color-text-danger-weak: var(--red-600);
+    --kui-color-text-danger-weaker: var(--red-300);
+    --kui-color-text-danger-weakest: var(--red-100);
+  
+    --kui-color-text-success: var(--green-600);
+    --kui-color-text-success-strong: var(--green-700);
+    --kui-color-text-success-stronger: var(--green-800);
+    --kui-color-text-success-strongest: var(--green-900);
+    --kui-color-text-success-weak: var(--green-300);
+    --kui-color-text-success-weaker: var(--green-200);
+    --kui-color-text-success-weakest: var(--green-100);
+  
+    --kui-color-text-warning: var(--yellow-600);
+    --kui-color-text-warning-strong: var(--yellow-700);
+    --kui-color-text-warning-stronger: var(--yellow-800);
+    --kui-color-text-warning-strongest: var(--yellow-900);
+    --kui-color-text-warning-weak: var(--yellow-300);
+    --kui-color-text-warning-weaker: var(--yellow-200);
+    --kui-color-text-warning-weakest: var(--yellow-100);
+  
+    --kui-color-text-disabled: var(--gray-300);
+    --kui-color-text-decorative-aqua: #00abd2;
+    --kui-color-text-decorative-pink: #d60067;
+    --kui-color-text-decorative-purple: var(--purple-700);
+    --kui-color-text-decorative-purple-strong: var(--purple-700);
+  
+    /* Icons */
+    --kui-icon-color-primary: #306fff;
+    --kui-icon-color-neutral: #828a9e;
+    --kui-icon-color-success: #00a17b;
+    --kui-icon-color-warning: var(--yellow-300);
+    --kui-icon-color-danger: var(--red-600);
+  
+    /* HTTP method badges */
+    --kui-method-color-background-get: var(--blue-100);
+    --kui-method-color-background-post: var(--green-100);
+    --kui-method-color-background-put: var(--yellow-100);
+    --kui-method-color-background-patch: var(--green-50);
+    --kui-method-color-background-delete: var(--red-100);
+    --kui-method-color-background-options: var(--gray-200);
+    --kui-method-color-background-head: var(--gray-700);
+    --kui-method-color-background-connect: var(--purple-100);
+    --kui-method-color-background-trace: #fff0f7;
+  
+    --kui-method-color-text-get: var(--blue-600);
+    --kui-method-color-text-get-strong: var(--blue-700);
+    --kui-method-color-text-post: var(--green-600);
+    --kui-method-color-text-post-strong: var(--green-700);
+    --kui-method-color-text-put: #995c00;
+    --kui-method-color-text-put-strong: #804400;
+    --kui-method-color-text-patch: #00819d;
+    --kui-method-color-text-patch-strong: #00647a;
+    --kui-method-color-text-delete: #d60027;
+    --kui-method-color-text-delete-strong: #ad000e;
+    --kui-method-color-text-options: var(--gray-700);
+    --kui-method-color-text-options-strong: var(--gray-800);
+    --kui-method-color-text-head: var(--gray-200);
+    --kui-method-color-text-head-strong: var(--gray-300);
+    --kui-method-color-text-connect: var(--purple-700);
+    --kui-method-color-text-connect-strong: var(--purple-700);
+    --kui-method-color-text-trace: #d60067;
+    --kui-method-color-text-trace-strong: #ad0053;
+  
+    /* Navigation */
+    --kui-navigation-color-background: var(--blue-900);
+    --kui-navigation-color-background-selected: rgba(255, 255, 255, 0.12);
+    --kui-navigation-color-border: rgba(255, 255, 255, 0.12);
+    --kui-navigation-color-border-child: #00fabe;
+    --kui-navigation-color-border-divider: rgba(255, 255, 255, 0.24);
+    --kui-navigation-color-text: var(--blue-200);
+    --kui-navigation-color-text-focus: var(--white);
+    --kui-navigation-color-text-hover: var(--blue-100);
+    --kui-navigation-color-text-selected: #00fabe;
+    --kui-navigation-shadow-border: 0 0 0 1px hsla(0, 0%, 100%, .12) inset;
+    --kui-navigation-shadow-border-child: 4px 0 0 0 #00fabe inset;
+    --kui-navigation-shadow-focus: 0 0 0 1px hsla(0, 0%, 100%, .6) inset;
+  
+    /* Status palette */
+    --kui-status-color-100: var(--blue-200);
+    --kui-status-color-101: var(--blue-300);
+    --kui-status-color-102: var(--blue-400);
+    --kui-status-color-103: var(--blue-600);
+    --kui-status-color-200: var(--green-200);
+    --kui-status-color-201: #00fabe;
+    --kui-status-color-202: var(--green-300);
+    --kui-status-color-203: #00a17b;
+    --kui-status-color-204: var(--green-600);
+    --kui-status-color-205: var(--green-700);
+    --kui-status-color-206: var(--green-200);
+    --kui-status-color-207: #00fabe;
+    --kui-status-color-208: var(--green-200);
+    --kui-status-color-226: #00a17b;
+    --kui-status-color-300: var(--yellow-200);
+    --kui-status-color-301: var(--yellow-200);
+    --kui-status-color-302: var(--yellow-300);
+    --kui-status-color-303: var(--yellow-500);
+    --kui-status-color-304: var(--yellow-600);
+    --kui-status-color-305: var(--yellow-700);
+    --kui-status-color-307: var(--yellow-200);
+    --kui-status-color-308: var(--yellow-200);
+    --kui-status-color-400: var(--red-300);
+    --kui-status-color-401: #ff9877;
+    --kui-status-color-402: #ff723c;
+    --kui-status-color-403: #f75008;
+    --kui-status-color-404: #d13500;
+    --kui-status-color-405: var(--red-800);
+    --kui-status-color-406: var(--red-300);
+    --kui-status-color-407: #ff9877;
+    --kui-status-color-408: #ff723c;
+    --kui-status-color-409: #f75008;
+    --kui-status-color-410: #d13500;
+    --kui-status-color-411: var(--red-800);
+    --kui-status-color-412: var(--red-300);
+    --kui-status-color-413: #ff9877;
+    --kui-status-color-414: #ff723c;
+    --kui-status-color-415: #f75008;
+    --kui-status-color-416: #d13500;
+    --kui-status-color-417: var(--red-800);
+    --kui-status-color-418: var(--red-300);
+    --kui-status-color-421: #ff9877;
+    --kui-status-color-422: #ff723c;
+    --kui-status-color-423: #f75008;
+    --kui-status-color-424: #d13500;
+    --kui-status-color-425: var(--red-800);
+    --kui-status-color-426: var(--red-300);
+    --kui-status-color-428: #ff9877;
+    --kui-status-color-429: #ff723c;
+    --kui-status-color-431: #f75008;
+    --kui-status-color-451: #d13500;
+    --kui-status-color-500: var(--red-300);
+    --kui-status-color-501: var(--red-500);
+    --kui-status-color-502: var(--red-600);
+    --kui-status-color-503: #f50045;
+    --kui-status-color-504: var(--red-600);
+    --kui-status-color-505: #ad000e;
+    --kui-status-color-506: var(--red-300);
+    --kui-status-color-507: var(--red-500);
+    --kui-status-color-508: var(--red-600);
+    --kui-status-color-510: #f50045;
+    --kui-status-color-511: var(--red-600);
+    --kui-status-color-1na: var(--blue-100);
+    --kui-status-color-2na: var(--green-100);
+    --kui-status-color-3na: var(--yellow-100);
+    --kui-status-color-4na: var(--red-100);
+    --kui-status-color-5na: var(--red-100);
+    --kui-status-color-100s: var(--blue-400);
+    --kui-status-color-200s: var(--green-300);
+    --kui-status-color-300s: var(--yellow-300);
+    --kui-status-color-400s: #ff723c;
+    --kui-status-color-500s: var(--red-600);
+    --kui-status-color-background-100: var(--blue-100);
+    --kui-status-color-background-200: var(--green-100);
+    --kui-status-color-background-300: var(--yellow-100);
+    --kui-status-color-background-400: var(--red-100);
+    --kui-status-color-background-500: var(--red-100);
+    --kui-status-color-text-100: #0157ff;
+    --kui-status-color-text-200: #2b7855;
+    --kui-status-color-text-300: #995c00;
+    --kui-status-color-text-400: #d13500;
+    --kui-status-color-text-500: var(--red-600);
+  
+    /* Shadows */
+    --kui-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .08);
+    --kui-shadow-border: 0px 0px 0px 1px #e0e4ea inset;
+    --kui-shadow-border-danger: 0px 0px 0px 1px #d60027 inset;
+    --kui-shadow-border-danger-strong: 0px 0px 0px 1px #ad000e inset;
+    --kui-shadow-border-disabled: 0px 0px 0px 1px #e0e4ea inset;
+    --kui-shadow-border-primary: 0px 0px 0px 1px #0044f4 inset;
+    --kui-shadow-border-primary-strongest: 0px 0px 0px 1px #001466 inset;
+    --kui-shadow-border-primary-weak: 0px 0px 0px 1px #5f9aff inset;
+    --kui-shadow-focus: 0px 0px 0px 4px rgba(0, 68, 244, .2);
+  
+}
