@@ -52,6 +52,12 @@ background-color: "var(--gray-50)"
         position: relative;
         z-index: 1;
       }
+      @media (max-width: 600px) {
+        background-image: url('https://github.com/GCROWDERR/kong-portal-saves/raw/main/images/background-swoosh-mobile.svg') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+      }
     ---
     #tagline
     <span style="display:block;margin:0 auto var(--kui-space-40);font-size:14px;font-weight:700;line-height:1.7;letter-spacing:2.5px;text-transform:uppercase;color:var(--kui-color-text-primary-weak, #7bacff);">Real-Time Financial Rates</span>
