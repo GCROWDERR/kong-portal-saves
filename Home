@@ -1,0 +1,157 @@
+---
+title: "Bankrate Developer Portal"
+description: "Integrate trusted financial rate data into your applications. Access real-time mortgage rates, savings yields, and credit card offers through our API platform."
+---
+
+::page-section
+---
+tag: "section"
+full-width: false
+max-width: "1312px"
+margin: "0"
+padding: "clamp(24px, 3vw, 24px) var(--kui-space-70) 0"
+background-color: "var(--gray-50)"
+---
+  ::container
+  ---
+  max-width: "1312px"
+  margin: "0 auto"
+  padding: "0"
+  ---
+    ::page-hero
+    ---
+    full-width: true
+    max-width: "1312px"
+    background-color: "var(--kui-color-background-inverse)"
+    border-radius: "56px"
+    padding: "clamp(48px, 5vw, 80px) clamp(24px, 4vw, 64px)"
+    text-align: "center"
+    text-max-width: "720px"
+    title-tag: "h1"
+    title-font-size: "clamp(36px, 4vw, 48px)"
+    title-line-height: "1.2"
+    title-font-weight: "600"
+    title-color: "#ffffff"
+    description-font-size: "18px"
+    description-line-height: "1.4"
+    description-color: "var(--kui-color-text-neutral-weaker)"
+    color: "#ffffff"
+    styles: |
+      margin-inline: auto;
+      & h1 {
+        font-family: var(--kui-font-family-heading), ui-serif, Georgia, serif;
+      }
+    ---
+    #tagline
+    <span style="display:block;margin:0 auto var(--kui-space-40);font-size:14px;font-weight:700;line-height:1.7;letter-spacing:2.5px;text-transform:uppercase;color:var(--kui-color-text-primary-weak, #7bacff);">Real-Time Financial Rates</span>
+
+    #title
+    Bankrate Developer Portal
+
+    #description
+    Integrate trusted financial rate data into your applications. Access real-time mortgage rates, savings yields, credit card offers, and calculation tools through our robust API platform.
+
+    #actions
+      :::button
+      ---
+      appearance: "primary"
+      size: "large"
+      to: "/guides"
+      ---
+      Get Started →
+      :::
+
+      :::button
+      ---
+      appearance: "secondary"
+      size: "large"
+      to: "/apis"
+      color: "#ffffff"
+      border: "2px solid #ffffff"
+      background-color: "transparent"
+      ---
+      Browse APIs
+      :::
+    ::
+  ::
+
+  ::container
+  ---
+  padding: "var(--kui-space-90) 0 0"
+  max-width: "1312px"
+  margin: "0 auto"
+  ---
+    ::multi-column
+    ---
+    columns-breakpoints:
+      mobile: 1
+      tablet: 2
+      desktop: 2
+    gap: "20px"
+    ---
+      :::snippet
+      ---
+      name: "bankrate-link-tile"
+      data:
+        linkHref: "/guides"
+        imageSrc: "https://bankrate-static.s3.us-east-1.amazonaws.com/devportal/book-scribble.svg"
+        cardTitle: "Read the Guides"
+        cardBody: "Browse integration guides, partner specs, and technical references."
+      ---
+      :::
+
+      :::snippet
+      ---
+      name: "bankrate-link-tile"
+      data:
+        linkHref: "/apis"
+        imageSrc: "https://bankrate-static.s3.us-east-1.amazonaws.com/devportal/code-scribble.svg"
+        cardTitle: "Explore APIs"
+        cardBody: "Browse our full catalog of financial data APIs with interactive endpoint docs."
+      ---
+      :::
+    ::
+  ::
+
+  ::container
+  ---
+  padding: "var(--kui-space-90) 0 var(--kui-space-90)"
+  max-width: "1312px"
+  margin: "0 auto"
+  ---
+    ::page-hero
+    ---
+    full-width: true
+    max-width: "100%"
+    width: "100%"
+    title-tag: "h2"
+    text-align: "center"
+    title-font-size: "36px"
+    title-line-height: "40px"
+    description-font-weight: "400"
+    description-font-size: "22px"
+    description-line-height: "30px"
+    background-color: "var(--kui-color-background-primary-weakest)"
+    border-radius: "48px"
+    padding: "20px 0px"
+    box-sizing: "border-box"
+    ---
+    #title
+    API Products
+
+    #description
+    Explore our suite of financial data APIs.
+
+    #actions
+      :::button
+      ---
+      appearance: "primary"
+      size: "large"
+      to: "/apis"
+      ---
+      View APIs
+      :::
+    ::
+  ::
+
+::
