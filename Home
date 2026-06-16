@@ -24,6 +24,11 @@ background-color: "var(--gray-50)"
     max-width: "1312px"
     background-color: "var(--kui-color-background-inverse)"
     border-radius: "56px"
+    background-image:
+      url: "https://github.com/GCROWDERR/kong-portal-saves/raw/main/images/background-swoosh.svg"
+      background-position: "center"
+      background-repeat: "no-repeat"
+      background-size: "cover"
     padding: "clamp(48px, 5vw, 80px) clamp(24px, 4vw, 64px)"
     text-align: "center"
     text-max-width: "720px"
@@ -37,9 +42,15 @@ background-color: "var(--gray-50)"
     description-color: "var(--kui-color-text-neutral-weaker)"
     color: "#ffffff"
     styles: |
+      position: relative;
+      overflow: hidden;
       margin-inline: auto;
       & h1 {
         font-family: var(--kui-font-family-heading), ui-serif, Georgia, serif;
+      }
+      & > * {
+        position: relative;
+        z-index: 1;
       }
     ---
     #tagline
