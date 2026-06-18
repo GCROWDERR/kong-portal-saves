@@ -1,0 +1,83 @@
+<svg width="48" height="48" viewBox="-32 -32 88 88" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+  <!-- 4.8s seamless loop: explode → assemble → spin → pause → spin → pause → explode -->
+  <g transform="translate(12 12) scale(1.75) translate(-12 -12)">
+  <g>
+    <animateTransform
+      id="spin-animation"
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      calcMode="spline"
+      keySplines="0 0 1 1; 0.55 0.05 0.45 0.95; 0 0 1 1; 0.55 0.05 0.45 0.95; 0 0 1 1"
+      values="0 12 12; 0 12 12; 360 12 12; 360 12 12; 720 12 12; 720 12 12"
+      keyTimes="0; 0.34; 0.52; 0.60; 0.82; 1"
+      dur="4.8s"
+      begin="0s"
+      repeatCount="indefinite"/>
+
+    <!-- top-left dot -->
+    <g transform="translate(-10 -10)">
+      <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="translate"
+        calcMode="spline"
+        keySplines="0.1 1 0.2 1; 0 0 1 1; 0.9 0 1 0.2"
+        values="-10 -10; 0 0; 0 0; -10 -10"
+        keyTimes="0; 0.14; 0.94; 1"
+        dur="4.8s"
+        begin="0s"
+        repeatCount="indefinite"/>
+      <path d="M0.00139374 4.78869C0.00139397 2.14397 2.15637 -6.4985e-07 4.81466 -4.18641e-07C7.47296 -1.87432e-07 9.62793 2.14397 9.62793 4.78869C9.62793 7.43341 7.47296 9.57738 4.81466 9.57738C2.15637 9.57738 0.00139351 7.43341 0.00139374 4.78869Z" fill="#0061FE"/>
+    </g>
+
+    <!-- bottom-right dot -->
+    <g transform="translate(10 10)">
+      <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="translate"
+        calcMode="spline"
+        keySplines="0.1 1 0.2 1; 0 0 1 1; 0.9 0 1 0.2"
+        values="10 10; 0 0; 0 0; 10 10"
+        keyTimes="0; 0.18; 0.94; 1"
+        dur="4.8s"
+        begin="0s"
+        repeatCount="indefinite"/>
+      <path d="M14.3732 19.2115C14.3732 16.5668 16.5282 14.4229 19.1865 14.4229C21.8448 14.4229 23.9998 16.5668 23.9998 19.2115C23.9998 21.8563 21.8448 24.0002 19.1865 24.0002C16.5282 24.0002 14.3732 21.8563 14.3732 19.2115Z" fill="#0061FE"/>
+    </g>
+
+    <!-- top-right arc -->
+    <g transform="translate(10 -8)">
+      <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="translate"
+        calcMode="spline"
+        keySplines="0.1 1 0.2 1; 0 0 1 1; 0.9 0 1 0.2"
+        values="10 -8; 0 0; 0 0; 10 -8"
+        keyTimes="0; 0.24; 0.94; 1"
+        dur="4.8s"
+        begin="0s"
+        repeatCount="indefinite"/>
+      <path d="M23.9991 8.17806C23.9991 10.2887 22.288 11.9998 20.1774 11.9998V12.0004C20.1504 12.0004 20.1235 12 20.0966 11.9998L12.02 12.0027L13.5807 6.20784C14.4428 3.00724 15.5129 0.000730823 19.8466 0.000442505H23.9991V8.17806Z" fill="#0061FE"/>
+    </g>
+
+    <!-- bottom-left arc -->
+    <g transform="translate(-10 8)">
+      <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="translate"
+        calcMode="spline"
+        keySplines="0.1 1 0.2 1; 0 0 1 1; 0.9 0 1 0.2"
+        values="-10 8; 0 0; 0 0; -10 8"
+        keyTimes="0; 0.30; 0.94; 1"
+        dur="4.8s"
+        begin="0s"
+        repeatCount="indefinite"/>
+      <path d="M3.92308 12.0005L12.0192 12.0034L10.4586 17.798L10.4159 17.947C9.4838 21.0017 8.52786 23.9167 4.35493 23.9978L4.15249 23.9995H0V15.8222C0 13.7115 1.71103 12.0005 3.82169 12.0005V11.9995C3.85554 11.9995 3.88933 12.0002 3.92308 12.0005Z" fill="#0061FE"/>
+    </g>
+  </g>
+  </g>
+</svg>
