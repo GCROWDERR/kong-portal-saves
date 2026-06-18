@@ -59,6 +59,11 @@
   justify-items: stretch;
 }
 
+.portal-card {
+  background-color: #ffffff !important;
+  background-color: var(--white);
+}
+
 :root {
   --white: #ffffff;
   --black: #000000;
@@ -181,28 +186,6 @@
 
 .api-card {
   background-color: #fff !important;
-}
-
-.page-toolbar {
-  background-color: #ffffff;
-  background-color: var(--white);
-}
-
-main.global-main {
-  background-color: #ffffff;
-  background-color: var(--white);
-}
-
-/* Left page sidebar (Guides nav) — match main content surface */
-[data-testid="page-mdc-sidebar-left"],
-.layout-sidebar.left.page-mdc-sidebar-left {
-  background-color: var(--white) !important;
-}
-
-[data-testid="page-mdc-sidebar-left"] .sidebar-content,
-[data-testid="page-mdc-sidebar-left"] .sidebar-header,
-[data-testid="sidebar-left-header"] {
-  background-color: var(--white) !important;
 }
 
 :root,
@@ -509,9 +492,18 @@ main.global-main {
 
 }
 
-/* Portal loading spinner — KUI progress icon (SSO + other loaders) */
-[data-testid="kui-icon-wrapper-progress-icon"] {
-  position: relative;
+/* Left page sidebar (Guides nav) */
+[data-testid="page-mdc-sidebar-left"],
+.layout-sidebar.left.page-mdc-sidebar-left {
+  background-color: #f5f2eb !important;
+  background-color: var(--gray-100) !important;
+}
+
+[data-testid="page-mdc-sidebar-left"] .sidebar-content,
+[data-testid="page-mdc-sidebar-left"] .sidebar-header,
+[data-testid="sidebar-left-header"] {
+  background-color: #f5f2eb !important;
+  background-color: var(--gray-100) !important;
 }
 
 [data-testid="kui-icon-wrapper-progress-icon"] svg,
@@ -522,8 +514,7 @@ main.global-main {
 [data-testid="kui-icon-wrapper-progress-icon"]::after {
   content: '';
   display: block;
-  width: 80px;
-  height: 80px;
-  background: url('https://raw.githubusercontent.com/gcrowderr/kong-portal-saves/main/images/bankrate-spinner.svg')
-    center / contain no-repeat;
+  width: 80px !important;
+  height: 80px !important;
+  background: url('https://raw.githubusercontent.com/gcrowderr/kong-portal-saves/main/images/bankrate-spinner.svg') center / contain no-repeat;
 }
