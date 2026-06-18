@@ -188,6 +188,16 @@
   background-color: #fff !important;
 }
 
+.page-toolbar {
+  background-color: #ffffff;
+  background-color: var(--white);
+}
+
+main.global-main {
+  background-color: #ffffff;
+  background-color: var(--white);
+}
+
 :root,
 :root[data-portal-color-mode="light"] {
   /* Surfaces */
