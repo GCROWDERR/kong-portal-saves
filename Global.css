@@ -193,6 +193,18 @@ main.global-main {
   background-color: var(--white);
 }
 
+/* Left page sidebar (Guides nav) — match main content surface */
+[data-testid="page-mdc-sidebar-left"],
+.layout-sidebar.left.page-mdc-sidebar-left {
+  background-color: var(--white) !important;
+}
+
+[data-testid="page-mdc-sidebar-left"] .sidebar-content,
+[data-testid="page-mdc-sidebar-left"] .sidebar-header,
+[data-testid="sidebar-left-header"] {
+  background-color: var(--white) !important;
+}
+
 :root,
 :root[data-portal-color-mode="light"] {
   /* Surfaces */
@@ -508,8 +520,10 @@ main.global-main {
 }
 
 [data-testid="kui-icon-wrapper-progress-icon"]::after {
-  content: url('https://raw.githubusercontent.com/gcrowderr/kong-portal-saves/main/images/bankrate-loading-spinner.svg');
+  content: '';
   display: block;
   width: 80px;
   height: 80px;
+  background: url('https://raw.githubusercontent.com/gcrowderr/kong-portal-saves/main/images/bankrate-spinner.svg')
+    center / contain no-repeat;
 }
