@@ -502,17 +502,38 @@ main.global-main {
 
 }
 
-/* Left page sidebar (Guides nav) */
+/* Guides left sidebar (MDC pages) */
 [data-testid="page-mdc-sidebar-left"],
 .layout-sidebar.left.page-mdc-sidebar-left {
-  background-color: #f5f2eb !important;
+  --kui-color-background: var(--gray-100);
+  background: var(--gray-100) !important;
   background-color: var(--gray-100) !important;
 }
 
 [data-testid="page-mdc-sidebar-left"] .sidebar-content,
 [data-testid="page-mdc-sidebar-left"] .sidebar-header,
 [data-testid="sidebar-left-header"] {
-  background-color: #f5f2eb !important;
+  --kui-color-background: var(--gray-100);
+  background: var(--gray-100) !important;
+  background-color: var(--gray-100) !important;
+}
+
+/* API docs left sidebar (spec TOC) — scoped to documents-list only */
+.global-sidebar-left:has([data-testid="documents-list-sidebar"]),
+[data-testid="documents-list-sidebar"],
+.layout-sidebar.left.documents-list-sidebar {
+  --kui-color-background: var(--gray-100);
+  background: var(--gray-100) !important;
+  background-color: var(--gray-100) !important;
+}
+
+[data-testid="documents-list-sidebar"] .sidebar-content,
+[data-testid="documents-list-sidebar"] .sidebar-header,
+[data-testid="documents-list-sidebar"] [data-testid="sidebar-specs-toc"],
+[data-testid="documents-list-sidebar-header"],
+.documents-list-sidebar-header {
+  --kui-color-background: var(--gray-100);
+  background: var(--gray-100) !important;
   background-color: var(--gray-100) !important;
 }
 
